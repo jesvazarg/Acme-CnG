@@ -59,4 +59,17 @@
 	
 	<!-- Other domain beans come here -->	
 	
+	<!-- Administrator -->
+	
+	<bean id="administrator" class="domain.Administrator">
+		<property name="name" value="administrator" />
+		<property name="email" value="admin@gmail.com" />
+		<property name="phoneNumber" value="0000" />
+		<property name="userAccount" ref="userAccount1" />
+		<property name="comments">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 </beans>
