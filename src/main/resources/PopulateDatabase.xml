@@ -70,6 +70,10 @@
 			<list>
 			</list>
 		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
 	</bean>
 	
 </beans>
