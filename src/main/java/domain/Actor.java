@@ -84,7 +84,7 @@ public class Actor extends Commentable {
 	@Override
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "comments")
+	@OneToMany(mappedBy = "actor")
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}
@@ -95,7 +95,7 @@ public class Actor extends Commentable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "messages")
+	@OneToMany(mappedBy = "actor")
 	public Collection<Message> getMessages() {
 		return this.messages;
 	}
