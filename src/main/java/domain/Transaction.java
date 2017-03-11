@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -66,6 +69,9 @@ public class Transaction extends Comentable {
 	}
 
 	@NotNull
+	@AttributeOverrides({
+		@AttributeOverride(name = "address", column = @Column(name = "originAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "latitudeAddress")), @AttributeOverride(name = "longitude", column = @Column(name = "longitudeAddress")),
+	})
 	public Place getOriginPlace() {
 		return this.originPlace;
 	}
@@ -75,6 +81,10 @@ public class Transaction extends Comentable {
 	}
 
 	@NotNull
+	@AttributeOverrides({
+		@AttributeOverride(name = "address", column = @Column(name = "destinationAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "latitudeAddress")),
+		@AttributeOverride(name = "longitude", column = @Column(name = "longitudeAddress")),
+	})
 	public Place getDestinationPlace() {
 		return this.destinationPlace;
 	}
