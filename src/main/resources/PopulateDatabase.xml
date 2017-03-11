@@ -76,4 +76,17 @@
 		</property>
 	</bean>
 	
+	<!-- Offer -->
+	
+	<bean id="offer" class="domain.Offer">
+		<property name="title" value="Viaje a Canarias" />
+		<property name="description" value="Ofrezco submarino nuclear para ir a canarias con dos acompañantes. Antes bombardearemos Córcega." />
+		<property name="movingMoment" value="06/26/2017 12:00" />
+		<property name="originPlace" ref="place1" />
+		<property name="destinationPlace" ref="place2" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer1" />
+		
+	</bean>
+	
 </beans>
