@@ -100,7 +100,7 @@ public class Actor extends Commentable {
 		return this.messages;
 	}
 
-	public void setMessages(final Collection<Messages> messages) {
+	public void setMessages(final Collection<Message> messages) {
 		this.messages = messages;
 	}
 

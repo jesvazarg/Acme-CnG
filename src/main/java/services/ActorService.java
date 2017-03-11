@@ -14,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Customer;
 
 @Service
 @Transactional
@@ -160,12 +161,6 @@ public class ActorService {
 		createActorForm.setName(actor.getName());
 		createActorForm.setEmail(actor.getEmail());
 		createActorForm.setPhoneNumber(actor.getPhoneNumber());
-
-		if (this.checkAuthority(actor, Authority.CUSTOMER)) {
-			final Customer customer = (Customer) actor;
-
-			createActorForm.setCreditCard(customer.getCreditCard());
-		}
 
 		return createActorForm;
 	}
