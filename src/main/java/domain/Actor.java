@@ -20,7 +20,7 @@ import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Actor extends Commentable {
+public abstract class Actor extends Commentable {
 
 	// Constructors ----------------------------------------------------------
 	public Actor() {
@@ -81,6 +81,7 @@ public class Actor extends Commentable {
 		this.userAccount = userAccount;
 	}
 
+	@Override
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "comments")
