@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Commentable extends DomainEntity {
+public class Commentable extends DomainEntity {
 
 	// Constructors ----------------------------------------------------------
 

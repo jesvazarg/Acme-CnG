@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Transaction extends Comentable {
+public class Transaction extends Commentable {
 
 	// Constructors ----------------------------------------------------------
 	public Transaction() {
