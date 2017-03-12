@@ -94,7 +94,11 @@
 			<list>
 			</list>
 		</property>
-		<property name="messages">
+		<property name="sentMessages">
+			<list>
+			</list>
+		</property>
+		<property name="receivedMessages">
 			<list>
 			</list>
 		</property>

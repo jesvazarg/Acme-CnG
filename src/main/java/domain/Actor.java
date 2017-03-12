@@ -67,7 +67,8 @@ public class Actor extends Commentable {
 	// Relationships ----------------------------------------------------------
 	private UserAccount			userAccount;
 	private Collection<Comment>	comments;
-	private Collection<Message>	messages;
+	private Collection<Message>	sentMessages;
+	private Collection<Message>	receivedMessages;
 
 
 	@NotNull
@@ -81,7 +82,6 @@ public class Actor extends Commentable {
 		this.userAccount = userAccount;
 	}
 
-	@Override
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "actor")
@@ -96,12 +96,23 @@ public class Actor extends Commentable {
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "actor")
-	public Collection<Message> getMessages() {
-		return this.messages;
+	public Collection<Message> getSentMessages() {
+		return this.sentMessages;
 	}
 
-	public void setMessages(final Collection<Message> messages) {
-		this.messages = messages;
+	public void setSentMessages(final Collection<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "actor")
+	public Collection<Message> getReceivedMessages() {
+		return this.receivedMessages;
+	}
+
+	public void setReceivedMessages(final Collection<Message> receivedMessages) {
+		this.receivedMessages = receivedMessages;
 	}
 
 }

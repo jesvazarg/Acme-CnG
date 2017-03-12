@@ -14,6 +14,8 @@ import repositories.CustomerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Apply;
+import domain.Comment;
 import domain.Customer;
 import domain.Message;
 import domain.Transaction;
