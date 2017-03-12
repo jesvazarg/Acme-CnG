@@ -173,7 +173,7 @@
 	<bean id="customer3" class="domain.Customer">
 		<property name="name" value="Customer 3" />
 		<property name="email" value="customer3@gmail.com" />
-		<property name="phoneNumber" value="+1 2 gf45" />
+		<property name="phoneNumber" value="+1 (2) gf45" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="sentMessages">
 			<list>
