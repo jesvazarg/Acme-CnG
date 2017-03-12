@@ -70,7 +70,7 @@ public class Transaction extends Commentable {
 
 	@NotNull
 	@AttributeOverrides({
-		@AttributeOverride(name = "address", column = @Column(name = "originAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "latitudeAddress")), @AttributeOverride(name = "longitude", column = @Column(name = "longitudeAddress")),
+		@AttributeOverride(name = "address", column = @Column(name = "originAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "originLatitude")), @AttributeOverride(name = "longitude", column = @Column(name = "originLongitude")),
 	})
 	public Place getOriginPlace() {
 		return this.originPlace;
@@ -82,8 +82,8 @@ public class Transaction extends Commentable {
 
 	@NotNull
 	@AttributeOverrides({
-		@AttributeOverride(name = "address", column = @Column(name = "destinationAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "latitudeAddress")),
-		@AttributeOverride(name = "longitude", column = @Column(name = "longitudeAddress")),
+		@AttributeOverride(name = "address", column = @Column(name = "destinationAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "destinationLatitude")),
+		@AttributeOverride(name = "longitude", column = @Column(name = "destinationLongitude")),
 	})
 	public Place getDestinationPlace() {
 		return this.destinationPlace;

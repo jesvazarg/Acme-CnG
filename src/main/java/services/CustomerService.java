@@ -81,7 +81,7 @@ public class CustomerService {
 		result = new Customer();
 		result.setUserAccount(userAccount);
 		result.setComments(comments);
-		result.setPostedOnComments(postedOnComments);
+		result.setPostedToComments(postedOnComments);
 		result.setSentMessages(sentMessages);
 		result.setReceivedMessages(receivedMessages);
 		result.setApplies(applies);

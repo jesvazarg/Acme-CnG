@@ -94,6 +94,10 @@
 			<list>
 			</list>
 		</property>
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
 		<property name="sentMessages">
 			<list>
 			</list>
@@ -127,7 +131,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="postedOnComments">
+		<property name="postedToComments">
 			<list>
 			</list>
 		</property>
@@ -163,7 +167,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="postedOnComments">
+		<property name="postedToComments">
 			<list>
 			</list>
 		</property>
@@ -197,7 +201,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="postedOnComments">
+		<property name="postedToComments">
 			<list>
 			</list>
 		</property>
@@ -239,7 +243,7 @@
 	
 	<!-- Offer -->
 	
-	<bean id="offer" class="domain.Offer">
+	<bean id="offer1" class="domain.Offer">
 		<property name="title" value="Viaje a Canarias" />
 		<property name="description" value="Ofrezco submarino nuclear para ir a canarias con dos acompañantes. Antes bombardearemos Córcega." />
 		<property name="movingMoment" value="06/26/2017 12:00" />
@@ -247,6 +251,10 @@
 		<property name="destinationPlace" ref="place2" />
 		<property name="banned" value="false" />
 		<property name="customer" ref="customer1" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
 		
 	</bean>
 	

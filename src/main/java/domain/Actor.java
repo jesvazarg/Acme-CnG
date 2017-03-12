@@ -84,7 +84,7 @@ public class Actor extends Commentable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "actor")
+	@OneToMany(mappedBy = "postedBy")
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}
@@ -95,7 +95,7 @@ public class Actor extends Commentable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "actor")
+	@OneToMany(mappedBy = "sender")
 	public Collection<Message> getSentMessages() {
 		return this.sentMessages;
 	}
@@ -104,15 +104,31 @@ public class Actor extends Commentable {
 		this.sentMessages = sentMessages;
 	}
 
+	public void addSentMessage(final Message message) {
+		this.sentMessages.add(message);
+	}
+
+	public void removeSentMessage(final Message message) {
+		this.sentMessages.remove(message);
+	}
+
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "actor")
+	@OneToMany(mappedBy = "recipient")
 	public Collection<Message> getReceivedMessages() {
 		return this.receivedMessages;
 	}
 
 	public void setReceivedMessages(final Collection<Message> receivedMessages) {
 		this.receivedMessages = receivedMessages;
+	}
+
+	public void addReceivedMessage(final Message message) {
+		this.receivedMessages.add(message);
+	}
+
+	public void removeReceivedMessage(final Message message) {
+		this.receivedMessages.remove(message);
 	}
 
 }
