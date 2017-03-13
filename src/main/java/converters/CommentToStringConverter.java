@@ -4,20 +4,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Customer;
+import domain.Comment;
 
 @Component
 @Transactional
-public class CustomerToStringConverter implements Converter<Customer, String> {
+public class CommentToStringConverter implements Converter<Comment, String> {
 
 	@Override
-	public String convert(Customer customer) {
+	public String convert(Comment comment) {
 		String result;
 
-		if (customer == null){
+		if (comment == null){
 			result = null;
 		}else{
-			result = String.valueOf(customer.getId());
+			result = String.valueOf(comment.getId());
 		}
 		return result;
 	}

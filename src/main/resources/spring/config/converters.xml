@@ -23,11 +23,29 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.ApplyToStringConverter" />
+		<bean class="converters.BannerToStringConverter" />
 		<bean class="converters.CommentableToStringConverter" /> 
+		<bean class="converters.CommentToStringConverter" />
 		<bean class="converters.CustomerToStringConverter" /> 
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.OfferToStringConverter" />
+		<bean class="converters.RequestToStringConverter" />
+		<bean class="converters.TransactionToStringConverter" />
 		
+		<bean class="converters.StringToActorConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+		<bean class="converters.StringToApplyConverter" />
+		<bean class="converters.StringToBannerConverter" />
 		<bean class="converters.StringToCommentableConverter" /> 
+		<bean class="converters.StringToCommentConverter" />
 		<bean class="converters.StringToCustomerConverter" /> 
-	</util:list>
-	
+		<bean class="converters.StringToMessageConverter" />
+		<bean class="converters.StringToOfferConverter" />
+		<bean class="converters.StringToRequestConverter" />
+		<bean class="converters.StringToTransactionConverter" />
+		
+</util:list>
 </beans>

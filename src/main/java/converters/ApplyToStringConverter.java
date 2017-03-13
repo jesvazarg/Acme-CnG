@@ -4,20 +4,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Customer;
+import domain.Apply;
 
 @Component
 @Transactional
-public class CustomerToStringConverter implements Converter<Customer, String> {
+public class ApplyToStringConverter implements Converter<Apply, String> {
 
 	@Override
-	public String convert(Customer customer) {
+	public String convert(Apply apply) {
 		String result;
 
-		if (customer == null){
+		if (apply == null){
 			result = null;
 		}else{
-			result = String.valueOf(customer.getId());
+			result = String.valueOf(apply.getId());
 		}
 		return result;
 	}

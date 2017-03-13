@@ -1,11 +1,11 @@
 
 package converters;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import repositories.CommentableRepository;
 import domain.Commentable;
@@ -19,18 +19,18 @@ public class StringToCommentableConverter implements Converter<String, Commentab
 
 
 	@Override
-	public Commentable convert(String text) {
+	public Commentable convert(final String text) {
 		Commentable result;
 		int id;
 
 		try {
-			if (StringUtils.isEmpty(text)) {
+			if (StringUtils.isEmpty(text))
 				result = null;
-			} else {
+			else {
 				id = Integer.valueOf(text);
-				result = commentableRepository.findOne(id);
+				result = this.commentableRepository.findOne(id);
 			}
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}
 
