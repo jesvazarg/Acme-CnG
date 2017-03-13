@@ -332,6 +332,7 @@
 		<property name="actor" ref="administrator" />
 		<property name="messages">
 			<list>
+				<ref bean = "message4"/>
 			</list>
 		</property>
 	</bean>
@@ -341,6 +342,7 @@
 		<property name="actor" ref="administrator" />
 		<property name="messages">
 			<list>
+				<ref bean = "message1"/>
 			</list>
 		</property>
 	</bean>
@@ -350,6 +352,8 @@
 		<property name="actor" ref="customer1" />
 		<property name="messages">
 			<list>
+				<ref bean = "message2"/>
+				<ref bean = "message8"/>
 			</list>
 		</property>
 	</bean>
@@ -359,6 +363,8 @@
 		<property name="actor" ref="customer1" />
 		<property name="messages">
 			<list>
+				<ref bean = "message3"/>
+				<ref bean = "message5"/>
 			</list>
 		</property>
 	</bean>
@@ -368,6 +374,7 @@
 		<property name="actor" ref="customer2" />
 		<property name="messages">
 			<list>
+				<ref bean = "message6"/>
 			</list>
 		</property>
 	</bean>
@@ -377,6 +384,7 @@
 		<property name="actor" ref="customer2" />
 		<property name="messages">
 			<list>
+				<ref bean = "message7"/>
 			</list>
 		</property>
 	</bean>
@@ -397,6 +405,120 @@
 			<list>
 			</list>
 		</property>
+	</bean>
+	
+	<!-- Messages -->
+	
+	<bean id="message1" class="domain.Message">
+		<property name="title" value="Aviso de baneo" />
+		<property name="text" value="Te he baneado el comentario porque eres muy feo." />
+		<property name="sentMoment" value="10/06/2016 22:11" />
+		<property name="attachments">
+			<list>
+				<value>https://www.googledrive.com/5621547/</value>
+				<value>https://www.googledrive.com/5621545/</value>
+			</list>
+		</property>
+		<property name="sender" ref="administrator" />
+		<property name="recipient" ref="customer1" />
+		<property name="folder" ref="folder2" />
+	</bean>
+	
+	<bean id="message2" class="domain.Message">
+		<property name="title" value="Aviso de baneo" />
+		<property name="text" value="Te he baneado el comentario porque eres muy feo." />
+		<property name="sentMoment" value="10/06/2016 22:11" />
+		<property name="attachments">
+			<list>
+				<value>https://www.googledrive.com/5621547/</value>
+				<value>https://www.googledrive.com/5621545/</value>
+			</list>
+		</property>
+		<property name="sender" ref="administrator" />
+		<property name="recipient" ref="customer1" />
+		<property name="folder" ref="folder3" />
+	</bean>
+	
+	<bean id="message3" class="domain.Message">
+		<property name="title" value="Aviso de baneo" />
+		<property name="text" value="Como llame a me premo te vamo a da una palisa gitana." />
+		<property name="sentMoment" value="10/06/2016 22:30" />
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		<property name="sender" ref="customer1" />
+		<property name="recipient" ref="administrator" />
+		<property name="folder" ref="folder4" />
+	</bean>
+	
+	<bean id="message4" class="domain.Message">
+		<property name="title" value="Aviso de baneo" />
+		<property name="text" value="Como llame a me premo te vamo a da una palisa gitana." />
+		<property name="sentMoment" value="10/06/2016 22:30" />
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		<property name="sender" ref="customer1" />
+		<property name="recipient" ref="administrator" />
+		<property name="folder" ref="folder1" />
+	</bean>
+	
+	<bean id="message5" class="domain.Message">
+		<property name="title" value="Holis caracolis" />
+		<property name="text" value="Buenas, ¿quieres ser mi amigo?." />
+		<property name="sentMoment" value="11/06/2016 22:10" />
+		<property name="attachments">
+			<list>
+
+			</list>
+		</property>
+		<property name="sender" ref="customer1" />
+		<property name="recipient" ref="customer2" />
+		<property name="folder" ref="folder4" />
+	</bean>
+
+	<bean id="message6" class="domain.Message">
+		<property name="title" value="Holis caracolis" />
+		<property name="text" value="Buenas, ¿quieres ser mi amigo?." />
+		<property name="sentMoment" value="11/06/2016 22:10" />
+		<property name="attachments">
+			<list>
+
+			</list>
+		</property>
+		<property name="sender" ref="customer1" />
+		<property name="recipient" ref="customer2" />
+		<property name="folder" ref="folder5" />
+	</bean>
+	
+	<bean id="message7" class="domain.Message">
+		<property name="title" value="Wola" />
+		<property name="text" value="Wola caracola, soy el mejor de los mejores y lo sabes." />
+		<property name="sentMoment" value="11/06/2016 22:15" />
+		<property name="attachments">
+			<list>
+
+			</list>
+		</property>
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="customer1" />
+		<property name="folder" ref="folder6" />
+	</bean>
+
+	<bean id="message8" class="domain.Message">
+		<property name="title" value="Wola" />
+		<property name="text" value="Wola caracola, soy el mejor de los mejores y lo sabes." />
+		<property name="sentMoment" value="11/06/2016 22:15" />
+		<property name="attachments">
+			<list>
+
+			</list>
+		</property>
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="customer1" />
+		<property name="folder" ref="folder3" />
 	</bean>
 	
 	
