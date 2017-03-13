@@ -77,9 +77,21 @@ public class Message extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
+	private Folder	folder;
 	private Actor	sender;
 	private Actor	recipient;
 
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Folder getFolder() {
+		return this.folder;
+	}
+
+	public void setFolder(final Folder folder) {
+		this.folder = folder;
+	}
 
 	@NotNull
 	@Valid
