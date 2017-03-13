@@ -145,6 +145,9 @@
 		
 		<property name="transactions">
 			<list>
+				<ref bean = "offer1"/>
+				<ref bean = "offer2"/>
+				<ref bean = "offer3"/>
 			</list>
 		</property>
 		
@@ -181,6 +184,8 @@
 		
 		<property name="transactions">
 			<list>
+				<ref bean = "offer4"/>
+				<ref bean = "offer5"/>
 			</list>
 		</property>
 		
@@ -215,6 +220,7 @@
 		
 		<property name="transactions">
 			<list>
+				<ref bean = "offer6"/>
 			</list>
 		</property>
 		
