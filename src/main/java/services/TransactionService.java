@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.TransactionRepository;
+import domain.Customer;
 import domain.Transaction;
 
 @Service
@@ -20,8 +21,11 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepository	transactionRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private CustomerService			customerService;
+
 
 	// Constructors------------------------------------------------------------
 	public TransactionService() {
@@ -46,5 +50,40 @@ public class TransactionService {
 		return results;
 	}
 
+	public Transaction create() {
+		Transaction result;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+
+		result = new Transaction();
+		result.setBanned(false);
+		result.setCustomer(customer);
+
+		return result;
+	}
+
+	public Transaction save(final Transaction transaction) {
+		Assert.notNull(transaction);
+		Transaction result;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+		Assert.isTrue(customer.equals(transaction.getCustomer()));
+
+		result = this.transactionRepository.save(transaction);
+
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
+
+	public Collection<Transaction> findByCustomerId(final int customerId) {
+		Collection<Transaction> result;
+		Customer customer;
+		customer = this.customerService.findOne(customerId);
+		result = this.transactionRepository.findByCustomerId(customer.getId());
+
+		return result;
+	}
 }

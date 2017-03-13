@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.OfferRepository;
+import domain.Customer;
 import domain.Offer;
 
 @Service
@@ -20,8 +21,11 @@ public class OfferService {
 	@Autowired
 	private OfferRepository	offerRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private CustomerService	customerService;
+
 
 	// Constructors------------------------------------------------------------
 	public OfferService() {
@@ -45,5 +49,50 @@ public class OfferService {
 
 		return results;
 	}
+
+	public Offer create() {
+		Offer result;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+
+		result = new Offer();
+		result.setBanned(false);
+		result.setCustomer(customer);
+
+		return result;
+	}
+
+	public Offer save(final Offer offer) {
+		Assert.notNull(offer);
+		Offer result;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+		Assert.isTrue(customer.equals(offer.getCustomer()));
+
+		result = this.offerRepository.save(offer);
+
+		return result;
+	}
+
+	public void delete(final Offer offer) {
+		Assert.notNull(offer);
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+		Assert.isTrue(customer.equals(offer.getCustomer()));
+
+		this.offerRepository.delete(offer);
+	}
 	// Other business methods -------------------------------------------------
+
+	public Collection<Offer> findByCustomerId(final int customerId) {
+		Collection<Offer> result;
+		Customer customer;
+		customer = this.customerService.findOne(customerId);
+		result = this.offerRepository.findByCustomerId(customer.getId());
+
+		return result;
+	}
 }
