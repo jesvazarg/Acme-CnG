@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
 import domain.Actor;
+import domain.Folder;
 import domain.Message;
 
 @Service
@@ -24,6 +25,9 @@ public class MessageService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private FolderService		folderService;
 
 
 	// Constructors------------------------------------------------------------
@@ -53,37 +57,57 @@ public class MessageService {
 	public Message create() {
 		Message result;
 		Actor actor;
+		Folder folder;
 		Calendar calendar;
 
 		result = new Message();
 		actor = this.actorService.findByPrincipal();
+		folder = this.folderService.findByActorAndName("outbox", actor);
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);
 
 		result.setSentMoment(calendar.getTime());
 		result.setSender(actor);
+		result.setFolder(folder);
 		return result;
 	}
 
-	public Message save(final Message message) {
+	public Message create(final Message message) {
+		Message result;
+
+		result = new Message();
+		result.setTitle(message.getTitle());
+		result.setText(message.getText());
+		result.setSentMoment(message.getSentMoment());
+		result.setAttachments(message.getAttachments());
+		result.setFolder(message.getFolder());
+		result.setSender(message.getSender());
+		result.setRecipient(message.getRecipient());
+
+		return result;
+	}
+
+	public Message save(Message message) {
 		Assert.notNull(message);
-		final Message messageSender;
-		final Message messageRecipient;
-		final Actor sender = this.actorService.findByPrincipal();
-		final Actor recipient = this.actorService.findOne(message.getRecipient().getId());
 
-		messageSender = this.messageRepository.save(message);
-		//sender.addSentMessage(messageSender);
-		//sender.setSentMessages(sender.getSentMessages().add(messageSender));
-		this.actorService.save(sender);
+		Message messageIn;
+		Folder folderIn;
+		Folder folderOut;
 
-		messageRecipient = this.messageRepository.save(message);
-		//recipient.addReceivedMessage(messageRecipient);
-		//recipient.setReceivedMessages(recipient.getReceivedMessages().add(messageRecipient));
-		this.actorService.save(recipient);
+		messageIn = this.create(message);
 
-		return messageSender;
+		folderIn = this.folderService.findByActorAndName("inbox", message.getRecipient());
+
+		folderOut = this.folderService.findByActorAndName("outbox", message.getSender());
+
+		messageIn.setFolder(folderIn);
+		message.setFolder(folderOut);
+
+		message = this.messageRepository.save(message);
+		this.messageRepository.save(messageIn);
+
+		return message;
 	}
 
 	public void delete(final Message message) {
@@ -102,6 +126,18 @@ public class MessageService {
 
 		result.setRecipient(message.getSender());
 		result.setTitle("Re: " + message.getTitle());
+
+		return result;
+
+	}
+
+	// Other business methods -------------------------------------------------
+
+	public Collection<Message> findMessagesByFolderId(final int folderId) {
+
+		Collection<Message> result;
+
+		result = this.messageRepository.findMessagesByFolderId(folderId);
 
 		return result;
 
