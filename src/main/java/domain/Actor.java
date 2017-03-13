@@ -67,8 +67,7 @@ public class Actor extends Commentable {
 	// Relationships ----------------------------------------------------------
 	private UserAccount			userAccount;
 	private Collection<Comment>	comments;
-	private Collection<Message>	sentMessages;
-	private Collection<Message>	receivedMessages;
+	private Collection<Folder>	folders;
 
 
 	@NotNull
@@ -95,40 +94,13 @@ public class Actor extends Commentable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "sender")
-	public Collection<Message> getSentMessages() {
-		return this.sentMessages;
+	@OneToMany(mappedBy = "actor")
+	public Collection<Folder> getFolders() {
+		return this.folders;
 	}
 
-	public void setSentMessages(final Collection<Message> sentMessages) {
-		this.sentMessages = sentMessages;
-	}
-
-	public void addSentMessage(final Message message) {
-		this.sentMessages.add(message);
-	}
-
-	public void removeSentMessage(final Message message) {
-		this.sentMessages.remove(message);
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "recipient")
-	public Collection<Message> getReceivedMessages() {
-		return this.receivedMessages;
-	}
-
-	public void setReceivedMessages(final Collection<Message> receivedMessages) {
-		this.receivedMessages = receivedMessages;
-	}
-
-	public void addReceivedMessage(final Message message) {
-		this.receivedMessages.add(message);
-	}
-
-	public void removeReceivedMessage(final Message message) {
-		this.receivedMessages.remove(message);
+	public void setFolders(final Collection<Folder> folders) {
+		this.folders = folders;
 	}
 
 }
