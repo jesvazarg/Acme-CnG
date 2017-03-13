@@ -260,6 +260,81 @@
 		
 	</bean>
 	
+	<bean id="offer2" class="domain.Offer">
+		<property name="title" value="Viaje a Torrelodones" />
+		<property name="description" value="Busco compañero para ir a Sevilla desde Barcelona en una bicleta tandem sin sillines." />
+		<property name="movingMoment" value="08/12/2017 11:00" />
+		<property name="originPlace" ref="place3" />
+		<property name="destinationPlace" ref="place1" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer1" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="offer3" class="domain.Offer">
+		<property name="title" value="Paseo por Barcelona en burro" />
+		<property name="description" value="Tengo dos burros y uno esta libre" />
+		<property name="movingMoment" value="11/24/2017 9:00" />
+		<property name="originPlace" ref="place1" />
+		<property name="destinationPlace" ref="place1" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer1" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="offer4" class="domain.Offer">
+		<property name="title" value="Caza de melones" />
+		<property name="description" value="Tengo pensador ir a cazar melones al bosque, si a alguno le apetece, tengo otra escopeta" />
+		<property name="movingMoment" value="07/11/2017 16:00" />
+		<property name="originPlace" ref="place3" />
+		<property name="destinationPlace" ref="place3" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer2" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="offer5" class="domain.Offer">
+		<property name="title" value="Ofrezco túnica penitente" />
+		<property name="description" value="Al comprar la túnica compré la talla XXXXL y si la llevo solo parezco un penitente derretido, me ofrezco a compartirla con alguien" />
+		<property name="movingMoment" value="05/26/2017 18:00" />
+		<property name="originPlace" ref="place3" />
+		<property name="destinationPlace" ref="place3" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer2" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="offer6" class="domain.Offer">
+		<property name="title" value="Ida a Sevilla" />
+		<property name="description" value="El dia 28 de junio tengo que ir a sevilla a por pipas y tengo un hueco libre en el coche." />
+		<property name="movingMoment" value="06/28/2017 8:00" />
+		<property name="originPlace" ref="place3" />
+		<property name="destinationPlace" ref="place3" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer3" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
 	<!-- Messages -->
 	
 	<bean id="message1" class="domain.Message">
