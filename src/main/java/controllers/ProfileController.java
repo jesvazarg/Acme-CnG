@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import domain.Actor;
+import forms.CreateActorForm;
 
 @Controller
 @RequestMapping("/profile")
@@ -52,7 +53,43 @@ public class ProfileController extends AbstractController {
 		result = new ModelAndView("profile/display");
 		result.addObject("profile", actor);
 		result.addObject("same", same);
-		result.addObject("requestURI", "profile/display.do");
+		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());
+
+		return result;
+	}
+
+	// Edit ---------------------------------------------------------------		
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		final ModelAndView result;
+		Actor actor;
+		final CreateActorForm form;
+
+		actor = this.actorService.findByPrincipal();
+		form = this.actorService.desreconstructProfile(actor);
+
+		result = this.createEditModelAndView(form);
+
+		return result;
+	}
+
+	// Ancillary methods ---------------------------------------------------------------
+	protected ModelAndView createEditModelAndView(final CreateActorForm form) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(form, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final CreateActorForm form, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("profile/edit");
+		result.addObject("createActorForm", form);
+		result.addObject("requestURI", "profile/edit.do");
+		result.addObject("message", message);
 
 		return result;
 	}

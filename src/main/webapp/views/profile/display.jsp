@@ -32,7 +32,7 @@
 		</li>
 		<li>
 			<b><spring:message code="profile.comments" /></b>
-			<display:table name="${profile.comments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="profile/display.do?actorId=${profile.id}">
+			<display:table name="${profile.comments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 				
 				<spring:message code="profile.comments.title" var="titleHeader" />
 				<display:column property="title" title="${titleHeader}" sortable="true" />
@@ -56,7 +56,7 @@
 		</li>
 		
 		<jstl:if test="${same}">
-			<a href="message/list.do?actorId=${profile.id}"><spring:message code="profile.messages" /></a>
+			<a href="folders/list.do?actorId=${profile.id}"><spring:message code="profile.messages" /></a>
 		</jstl:if>
 		
 	</ul>

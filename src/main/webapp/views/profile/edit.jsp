@@ -15,5 +15,18 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<p><spring:message code="profile.action.2" /></p>
+<security:authorize access="isAuthenticated()">
+	<form:form action="${requestURI}" modelAttribute="createActorForm">
+		<acme:input code="profile.username" path="username" />
+		<acme:password code="profile.password" path="password" />
+		<acme:password code="profile.confirm" path="confirm" />
+		<acme:input code="profile.name" path="name" />
+		<acme:input code="profile.email" path="email" />
+		<acme:input code="profile.phoneNumber" path="phoneNumber" />
+		
+		<acme:submit name="save" code="profile.save" />
+		<acme:cancel url="profile/display.do?actorId=${profile.id}" code="profile.cancel" />
+	</form:form>
+</security:authorize>
