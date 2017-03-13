@@ -74,12 +74,12 @@ public class MessageService {
 		final Actor recipient = this.actorService.findOne(message.getRecipient().getId());
 
 		messageSender = this.messageRepository.save(message);
-		sender.addSentMessage(messageSender);
+		//sender.addSentMessage(messageSender);
 		//sender.setSentMessages(sender.getSentMessages().add(messageSender));
 		this.actorService.save(sender);
 
 		messageRecipient = this.messageRepository.save(message);
-		recipient.addReceivedMessage(messageRecipient);
+		//recipient.addReceivedMessage(messageRecipient);
 		//recipient.setReceivedMessages(recipient.getReceivedMessages().add(messageRecipient));
 		this.actorService.save(recipient);
 
