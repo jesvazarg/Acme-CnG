@@ -19,10 +19,12 @@
 	<acme:select items="${recipients}" itemLabel="name" code="message.recipient" path="recipient" />
 	
 	<acme:input code="message.title" path="title" />
-	<p  padding: 0 190px 0 55px;;><span class="message"><spring:message code="messageError.${title}" /></span></p>
+	<span class="message"><spring:message code="messageError.${title}" /></span>
 	
 	
 	<acme:input code="message.text" path="text" />
+	<span class="message"><spring:message code="messageError.${text}" /></span>
+	
 	<acme:input code="message.attachments" path="attachments" />
 	
 	
