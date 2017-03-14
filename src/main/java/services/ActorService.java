@@ -165,13 +165,13 @@ public class ActorService {
 
 		return createActorForm;
 	}
-	/*
-	 * public Double[] minAvMaxMessagesPerActor() {
-	 * return this.actorRepository.minAvMaxMessagesPerActor();
-	 * }
-	 * 
-	 * public Actor actorMoreGotMessages() {
-	 * return this.actorRepository.actorMoreGotMessages();
-	 * }
-	 */
+
+	public Double[] minAvMaxMessagesPerActor() {
+		return this.actorRepository.minAvMaxMessagesPerActor();
+	}
+
+	public Actor actorMoreGotMessages() {
+		return this.actorRepository.actorMoreGotMessages();
+	}
+
 }
