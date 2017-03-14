@@ -377,6 +377,7 @@
 			<list>
 				<ref bean = "message3"/>
 				<ref bean = "message5"/>
+				<ref bean = "message9"/>
 			</list>
 		</property>
 	</bean>
@@ -387,6 +388,7 @@
 		<property name="messages">
 			<list>
 				<ref bean = "message6"/>
+				<ref bean = "message10"/>
 			</list>
 		</property>
 	</bean>
@@ -531,6 +533,34 @@
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
 		<property name="folder" ref="folder3" />
+	</bean>
+	
+	<bean id="message9" class="domain.Message">
+		<property name="title" value="Buenas tardes" />
+		<property name="text" value="Un ciego pasa por una pescaderia y dice: Hola guapa!!." />
+		<property name="sentMoment" value="11/06/2016 22:20" />
+		<property name="attachments">
+			<list>
+
+			</list>
+		</property>
+		<property name="sender" ref="customer1" />
+		<property name="recipient" ref="customer2" />
+		<property name="folder" ref="folder4" />
+	</bean>
+	
+	<bean id="message10" class="domain.Message">
+		<property name="title" value="Buenas tardes" />
+		<property name="text" value="Un ciego pasa por una pescaderia y dice: Hola guapa!!." />
+		<property name="sentMoment" value="11/06/2016 22:20" />
+		<property name="attachments">
+			<list>
+
+			</list>
+		</property>
+		<property name="sender" ref="customer1" />
+		<property name="recipient" ref="customer2" />
+		<property name="folder" ref="folder5" />
 	</bean>
 	
 	<!-- Comments -->
