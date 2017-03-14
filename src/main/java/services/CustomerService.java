@@ -17,7 +17,7 @@ import security.UserAccount;
 import domain.Apply;
 import domain.Comment;
 import domain.Customer;
-import domain.Message;
+import domain.Folder;
 import domain.Transaction;
 import forms.CreateActorForm;
 
@@ -29,8 +29,10 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository	customerRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private FolderService		folderService;
+
 
 	// Constructors -----------------------------------------------------------
 	public CustomerService() {
@@ -61,8 +63,6 @@ public class CustomerService {
 		Authority authority;
 		Collection<Comment> comments;
 		Collection<Comment> postedOnComments;
-		Collection<Message> sentMessages;
-		Collection<Message> receivedMessages;
 		Collection<Apply> applies;
 		Collection<Transaction> transactions;
 
@@ -70,8 +70,6 @@ public class CustomerService {
 		authority = new Authority();
 		comments = new ArrayList<Comment>();
 		postedOnComments = new ArrayList<Comment>();
-		sentMessages = new ArrayList<Message>();
-		receivedMessages = new ArrayList<Message>();
 		applies = new ArrayList<Apply>();
 		transactions = new ArrayList<Transaction>();
 
@@ -82,8 +80,6 @@ public class CustomerService {
 		result.setUserAccount(userAccount);
 		result.setComments(comments);
 		result.setPostedToComments(postedOnComments);
-		result.setSentMessages(sentMessages);
-		result.setReceivedMessages(receivedMessages);
 		result.setApplies(applies);
 		result.setTransactions(transactions);
 
@@ -93,11 +89,29 @@ public class CustomerService {
 	public Customer save(Customer customer) {
 		Assert.notNull(customer);
 
+		if (customer.getFolders().isEmpty()) {
+			Folder inbox;
+			Folder outbox;
+
+			inbox = this.folderService.create(customer);
+			inbox.setName("inbox");
+
+			outbox = this.folderService.create(customer);
+			outbox.setName("outbox");
+
+			customer.addFolder(inbox);
+			customer.addFolder(outbox);
+
+			customer = this.customerRepository.save(customer);
+
+			inbox = this.folderService.save(inbox);
+			outbox = this.folderService.save(outbox);
+		}
+
 		customer = this.customerRepository.save(customer);
 
 		return customer;
 	}
-
 	// Other business methods -------------------------------------------------
 	public Customer findByPrincipal() {
 		Customer result;

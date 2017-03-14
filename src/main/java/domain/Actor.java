@@ -103,4 +103,11 @@ public class Actor extends Commentable {
 		this.folders = folders;
 	}
 
+	public void addFolder(final Folder folder) {
+		this.folders.add(folder);
+	}
+
+	public void removeFolder(final Folder folder) {
+		this.folders.remove(folder);
+	}
 }
