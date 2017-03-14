@@ -122,7 +122,7 @@
 		</property>
 		<property name="comments">
 			<list>
-			  <ref bean="comment5"/>
+			  <ref bean="comment4"/>
 			</list>
 		</property>
 		<property name="postedToComments">
@@ -159,13 +159,11 @@
 		</property>
 		<property name="comments">
 			<list>
-				<ref bean="comment4"/>
 			</list>
 		</property>
 		<property name="postedToComments">
 			<list>
 				<ref bean="comment4"/>
-				<ref bean="comment5"/>
 			</list>
 		</property>
 		
@@ -300,7 +298,6 @@
 		<property name="customer" ref="customer2" />
 		<property name="postedToComments">
 			<list>
-				<ref bean="comment4"/>
 			</list>
 		</property>
 		
@@ -596,16 +593,6 @@
 	</bean>
 	
 	<bean id="comment4" class="domain.Comment">
-		<property name="title" value="Actualización de la oferta"/>
-		<property name="postedMoment" value="03/10/2017 14:56"/>
-		<property name="text" value="También se viene mi cuñado"/>
-		<property name="starsNumber" value="5"/>
-		<property name="banned" value="false"/>
-		<property name="postedTo" ref="offer4"/>
-		<property name="postedBy" ref="customer2"/>
-	</bean>
-	
-		<bean id="comment5" class="domain.Comment">
 		<property name="title" value="Este tío es tonto"/>
 		<property name="postedMoment" value="03/14/2017 00:56"/>
 		<property name="text" value="Es de mi pueblo y es tonto no viajeis con él jaja"/>
