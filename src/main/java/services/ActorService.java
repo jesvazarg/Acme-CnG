@@ -170,7 +170,7 @@ public class ActorService {
 		return this.actorRepository.minAvMaxMessagesPerActor();
 	}
 
-	public Actor actorMoreGotMessages() {
+	public Collection<Actor> actorMoreGotMessages() {
 		return this.actorRepository.actorMoreGotMessages();
 	}
 

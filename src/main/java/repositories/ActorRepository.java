@@ -27,6 +27,6 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	//A4: The actors who have got more messages.
 
 	@Query("select a from Actor a join a.folders f where (f.name='inBox') and (f.messages.size=(select max(fo.messages.size) from Folder fo where fo.name='inBox'))")
-	Actor actorMoreGotMessages();
+	Collection<Actor> actorMoreGotMessages();
 
 }
