@@ -3,8 +3,11 @@ package controllers.actor;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,9 +74,26 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Message messageEmail, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(messageEmail);
+		else
+			try {
+				this.messageService.save(messageEmail);
+				result = new ModelAndView("redirect:../../folder/actor/list/outBox.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(messageEmail, "message.commit.error");
+			}
+
+		return result;
+	}
+
 	//Ancillary methods----------------------------------------------------
 
-	//Create
+	//Create --------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Message message) {
 		final ModelAndView result = this.createEditModelAndView(message, null);
 		return result;
@@ -88,9 +108,20 @@ public class MessageActorController extends AbstractController {
 		recipients = this.actorService.findAll();
 		recipients.remove(actor);
 
+		String title = "";
+		String text = "";
+
+		if (emailMessage.getTitle() == "")
+			title = "title";
+
+		if (emailMessage.getText() == "")
+			text = "text";
+
 		result = new ModelAndView("message/create");
 		result.addObject("emailMessage", emailMessage);
 		result.addObject("recipients", recipients);
+		result.addObject("title", title);
+		result.addObject("text", text);
 		result.addObject("message", message);
 		return result;
 	}

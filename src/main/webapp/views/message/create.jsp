@@ -17,7 +17,11 @@
 	<form:hidden path="sender" />
 
 	<acme:select items="${recipients}" itemLabel="name" code="message.recipient" path="recipient" />
+	
 	<acme:input code="message.title" path="title" />
+	<p  padding: 0 190px 0 55px;;><span class="message"><spring:message code="messageError.${title}" /></span></p>
+	
+	
 	<acme:input code="message.text" path="text" />
 	<acme:input code="message.attachments" path="attachments" />
 	
