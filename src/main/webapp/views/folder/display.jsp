@@ -15,7 +15,7 @@
 	<acme:column code="message.sender" property="sender.name" />
 	
 	<display:column>
-		<a href="actor/displayMessage.do?messageId=${row.id} "><spring:message code="message.display" /></a>
+		<a href="message/actor/display.do?messageId=${row.id} "><spring:message code="message.display" /></a>
 	</display:column>
 	
 </display:table>
