@@ -1,6 +1,8 @@
 
 package controllers.actor;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +56,42 @@ public class MessageActorController extends AbstractController {
 		result.addObject("thisMessage", message);
 		result.addObject("isRecipient", isRecipient);
 
+		return result;
+	}
+
+	// Create ------------------------------------------------------------------------
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+
+		final Message message = this.messageService.create();
+
+		result = this.createEditModelAndView(message);
+
+		return result;
+	}
+
+	//Ancillary methods----------------------------------------------------
+
+	//Create
+	protected ModelAndView createEditModelAndView(final Message message) {
+		final ModelAndView result = this.createEditModelAndView(message, null);
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Message emailMessage, final String message) {
+		ModelAndView result;
+		Actor actor;
+		Collection<Actor> recipients;
+
+		actor = this.actorService.findByPrincipal();
+		recipients = this.actorService.findAll();
+		recipients.remove(actor);
+
+		result = new ModelAndView("message/create");
+		result.addObject("emailMessage", emailMessage);
+		result.addObject("recipients", recipients);
+		result.addObject("message", message);
 		return result;
 	}
 

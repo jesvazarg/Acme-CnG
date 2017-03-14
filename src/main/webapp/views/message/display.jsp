@@ -34,6 +34,11 @@
 			<jstl:out value="${thisMessage.recipient.name}" />
 		</li>
 		
+		<li>
+			<b><spring:message code="message.attachments" />:</b>
+			<jstl:out value="${thisMessage.attachments}" />
+		</li>
+		
 	</ul>
 	
 </div>

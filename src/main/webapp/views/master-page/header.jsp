@@ -53,6 +53,7 @@
 					<li class="arrow"></li>
 					<li><a href="folder/actor/list/inBox.do"><spring:message code="master.page.folder.inBox" /></a></li>
 					<li><a href="folder/actor/list/outBox.do"><spring:message code="master.page.folder.outBox" /></a></li>
+					<li><a href="message/actor/create.do"><spring:message code="master.page.message.create" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
