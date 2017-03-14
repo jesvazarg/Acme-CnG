@@ -96,6 +96,7 @@
 		</property>
 		<property name="postedToComments">
 			<list>
+				<ref bean="comment2"/>
 			</list>
 		</property>
 		<property name="folders">
@@ -121,10 +122,12 @@
 		</property>
 		<property name="comments">
 			<list>
+			  <ref bean="comment5"/>
 			</list>
 		</property>
 		<property name="postedToComments">
 			<list>
+				<ref bean="comment1"/>
 			</list>
 		</property>
 		
@@ -156,10 +159,13 @@
 		</property>
 		<property name="comments">
 			<list>
+				<ref bean="comment4"/>
 			</list>
 		</property>
 		<property name="postedToComments">
 			<list>
+				<ref bean="comment4"/>
+				<ref bean="comment5"/>
 			</list>
 		</property>
 		
@@ -190,10 +196,13 @@
 		</property>
 		<property name="comments">
 			<list>
+				<ref bean="comment1"/>
+				<ref bean="comment3"/>
 			</list>
 		</property>
 		<property name="postedToComments">
 			<list>
+				<ref bean="comment3"/>
 			</list>
 		</property>
 		
@@ -245,6 +254,7 @@
 		<property name="customer" ref="customer1" />
 		<property name="postedToComments">
 			<list>
+				<ref bean="comment3"/>
 			</list>
 		</property>
 		
@@ -290,6 +300,7 @@
 		<property name="customer" ref="customer2" />
 		<property name="postedToComments">
 			<list>
+				<ref bean="comment4"/>
 			</list>
 		</property>
 		
@@ -301,10 +312,11 @@
 		<property name="movingMoment" value="05/26/2017 18:00" />
 		<property name="originPlace" ref="place3" />
 		<property name="destinationPlace" ref="place3" />
-		<property name="banned" value="false" />
+		<property name="banned" value="true" />
 		<property name="customer" ref="customer2" />
 		<property name="postedToComments">
 			<list>
+				<ref bean="comment2"/>
 			</list>
 		</property>
 		
@@ -521,5 +533,56 @@
 		<property name="folder" ref="folder3" />
 	</bean>
 	
+	<!-- Comments -->
+	
+	<bean id="comment1" class="domain.Comment">
+		<property name="title" value="Muy buen conductor"/>
+		<property name="postedMoment" value="02/28/2017 20:56"/>
+		<property name="text" value="Muy contento con el conductor, llegamos a Canarias muy rápido"/>
+		<property name="starsNumber" value="4"/>
+		<property name="banned" value="false"/>
+		<property name="postedTo" ref="customer1"/>
+		<property name="postedBy" ref="customer3"/>
+	</bean>
+	
+	<bean id="comment2" class="domain.Comment">
+		<property name="title" value="This offer is banned"/>
+		<property name="postedMoment" value="03/05/2017 06:46"/>
+		<property name="text" value="This offer has been banned due to an infraction in the terms of service"/>
+		<property name="starsNumber" value="0"/>
+		<property name="banned" value="false"/>
+		<property name="postedTo" ref="offer5"/>
+		<property name="postedBy" ref="administrator"/>
+	</bean>
+	
+	<bean id="comment3" class="domain.Comment">
+		<property name="title" value="Muy bonito"/>
+		<property name="postedMoment" value="02/28/2017 20:56"/>
+		<property name="text" value="No conocía la ruta y estuvo genial el viaje submarino"/>
+		<property name="starsNumber" value="5"/>
+		<property name="banned" value="false"/>
+		<property name="postedTo" ref="offer1"/>
+		<property name="postedBy" ref="customer3"/>
+	</bean>
+	
+	<bean id="comment4" class="domain.Comment">
+		<property name="title" value="Actualización de la oferta"/>
+		<property name="postedMoment" value="03/10/2017 14:56"/>
+		<property name="text" value="También se viene mi cuñado"/>
+		<property name="starsNumber" value="5"/>
+		<property name="banned" value="false"/>
+		<property name="postedTo" ref="offer4"/>
+		<property name="postedBy" ref="customer2"/>
+	</bean>
+	
+		<bean id="comment5" class="domain.Comment">
+		<property name="title" value="Este tío es tonto"/>
+		<property name="postedMoment" value="03/14/2017 00:56"/>
+		<property name="text" value="Es de mi pueblo y es tonto no viajeis con él jaja"/>
+		<property name="starsNumber" value="0"/>
+		<property name="banned" value="true"/>
+		<property name="postedTo" ref="customer2"/>
+		<property name="postedBy" ref="customer1"/>
+	</bean>
 	
 </beans>
