@@ -47,6 +47,19 @@
 		<security:authorize access="isAuthenticated()">
 			<li>
 				<a class="fNiv"> 
+					<spring:message code="master.page.folder" /> 
+				</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="folder/actor/list/inBox.do"><spring:message code="master.page.folder.inBox" /></a></li>
+					<li><a href="folder/actor/list/outBox.do"><spring:message code="master.page.folder.outBox" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()">
+			<li>
+				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
 			        (<security:authentication property="principal.username" />)
 				</a>
@@ -59,6 +72,8 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
+		
 	</ul>
 </div>
 
