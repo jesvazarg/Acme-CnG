@@ -91,7 +91,57 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	//Ancillary methods----------------------------------------------------
+	// Response ----------------------------------------------------------------
+
+	@RequestMapping(value = "/createResponse", method = RequestMethod.GET)
+	public ModelAndView response(@RequestParam final int messageId) {
+		ModelAndView result;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Message messageRequest = this.messageService.findOne(messageId);
+
+		if (messageRequest.getFolder().getActor().equals(actor)) {
+			final Message message = this.messageService.response(messageRequest);
+			result = this.createEditModelAndViewResponse(message);
+		} else
+			result = new ModelAndView("redirect:../../folder/actor/list/outBox.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/createResponse", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveResponse(@Valid final Message messageEmail, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndViewResponse(messageEmail);
+		else
+			try {
+				this.messageService.save(messageEmail);
+				result = new ModelAndView("redirect:../../folder/actor/list/outBox.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndViewResponse(messageEmail, "message.commit.error");
+			}
+
+		return result;
+	}
+
+	//Delete------------------------------------------------------------------------
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Message message, final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.messageService.delete(message);
+			result = new ModelAndView("redirect:../../folder/actor/list/inBox.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../../folder/actor/list/inBox.do");
+		}
+
+		return result;
+	}
+
+	//Ancillary methods---------------------------------------------------------
 
 	//Create --------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Message message) {
@@ -121,6 +171,27 @@ public class MessageActorController extends AbstractController {
 		result.addObject("emailMessage", emailMessage);
 		result.addObject("recipients", recipients);
 		result.addObject("title", title);
+		result.addObject("text", text);
+		result.addObject("message", message);
+		return result;
+	}
+
+	//Response --------------------------------------------------------------------
+	protected ModelAndView createEditModelAndViewResponse(final Message message) {
+		final ModelAndView result = this.createEditModelAndViewResponse(message, null);
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewResponse(final Message emailMessage, final String message) {
+		ModelAndView result;
+
+		String text = "";
+
+		if (emailMessage.getText() == "")
+			text = "text";
+
+		result = new ModelAndView("message/response");
+		result.addObject("emailMessage", emailMessage);
 		result.addObject("text", text);
 		result.addObject("message", message);
 		return result;

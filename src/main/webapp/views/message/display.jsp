@@ -45,7 +45,25 @@
 
 <jstl:if test="${isRecipient}">
 	<div>
-		<a href="actor/message/response.do?messageId=${thisMessage.id}"><spring:message
+		<a href="message/actor/createResponse.do?messageId=${thisMessage.id}"><spring:message
 				code="message.response" /></a>
 	</div>
 </jstl:if>
+
+
+<form:form method="post" action="message/actor/delete.do" modelAttribute="thisMessage" >
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="sentMoment" />
+	<form:hidden path="folder" />
+	<form:hidden path="sender" />
+	<form:hidden path="recipient" />
+	<form:hidden path="attachments" />
+	
+	
+	<jstl:if test="${thisMessage.id != 0}">
+		<input type="submit" name="delete"
+			value="<spring:message code="message.delete" />"
+			onclick="return confirm('<spring:message code="message.confirm.delete" />')" />&nbsp;
+	</jstl:if>
+</form:form>

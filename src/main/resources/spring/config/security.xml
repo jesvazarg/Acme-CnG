@@ -54,7 +54,9 @@
 		<security:intercept-url pattern="/folder/actor/list/outBox.do" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/message/actor/display.do" access="isAuthenticated()" />
-		<security:intercept-url pattern="/message/actor/create.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/message/actor/create.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/actor/createResponse.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/actor/delete.do" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

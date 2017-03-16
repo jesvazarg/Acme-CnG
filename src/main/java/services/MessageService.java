@@ -115,6 +115,7 @@ public class MessageService {
 		final Actor actor = this.actorService.findByPrincipal();
 
 		Assert.isTrue(message.getSender().equals(actor) || message.getRecipient().equals(actor));
+		Assert.isTrue(message.getFolder().getActor().equals(actor));
 
 		this.messageRepository.delete(message);
 	}
