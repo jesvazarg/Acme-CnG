@@ -65,6 +65,7 @@ public class CustomerService {
 		Collection<Comment> postedOnComments;
 		Collection<Apply> applies;
 		Collection<Transaction> transactions;
+		Collection<Folder> folders;
 
 		userAccount = new UserAccount();
 		authority = new Authority();
@@ -72,6 +73,7 @@ public class CustomerService {
 		postedOnComments = new ArrayList<Comment>();
 		applies = new ArrayList<Apply>();
 		transactions = new ArrayList<Transaction>();
+		folders = new ArrayList<Folder>();
 
 		authority.setAuthority(Authority.CUSTOMER);
 		userAccount.addAuthority(authority);
@@ -82,6 +84,7 @@ public class CustomerService {
 		result.setPostedToComments(postedOnComments);
 		result.setApplies(applies);
 		result.setTransactions(transactions);
+		result.setFolders(folders);
 
 		return result;
 	}
@@ -90,6 +93,7 @@ public class CustomerService {
 		Assert.notNull(customer);
 
 		if (customer.getFolders().isEmpty()) {
+
 			Folder inbox;
 			Folder outbox;
 
@@ -104,11 +108,13 @@ public class CustomerService {
 
 			customer = this.customerRepository.save(customer);
 
+			inbox.setActor(customer);
+			outbox.setActor(customer);
+
 			inbox = this.folderService.save(inbox);
 			outbox = this.folderService.save(outbox);
-		}
-
-		customer = this.customerRepository.save(customer);
+		} else
+			customer = this.customerRepository.save(customer);
 
 		return customer;
 	}
@@ -136,18 +142,16 @@ public class CustomerService {
 		return result;
 	}
 
-	public Customer reconstructProfile(final CreateActorForm createActorForm) {
+	public Customer reconstructCreate(final CreateActorForm createActorForm) {
 		Assert.notNull(createActorForm);
 		Customer customer;
-		Md5PasswordEncoder encoder;
 		String password;
 
-		customer = this.findByPrincipal();
+		Assert.isTrue(createActorForm.getPassword().equals(createActorForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+		Assert.isTrue(createActorForm.getIsAgree()); // Comprobamos que acepte las condiciones
 
-		password = createActorForm.getPassword();
-
-		encoder = new Md5PasswordEncoder();
-		password = encoder.encodePassword(password, null);
+		customer = this.create();
+		password = this.encryptPassword(createActorForm.getPassword());
 
 		customer.getUserAccount().setUsername(createActorForm.getUsername());
 		customer.getUserAccount().setPassword(password);
@@ -158,19 +162,25 @@ public class CustomerService {
 		return customer;
 	}
 
-	public CreateActorForm desreconstructProfile(final Customer customer) {
-		Assert.notNull(customer);
-
+	public CreateActorForm desreconstructCreate(final Customer customer) {
 		CreateActorForm createActorForm;
 
 		createActorForm = new CreateActorForm();
 
 		createActorForm.setUsername(customer.getUserAccount().getUsername());
-		createActorForm.setPassword(customer.getUserAccount().getPassword());
 		createActorForm.setName(customer.getName());
 		createActorForm.setEmail(customer.getEmail());
 		createActorForm.setPhoneNumber(customer.getPhoneNumber());
 
 		return createActorForm;
+	}
+
+	public String encryptPassword(String password) {
+		Md5PasswordEncoder encoder;
+
+		encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+
+		return password;
 	}
 }

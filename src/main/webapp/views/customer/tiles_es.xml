@@ -16,14 +16,9 @@
       
 <tiles-definitions>
 
-	<definition name="customer/action-1" extends="master.page">	
-		<put-attribute name="title" value="Cliente: Acción 1" />
-		<put-attribute name="body" value="/views/customer/action-1.jsp" />
-	</definition>
-	
-	<definition name="customer/action-2" extends="master.page">	
-		<put-attribute name="title" value="Cliente: Acción 2" />
-		<put-attribute name="body" value="/views/customer/action-2.jsp" />
+	<definition name="customer/create" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Crear" />
+		<put-attribute name="body" value="/views/customer/create.jsp" />
 	</definition>
 	
 </tiles-definitions>
