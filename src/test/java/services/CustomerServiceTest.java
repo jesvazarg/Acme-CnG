@@ -59,6 +59,21 @@ public class CustomerServiceTest extends AbstractTest {
 		System.out.println("----------------------------------------");
 	}
 
+	@Test
+	public void testSave() {
+		Customer customer;
+
+		customer = this.customerService.findOne(44);
+
+		customer.setName("Customer test");
+		customer.setEmail("customertest@gmail.com");
+		customer.setPhoneNumber("+34 (1) 1234");
+
+		customer = this.customerService.save(customer);
+		System.out.println("create+save: " + customer.getId() + " name: " + customer.getName() + " username: " + customer.getUserAccount().getUsername());
+		System.out.println("----------------------------------------");
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNull() {
 		Customer customer;
@@ -67,4 +82,28 @@ public class CustomerServiceTest extends AbstractTest {
 
 		this.customerService.save(customer);
 	}
+
+	@Test
+	public void testFindByPrincipal() {
+		this.authenticate("customer1");
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+
+		System.out.println("create+save: " + customer.getId() + " name: " + customer.getName() + " username: " + customer.getUserAccount().getUsername());
+		System.out.println("----------------------------------------");
+
+		this.unauthenticate();
+	}
+
+	@Test
+	public void testFindByUserAccountId() {
+		Customer customer;
+
+		customer = this.customerService.findByUserAccountId(39);
+
+		System.out.println("create+save: " + customer.getId() + " name: " + customer.getName() + " username: " + customer.getUserAccount().getUsername());
+		System.out.println("----------------------------------------");
+	}
+
 }
