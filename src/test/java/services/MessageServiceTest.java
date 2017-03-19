@@ -35,69 +35,17 @@ public class MessageServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	// Level A
+	// Enviar y mostrar mensajes entre usuarios registrados.
+
 	@Test
 	public void testFindOne() {
 		Message message;
 
-		message = this.messageService.findOne(29);
+		message = this.messageService.findOne(61);
 
 		System.out.println("findOne: " + message.getId() + "title: " + message.getTitle() + message.getText());
 		System.out.println("----------------------------------------");
-	}
-
-	@Test
-	public void testFindAll() {
-		Collection<Message> messages;
-
-		messages = this.messageService.findAll();
-
-		System.out.println("findAll:");
-		for (final Message message : messages)
-			System.out.println("findOne: " + message.getId() + "title: " + message.getTitle() + message.getText());
-		System.out.println("----------------------------------------");
-
-	}
-
-	@Test
-	public void testCreate() {
-		super.authenticate("customer1");
-
-		Message message;
-		Actor recipient;
-
-		message = this.messageService.create();
-		recipient = this.actorService.findOne(27);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		message.setTitle("Example title");
-		message.setText("Example text");
-		message.setAttachments(attachments);
-		message.setRecipient(recipient);
-
-		Assert.notNull(message);
-
-		super.authenticate(null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testCreateNegative() {
-		super.authenticate("customer1");
-
-		Message message;
-		Actor recipient;
-
-		message = this.messageService.create();
-		recipient = this.actorService.findOne(27);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		message.setTitle("Example title");
-		//message.setText("Example text");
-		message.setAttachments(attachments);
-		message.setRecipient(recipient);
-
-		Assert.notNull(message);
-
-		super.authenticate(null);
 	}
 
 	@Test
@@ -108,7 +56,7 @@ public class MessageServiceTest extends AbstractTest {
 		Actor recipient;
 
 		message = this.messageService.create();
-		recipient = this.actorService.findOne(27);
+		recipient = this.actorService.findOne(46);
 		final Collection<String> attachments = new ArrayList<String>();
 
 		message.setTitle("Example title");
@@ -128,158 +76,130 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneNegative() {
+		Message message;
+
+		message = this.messageService.findOne(0);
+
+		System.out.println("findOne: " + message.getId() + "title: " + message.getTitle() + message.getText());
+		System.out.println("----------------------------------------");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateSaveNegative() {
 		super.authenticate("customer1");
 
-		Message message;
-		Actor recipient;
+		this.messageService.save(null);
 
-		message = this.messageService.create();
-		recipient = this.actorService.findOne(27);
+		super.authenticate(null);
+	}
+
+	// Responder, reenviar y eliminar mensajes.
+
+	@Test
+	public void testRespond() {
+		super.authenticate("customer1");
+		final Message message = this.messageService.findOne(61);
+		Message result = this.messageService.response(message);
 		final Collection<String> attachments = new ArrayList<String>();
 
-		message.setTitle("Example title");
-		//message.setText("Example text");
-		message.setAttachments(attachments);
-		message.setRecipient(recipient);
+		result.setText("Example text");
+		result.setAttachments(attachments);
 
-		Assert.notNull(message);
-
-		message = this.messageService.save(message);
-
+		result = this.messageService.save(result);
 		final Collection<Message> all = this.messageService.findAll();
 
-		Assert.isTrue(all.contains(message));
+		Assert.isTrue(all.contains(result));
 
 		super.authenticate(null);
 	}
 
 	@Test
-	public void testDelete() {
+	public void testReply() {
 		super.authenticate("customer1");
 
-		Message message;
-		Collection<Message> all;
+		final Collection<String> attachments = new ArrayList<String>();
+		final Message message = this.messageService.findOne(61);
+		Message result = this.messageService.reply(message);
+		final Actor actor = this.actorService.findOne(43);
+		attachments.addAll(message.getAttachments());
 
-		message = this.messageService.findOne(29);
+		result.setRecipient(actor);
+		result.setAttachments(attachments);
 
+		result = this.messageService.save(result);
+
+		final Collection<Message> all = this.messageService.findAll();
+
+		Assert.isTrue(all.contains(result));
+
+		super.authenticate(null);
+	}
+
+	@Test
+	public void testDeleteMessage() {
+		super.authenticate("customer1");
+
+		final Message message = this.messageService.findOne(62);
 		this.messageService.delete(message);
 
-		all = this.messageService.findAll();
+		final Collection<Message> all = this.messageService.findAll();
 
-		Assert.isTrue(!all.contains(message), "Message has not been deleted.");
-		System.out.println("Delete: Message deleted properly.\n----------------------------------------");
+		Assert.isTrue(!all.contains(message));
 
 		super.authenticate(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testDeleteNegative() {
-		super.authenticate("customer2");
+	public void testRespondNegative() {
+		super.authenticate("customer1");
+		final Message message = null;
+		Message result = this.messageService.response(message);
+		final Collection<String> attachments = new ArrayList<String>();
 
-		Message message;
-		Collection<Message> all;
+		result.setText("Example text");
+		result.setAttachments(attachments);
 
-		message = this.messageService.findOne(29);
+		result = this.messageService.save(result);
+		final Collection<Message> all = this.messageService.findAll();
 
+		Assert.isTrue(all.contains(result));
+
+		super.authenticate(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testReplyNegative() {
+		super.authenticate("customer1");
+
+		final Collection<String> attachments = new ArrayList<String>();
+		final Message message = null;
+		Message result = this.messageService.reply(message);
+		final Actor actor = this.actorService.findOne(43);
+		attachments.addAll(message.getAttachments());
+
+		result.setRecipient(actor);
+		result.setAttachments(attachments);
+
+		result = this.messageService.save(result);
+
+		final Collection<Message> all = this.messageService.findAll();
+
+		Assert.isTrue(all.contains(result));
+
+		super.authenticate(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteMessageNegative() {
+		super.authenticate("customer1");
+
+		final Message message = this.messageService.findOne(61);
 		this.messageService.delete(message);
 
-		all = this.messageService.findAll();
-
-		Assert.isTrue(!all.contains(message), "Message has not been deleted.");
-		System.out.println("Delete: Message deleted properly.\n----------------------------------------");
-
-		super.authenticate(null);
-	}
-
-	@Test
-	public void testResponseCreate() {
-		super.authenticate("customer1");
-
-		Message message;
-		message = this.messageService.findOne(29);
-
-		final Message result = this.messageService.response(message);
-
-		final Collection<String> attachments = new ArrayList<String>();
-
-		result.setTitle("Example title");
-		result.setText("Example text");
-		result.setAttachments(attachments);
-
-		Assert.notNull(result);
-
-		super.authenticate(null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testResponseCreateNegative() {
-		//super.authenticate("customer1");
-
-		Message message;
-		message = this.messageService.findOne(29);
-
-		final Message result = this.messageService.response(message);
-
-		final Collection<String> attachments = new ArrayList<String>();
-
-		result.setTitle("Example title");
-		result.setText("Example text");
-		result.setAttachments(attachments);
-
-		Assert.notNull(result);
-
-		//super.authenticate(null);
-	}
-
-	@Test
-	public void testResponseCreateAndSave() {
-		super.authenticate("customer1");
-
-		Message message;
-		message = this.messageService.findOne(29);
-
-		final Message result = this.messageService.response(message);
-
-		final Collection<String> attachments = new ArrayList<String>();
-
-		result.setTitle("Example title");
-		result.setText("Example text");
-		result.setAttachments(attachments);
-
-		Assert.notNull(result);
-
-		final Message resultSave = this.messageService.save(result);
-
 		final Collection<Message> all = this.messageService.findAll();
 
-		Assert.isTrue(!all.contains(resultSave), "Message has not been deleted.");
-
-		super.authenticate(null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testResponseCreateAndSaveNegative() {
-		super.authenticate("customer1");
-
-		Message message;
-		message = this.messageService.findOne(29);
-
-		final Message result = this.messageService.response(message);
-
-		final Collection<String> attachments = new ArrayList<String>();
-
-		result.setTitle("Example title");
-		//result.setText("Example text");
-		result.setAttachments(attachments);
-
-		Assert.notNull(result);
-
-		final Message resultSave = this.messageService.save(result);
-
-		final Collection<Message> all = this.messageService.findAll();
-
-		Assert.isTrue(!all.contains(resultSave), "Message has not been deleted.");
+		Assert.isTrue(!all.contains(message));
 
 		super.authenticate(null);
 	}
