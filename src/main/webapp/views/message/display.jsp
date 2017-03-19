@@ -50,6 +50,12 @@
 	</div>
 </jstl:if>
 
+	<div>
+		<a href="message/actor/reply.do?messageId=${thisMessage.id}"><spring:message
+				code="message.reply" /></a>
+	</div>
+
+
 
 <form:form method="post" action="message/actor/delete.do" modelAttribute="thisMessage" >
 	<form:hidden path="id" />

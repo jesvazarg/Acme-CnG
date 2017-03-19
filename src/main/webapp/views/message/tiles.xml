@@ -31,5 +31,10 @@
 		<put-attribute name="body" value="/views/message/response.jsp" />
 	</definition>
 	
+	<definition name="message/reply" extends="master.page">	
+		<put-attribute name="title" value="Reply" />
+		<put-attribute name="body" value="/views/message/reply.jsp" />
+	</definition>
+	
 	
 </tiles-definitions>

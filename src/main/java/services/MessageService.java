@@ -132,6 +132,20 @@ public class MessageService {
 
 	}
 
+	public Message reply(final Message message) {
+		Assert.notNull(message);
+
+		final Actor actor = this.actorService.findByPrincipal();
+		final Message result = this.create();
+
+		result.setSender(actor);
+		result.setTitle(message.getTitle());
+		result.setText(message.getText());
+		result.setAttachments(message.getAttachments());
+
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
 
 	public Collection<Message> findMessagesByFolderId(final int folderId) {
