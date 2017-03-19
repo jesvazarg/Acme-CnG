@@ -158,4 +158,22 @@ public class MessageService {
 
 	}
 
+	//Devuelve true si la collection esta vacia o si las URLs contenidas en ellas son URLs validas
+	public Boolean validatorURL(final Collection<String> lista) {
+		Boolean res = false;
+		if (!lista.isEmpty()) {
+			for (final String aux : lista)
+				if ((aux.subSequence(0, 11).equals("http://www.") || (aux.subSequence(0, 12).equals("https://www."))
+					&& ((aux.subSequence(aux.length() - 4, aux.length() - 3).equals(".")) || (aux.subSequence(aux.length() - 3, aux.length() - 2).equals(".")))))
+					res = true;
+				else {
+					res = false;
+					break;
+				}
+		} else
+			res = true;
+
+		return res;
+	}
+
 }
