@@ -33,13 +33,14 @@
 			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
-									
+								
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="customer/create.do"><spring:message code="master.page.registerCustomer" /></a></li>
+			<li><a class="fNiv" href="offer/customer/list.do"><spring:message code="master.page.offer.list" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		

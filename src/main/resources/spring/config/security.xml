@@ -45,6 +45,15 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
+		<security:intercept-url pattern="/offer/customer/list.do" access="permitAll" />
+		<security:intercept-url pattern="/display/customer/list.do" access="permitAll" />  
+		
+		<!-- CUSTOMER -->
+		
+		<security:intercept-url pattern="/offer/customer/create.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/offer/customer/edit.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/offer/customer/delete.do" access="hasRole('CUSTOMER')" />
+		
 		<!-- isAnonymous -->
 		<security:intercept-url pattern="/customer/create.do" access="isAnonymous()" /> 
 		
