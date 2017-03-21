@@ -32,36 +32,37 @@
 		</li>
 		<li>
 			<b><spring:message code="offer.originPlace" /></b>
-			<jstl:out value="${offer.originPlace}"/>
+			<jstl:out value="${offer.originPlace.address}"/>
+			<jstl:out value="."/>
+			<jstl:out value="Coordenadas: "/>
+			<jstl:out value="("/>
+			<jstl:out value="${offer.originPlace.latitude}"/>
+			<jstl:out value=","/>
+			<jstl:out value="${offer.originPlace.longitude}"/>
+			<jstl:out value=")"/>
 		</li>
+		
 		<li>
 			<b><spring:message code="offer.destinationPlace" /></b>
-			<jstl:out value="${offer.destinationPlace}"/>
+			<jstl:out value="${offer.destinationPlace.address}"/>
+			<jstl:out value="."/>
+			<jstl:out value="Coordenadas: "/>
+			<jstl:out value="("/>
+			<jstl:out value="${offer.originPlace.latitude}"/>
+			<jstl:out value=","/>
+			<jstl:out value="${offer.originPlace.longitude}"/>
+			<jstl:out value=")"/>
 		</li>
-		<!-- <li>
-			<b><spring:message code="offer.comments" /></b>
-			<display:table name="${offer.comments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
-				
-				<spring:message code="profile.comments.title" var="titleHeader" />
-				<display:column property="title" title="${titleHeader}" sortable="true" />
-				
-				<spring:message code="profile.comments.postedMoment" var="postedMomentHeader" />
-				<display:column property="postedMoment" title="${postedMomentHeader}" sortable="true" />
-				
-				<spring:message code="profile.comments.text" var="textHeader" />
-				<display:column property="text" title="${textHeader}" sortable="false" />
-				
-				<spring:message code="profile.comments.starsNumber" var="starsNumberHeader" />
-				<display:column property="starsNumber" title="${starsNumberHeader}" sortable="true" />
-				
-				<spring:message code="profile.comments.banned" var="bannedHeader" />
-				<display:column property="banned" title="${bannedHeader}" sortable="true" />
-				
-				<spring:message code="profile.comments.postedBy" var="postedByHeader" />
-				<display:column property="postedBy" title="${postedByHeader}" sortable="true" />
-				
-			</display:table>
-		</li> -->
 		
 	</ul>
 </div>
+
+<security:authorize access="hasRole('CUSTOMER')">
+	<div>
+		<jstl:if test="${principalUserAccount.id == offer.customer.userAccount.id &&  offer.banned=='false'}">
+			<li><a href="apply/customer/create.do?offerId=${offer.id}">
+				<spring:message code="offer.apply"/>
+			</a></li>
+		</jstl:if>
+	</div>
+</security:authorize>

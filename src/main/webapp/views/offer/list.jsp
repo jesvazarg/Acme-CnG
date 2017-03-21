@@ -26,6 +26,12 @@
 	<acme:column code="offer.originPlace" property="originPlace" />
 	<acme:column code="offer.destinationPlace" property="destinationPlace" />
 	
+	<display:column>
+		<a href="offer/customer/display.do?offerId=${offer.id}"><spring:message
+			code="offer.display" />
+		</a>
+	</display:column>
+	
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
 			<jstl:if test="${principalUserAccount.id == offer.customer.userAccount.id &&  offer.banned=='false'}">
@@ -34,7 +40,14 @@
 				</a></li>
 			</jstl:if>
 		</display:column>
-	</security:authorize>
-	
+	</security:authorize>	
 	
 </display:table>
+
+<security:authorize access="hasRole('CUSTOMER')">	
+	<li>
+		<a href="offer/customer/create.do?">
+			<spring:message code="offer.create"/>
+		</a>
+	</li>
+</security:authorize>

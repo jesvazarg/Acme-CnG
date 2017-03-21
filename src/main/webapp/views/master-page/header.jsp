@@ -60,6 +60,10 @@
 		
 		<security:authorize access="isAuthenticated()">
 			<li>
+				<a class="fNiv" href="offer/customer/list.do"><spring:message code="master.page.offer.list" />
+				</a>
+			</li>
+			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
 			        (<security:authentication property="principal.username" />)

@@ -46,7 +46,7 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/offer/customer/list.do" access="permitAll" />
-		<security:intercept-url pattern="/display/customer/list.do" access="permitAll" />  
+		<security:intercept-url pattern="/offer/customer/display.do" access="permitAll" />  
 		
 		<!-- CUSTOMER -->
 		
