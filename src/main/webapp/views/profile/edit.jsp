@@ -21,7 +21,7 @@
 	<form:form action="${requestURI}" modelAttribute="createActorForm">
 		<acme:input code="profile.username" path="username" />
 		<acme:password code="profile.password" path="password" />
-		<acme:password code="profile.confirm" path="confirm" />
+		<acme:password code="profile.confirmPassword" path="confirmPassword" />
 		<acme:input code="profile.name" path="name" />
 		<acme:input code="profile.email" path="email" />
 		<acme:input code="profile.phoneNumber" path="phoneNumber" />

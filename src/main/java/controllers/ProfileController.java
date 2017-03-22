@@ -85,11 +85,15 @@ public class ProfileController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final CreateActorForm form, final String message) {
 		ModelAndView result;
+		Actor actor;
+
+		actor = this.actorService.findByPrincipal();
 
 		result = new ModelAndView("profile/edit");
 		result.addObject("createActorForm", form);
 		result.addObject("requestURI", "profile/edit.do");
 		result.addObject("message", message);
+		result.addObject("profile", actor);
 
 		return result;
 	}

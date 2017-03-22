@@ -56,7 +56,11 @@
 		</li>
 		
 		<jstl:if test="${same}">
-			<a href="folders/list.do?actorId=${profile.id}"><spring:message code="profile.messages" /></a>
+			<a href="folder/actor/list/inBox.do"><spring:message code="profile.inBox" /></a>
+		</jstl:if>
+		
+		<jstl:if test="${same}">
+			<a href="folder/actor/list/outBox.do"><spring:message code="profile.outBox" /></a>
 		</jstl:if>
 		
 	</ul>
