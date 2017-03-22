@@ -60,6 +60,7 @@
 		<!-- isAuthenticated -->
 
 		<security:intercept-url pattern="/profile/display.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/displayPrincipal.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/edit.do" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/folder/actor/list/inBox.do" access="isAuthenticated()" />

@@ -10,8 +10,11 @@
 
 package controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +40,21 @@ public class ProfileController extends AbstractController {
 	}
 
 	// Display ---------------------------------------------------------------		
+
+	@RequestMapping(value = "/displayPrincipal", method = RequestMethod.GET)
+	public ModelAndView display() {
+		final ModelAndView result;
+		Actor principal;
+
+		principal = this.actorService.findByPrincipal();
+
+		result = new ModelAndView("profile/display");
+		result.addObject("profile", principal);
+		result.addObject("same", false);
+		result.addObject("requestURI", "profile/display.do");
+
+		return result;
+	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(final int actorId) {
@@ -71,6 +89,27 @@ public class ProfileController extends AbstractController {
 
 		result = this.createEditModelAndView(form);
 
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final CreateActorForm createActorForm, final BindingResult binding) {
+
+		ModelAndView result;
+		Actor actor;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(createActorForm);
+		else
+			try {
+				actor = this.actorService.reconstructProfile(createActorForm);
+				this.actorService.save(actor);
+				result = new ModelAndView("redirect:/profile/displayPrincipal.do");
+
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(createActorForm, "actor.commit.error");
+
+			}
 		return result;
 	}
 

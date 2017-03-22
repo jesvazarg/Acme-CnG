@@ -27,6 +27,6 @@
 		<acme:input code="profile.phoneNumber" path="phoneNumber" />
 		
 		<acme:submit name="save" code="profile.save" />
-		<acme:cancel url="profile/display.do?actorId=${profile.id}" code="profile.cancel" />
+		<acme:cancel url="profile/displayPrincipal.do" code="profile.cancel" />
 	</form:form>
 </security:authorize>
