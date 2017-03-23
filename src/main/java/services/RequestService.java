@@ -3,6 +3,7 @@ package services;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -17,10 +18,12 @@ public class RequestService {
 
 	// Managed repository -----------------------------------------------------
 
+	@Autowired
 	private RequestRepository	requestRepository;
 
 	// Supporting services ----------------------------------------------------
 
+	@Autowired
 	private CustomerService		customerService;
 
 

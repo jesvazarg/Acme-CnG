@@ -18,7 +18,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<display:table name="requests" id="request" requestURI="${requestURI }" class="displaytag">
+<display:table name="requests" id="row" requestURI="${requestURI }" class="displaytag">
 	
 	<acme:column code="request.title" property="title"/>
 	<acme:column code="request.description" property="description"/>
@@ -27,25 +27,25 @@
 	<acme:column code="request.destinationPlace" property="destinationPlace" />
 	
 	<jstl:if test="${general!=true}">
-				<acme:column code="request.banned" property="banned"/>
+		<acme:column code="request.banned" property="banned"/>
 	</jstl:if>
 			
 	<display:column>
-		<a href="request/customer/display.do?requestId=${request.id}"><spring:message
+		<a href="request/customer/display.do?requestId=${row.id}"><spring:message
 			code="request.display" />
 		</a>
 	</display:column>
 	
 	<display:column>
-		<a href="profile/display.do?actorId=${request.customer.id}"><spring:message
+		<a href="profile/display.do?actorId=${row.customer.id}"><spring:message
 			code="request.display" />
 		</a>
 	</display:column>
 	
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
-			<jstl:if test="${principalUserAccount.id == request.customer.userAccount.id &&  request.banned=='false'}">
-				<li><a href="apply/customer/create.do?requestId=${request.id}">
+			<jstl:if test="${principalUserAccount.id == row.customer.userAccount.id &&  row.banned=='false'}">
+				<li><a href="apply/customer/create.do?requestId=${row.id}">
 					<spring:message code="request.apply"/>
 				</a></li>
 			</jstl:if>
