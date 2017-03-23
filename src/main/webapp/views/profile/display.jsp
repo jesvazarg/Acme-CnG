@@ -51,7 +51,8 @@
 					<spring:message code="profile.comments.banned" var="bannedHeader" />
 					<display:column property="banned" title="${bannedHeader}" sortable="true" />
 				<jstl:if test="${!row.banned or isAdmin or ((row.postedBy.id==principal.id))}">
-					<display:column>
+					<spring:message code="profile.comments.postedBy" var="postedByHeader" />
+					<display:column title="${postedByHeader}">
 						<a href="profile/display.do?actorId=${row.postedBy.id}"><jstl:out value="${row.postedBy.name }"/> </a>
 					</display:column>
 				</jstl:if>

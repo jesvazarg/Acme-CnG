@@ -166,6 +166,10 @@ public class ActorService {
 		return createActorForm;
 	}
 
+	public Double avgCommentsPerActor() {
+		return this.actorRepository.avgCommentsPerActor();
+	}
+
 	public Double[] minAvMaxMessagesPerActor() {
 		return this.actorRepository.minAvMaxMessagesPerActor();
 	}

@@ -183,4 +183,8 @@ public class CustomerService {
 
 		return password;
 	}
+
+	public Double avgTransactionsPerCustomer() {
+		return this.customerRepository.avgTransactionsPerCustomer();
+	}
 }
