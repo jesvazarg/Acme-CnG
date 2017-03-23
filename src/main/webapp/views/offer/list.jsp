@@ -36,6 +36,12 @@
 		</a>
 	</display:column>
 	
+	<display:column>
+		<a href="profile/display.do?actorId=${offer.customer.id}"><spring:message
+			code="offer.display" />
+		</a>
+	</display:column>
+	
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
 			<jstl:if test="${principalUserAccount.id == offer.customer.userAccount.id &&  offer.banned=='false'}">

@@ -33,7 +33,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a class="fNiv" href="offer/customer/listMyOffers.do"><spring:message code="master.page.offer.listMyOffers" /></a></li>
+					<li><a href="offer/customer/listMyOffers.do"><spring:message code="master.page.offer.listMyOffers" /></a></li>
 								
 				</ul>
 			</li>
