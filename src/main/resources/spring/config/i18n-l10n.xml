@@ -29,6 +29,7 @@
 		<value>/views/folder/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/offer/messages</value>
+		<value>/views/comment/messages</value>
 	</util:list>
 
 </beans>
