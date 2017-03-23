@@ -9,9 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CommentService;
+import services.CommentableService;
 import controllers.AbstractController;
-import domain.Actor;
 import domain.Comment;
+import domain.Commentable;
 
 
 @Controller
@@ -33,22 +34,24 @@ public class CommentActorController extends AbstractController{
 	@Autowired
 	private ActorService actorService;
 	
+	@Autowired
+	private CommentableService commentableService;
+	
 	//Create -------------------------------------------------
 
 	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public ModelAndView  create(@RequestParam int actorPostedToId){
+	public ModelAndView create(@RequestParam int commentablePostedToId){
 		
 		ModelAndView result;
 		Comment comment;
 		
-		Actor actorPostedTo = actorService.findOne(actorPostedToId);
-		comment = commentService.create(actorPostedTo);
+		Commentable commentablePostedTo = commentableService.findOne(commentablePostedToId);
+		comment = commentService.create(commentablePostedTo);
 		
-		result = new ModelAndView("comment/actor/edit");
+		result = new ModelAndView("comment/edit");
 		result.addObject("comment", comment);
 		result.addObject("requestURI", "comment/actor/edit.do");
-		
-		
+			
 		return result;
 	}
 	

@@ -58,6 +58,12 @@
 			</display:table>
 		</li>
 		
+		<security:authorize access="isAuthenticated()">
+			
+		  		<acme:button url="comment/actor/create.do?commentablePostedToId=${profile.id}" code="profile.newComment"/>
+			
+		</security:authorize>
+		
 		<jstl:if test="${same}">
 			<acme:button url="folder/actor/list/inBox.do" code="profile.inBox" />
 			<acme:button url="folder/actor/list/outBox.do" code="profile.outBox" />
