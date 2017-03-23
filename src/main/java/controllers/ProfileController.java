@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
 import domain.Actor;
 import forms.CreateActorForm;
@@ -50,7 +53,7 @@ public class ProfileController extends AbstractController {
 
 		result = new ModelAndView("profile/display");
 		result.addObject("profile", principal);
-		result.addObject("same", false);
+		result.addObject("same", true);
 		result.addObject("requestURI", "profile/display.do");
 
 		return result;
@@ -60,22 +63,33 @@ public class ProfileController extends AbstractController {
 	public ModelAndView display(final int actorId) {
 		final ModelAndView result;
 		Actor actor;
-		Actor principal;
+		final Actor principal;
 		Boolean same = false;
+		final Collection<Authority> authorities;
+		String authority;
+		Boolean sameOrAdmin = false;
 
 		actor = this.actorService.findOne(actorId);
+
 		principal = this.actorService.findByPrincipal();
 		if (actor.equals(principal))
 			same = true;
 
+		authorities = principal.getUserAccount().getAuthorities();
+		for (final Authority a : authorities) {
+			authority = a.getAuthority();
+			if ((same == true) || (authority.equals("ADMIN")))
+				sameOrAdmin = true;
+		}
+
 		result = new ModelAndView("profile/display");
 		result.addObject("profile", actor);
 		result.addObject("same", same);
+		result.addObject("sameOrAdmin", sameOrAdmin);
 		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());
 
 		return result;
 	}
-
 	// Edit ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
