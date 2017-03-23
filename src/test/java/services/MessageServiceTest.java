@@ -197,9 +197,9 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testEliminarUnMensajeNegative() {
-		super.authenticate("customer1");
+		super.authenticate("customer3");
 
-		final MessageEmail message = this.messageService.findOne(61);
+		final MessageEmail message = this.messageService.findOne(84);
 		this.messageService.delete(message);
 
 		final Collection<MessageEmail> all = this.messageService.findAll();

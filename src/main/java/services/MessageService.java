@@ -38,10 +38,13 @@ public class MessageService {
 	// Simple CRUD methods ----------------------------------------------------
 	public MessageEmail findOne(final int messageId) {
 		Assert.isTrue(messageId != 0);
+		final Actor actor = this.actorService.findByPrincipal();
 
 		MessageEmail result;
 
 		result = this.messageRepository.findOne(messageId);
+
+		Assert.isTrue(result.getFolder().getActor().equals(actor));
 
 		return result;
 	}
