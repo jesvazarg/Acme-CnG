@@ -35,28 +35,33 @@ public class MessageServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	//NOTA IMPORTANTE
+	//SE HA DECIDIDO NO USAR EL ESQUEMA VISTO EN TEORIA YA QUE PERDERIAMOS DEMASIADO TIEMPO
+	//EN SU IMPLEMENTACION. 
 	// Level A
 	// Enviar y mostrar mensajes entre usuarios registrados.
 
 	@Test
-	public void testFindOne() {
+	public void testMostrarMensaje() {
+		super.authenticate("customer1");
 		MessageEmail message;
 
-		message = this.messageService.findOne(61);
+		message = this.messageService.findOne(84);
 
 		System.out.println("findOne: " + message.getId() + "title: " + message.getTitle() + message.getText());
 		System.out.println("----------------------------------------");
+		super.authenticate(null);
 	}
 
 	@Test
-	public void testCreateSave() {
+	public void testEnviarMensajes() {
 		super.authenticate("customer1");
 
 		MessageEmail message;
 		Actor recipient;
 
 		message = this.messageService.create();
-		recipient = this.actorService.findOne(46);
+		recipient = this.actorService.findOne(56);
 		final Collection<String> attachments = new ArrayList<String>();
 
 		message.setTitle("Example title");
@@ -76,7 +81,7 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testFindOneNegative() {
+	public void testMostrarMensajeNegative() {
 		MessageEmail message;
 
 		message = this.messageService.findOne(0);
@@ -86,7 +91,7 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testCreateSaveNegative() {
+	public void testEnviarMensajesNegative() {
 		super.authenticate("customer1");
 
 		this.messageService.save(null);
@@ -97,9 +102,9 @@ public class MessageServiceTest extends AbstractTest {
 	// Responder, reenviar y eliminar mensajes.
 
 	@Test
-	public void testRespond() {
+	public void testResponderAUnMensaje() {
 		super.authenticate("customer1");
-		final MessageEmail message = this.messageService.findOne(61);
+		final MessageEmail message = this.messageService.findOne(84);
 		MessageEmail result = this.messageService.response(message);
 		final Collection<String> attachments = new ArrayList<String>();
 
@@ -115,13 +120,13 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testReply() {
+	public void testReenviarUnMensaje() {
 		super.authenticate("customer1");
 
 		final Collection<String> attachments = new ArrayList<String>();
-		final MessageEmail message = this.messageService.findOne(61);
+		final MessageEmail message = this.messageService.findOne(84);
 		MessageEmail result = this.messageService.reply(message);
-		final Actor actor = this.actorService.findOne(43);
+		final Actor actor = this.actorService.findOne(57);
 		attachments.addAll(message.getAttachments());
 
 		result.setRecipient(actor);
@@ -137,10 +142,10 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testDeleteMessage() {
+	public void testEliminarUnMensaje() {
 		super.authenticate("customer1");
 
-		final MessageEmail message = this.messageService.findOne(62);
+		final MessageEmail message = this.messageService.findOne(84);
 		this.messageService.delete(message);
 
 		final Collection<MessageEmail> all = this.messageService.findAll();
@@ -151,7 +156,7 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testRespondNegative() {
+	public void testResponderAUnMensajeNegative() {
 		super.authenticate("customer1");
 		final MessageEmail message = null;
 		MessageEmail result = this.messageService.response(message);
@@ -169,7 +174,7 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testReplyNegative() {
+	public void testReenviarUnMensajeNegative() {
 		super.authenticate("customer1");
 
 		final Collection<String> attachments = new ArrayList<String>();
@@ -191,7 +196,7 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testDeleteMessageNegative() {
+	public void testEliminarUnMensajeNegative() {
 		super.authenticate("customer1");
 
 		final MessageEmail message = this.messageService.findOne(61);
