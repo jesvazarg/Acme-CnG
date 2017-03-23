@@ -39,7 +39,7 @@ public class Folder extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 	private Actor				actor;
-	private Collection<Message>	messages;
+	private Collection<MessageEmail>	messages;
 
 
 	@NotNull
@@ -56,11 +56,11 @@ public class Folder extends DomainEntity {
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "folder")
-	public Collection<Message> getMessages() {
+	public Collection<MessageEmail> getMessages() {
 		return this.messages;
 	}
 
-	public void setMessages(final Collection<Message> messages) {
+	public void setMessages(final Collection<MessageEmail> messages) {
 		this.messages = messages;
 	}
 

@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import domain.Message;
+import domain.MessageEmail;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, Integer> {
+public interface MessageRepository extends JpaRepository<MessageEmail, Integer> {
 
-	@Query("select m from Message m where m.folder.id=?1")
-	Collection<Message> findMessagesByFolderId(int folderId);
+	@Query("select m from MessageEmail m where m.folder.id=?1")
+	Collection<MessageEmail> findMessagesByFolderId(int folderId);
 
 }

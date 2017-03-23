@@ -8,19 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import repositories.MessageRepository;
-import domain.Message;
+import domain.MessageEmail;
 
 @Component
 @Transactional
-public class StringToMessageConverter implements Converter<String, Message> {
+public class StringToMessageEmailConverter implements Converter<String, MessageEmail> {
 
 	@Autowired
 	MessageRepository	messageRepository;
 
 
 	@Override
-	public Message convert(final String text) {
-		Message result;
+	public MessageEmail convert(final String text) {
+		MessageEmail result;
 		int id;
 
 		try {

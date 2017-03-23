@@ -15,7 +15,7 @@ import services.MessageService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Folder;
-import domain.Message;
+import domain.MessageEmail;
 
 @Controller
 @RequestMapping("/folder/actor")
@@ -43,7 +43,7 @@ public class FolderActorController extends AbstractController {
 	public ModelAndView listInBox() {
 		ModelAndView result;
 		Actor actor;
-		Collection<Message> messages;
+		Collection<MessageEmail> messages;
 		Folder folder;
 
 		actor = this.actorService.findByPrincipal();
@@ -62,7 +62,7 @@ public class FolderActorController extends AbstractController {
 	public ModelAndView listOutBox() {
 		ModelAndView result;
 		Actor actor;
-		Collection<Message> messages;
+		Collection<MessageEmail> messages;
 		Folder folder;
 
 		actor = this.actorService.findByPrincipal();

@@ -524,7 +524,7 @@
 	
 	<!-- Messages -->
 	
-	<bean id="message1" class="domain.Message">
+	<bean id="message1" class="domain.MessageEmail">
 		<property name="title" value="Aviso de baneo" />
 		<property name="text" value="Te he baneado el comentario porque eres muy feo." />
 		<property name="sentMoment" value="10/06/2016 22:11" />
@@ -539,7 +539,7 @@
 		<property name="folder" ref="folder2" />
 	</bean>
 	
-	<bean id="message2" class="domain.Message">
+	<bean id="message2" class="domain.MessageEmail">
 		<property name="title" value="Aviso de baneo" />
 		<property name="text" value="Te he baneado el comentario porque eres muy feo." />
 		<property name="sentMoment" value="10/06/2016 22:11" />
@@ -554,7 +554,7 @@
 		<property name="folder" ref="folder3" />
 	</bean>
 	
-	<bean id="message3" class="domain.Message">
+	<bean id="message3" class="domain.MessageEmail">
 		<property name="title" value="Aviso de baneo" />
 		<property name="text" value="Como llame a me premo te vamo a da una palisa gitana." />
 		<property name="sentMoment" value="10/06/2016 22:30" />
@@ -567,7 +567,7 @@
 		<property name="folder" ref="folder4" />
 	</bean>
 	
-	<bean id="message4" class="domain.Message">
+	<bean id="message4" class="domain.MessageEmail">
 		<property name="title" value="Aviso de baneo" />
 		<property name="text" value="Como llame a me premo te vamo a da una palisa gitana." />
 		<property name="sentMoment" value="10/06/2016 22:30" />
@@ -580,7 +580,7 @@
 		<property name="folder" ref="folder1" />
 	</bean>
 	
-	<bean id="message5" class="domain.Message">
+	<bean id="message5" class="domain.MessageEmail">
 		<property name="title" value="Holis caracolis" />
 		<property name="text" value="Buenas, ¿quieres ser mi amigo?." />
 		<property name="sentMoment" value="11/06/2016 22:10" />
@@ -594,7 +594,7 @@
 		<property name="folder" ref="folder4" />
 	</bean>
 
-	<bean id="message6" class="domain.Message">
+	<bean id="message6" class="domain.MessageEmail">
 		<property name="title" value="Holis caracolis" />
 		<property name="text" value="Buenas, ¿quieres ser mi amigo?." />
 		<property name="sentMoment" value="11/06/2016 22:10" />
@@ -608,7 +608,7 @@
 		<property name="folder" ref="folder5" />
 	</bean>
 	
-	<bean id="message7" class="domain.Message">
+	<bean id="message7" class="domain.MessageEmail">
 		<property name="title" value="Wola" />
 		<property name="text" value="Wola caracola, soy el mejor de los mejores y lo sabes." />
 		<property name="sentMoment" value="11/06/2016 22:15" />
@@ -622,7 +622,7 @@
 		<property name="folder" ref="folder6" />
 	</bean>
 
-	<bean id="message8" class="domain.Message">
+	<bean id="message8" class="domain.MessageEmail">
 		<property name="title" value="Wola" />
 		<property name="text" value="Wola caracola, soy el mejor de los mejores y lo sabes." />
 		<property name="sentMoment" value="11/06/2016 22:15" />
@@ -636,7 +636,7 @@
 		<property name="folder" ref="folder3" />
 	</bean>
 	
-	<bean id="message9" class="domain.Message">
+	<bean id="message9" class="domain.MessageEmail">
 		<property name="title" value="Buenas tardes" />
 		<property name="text" value="Un ciego pasa por una pescaderia y dice: Hola guapa!!." />
 		<property name="sentMoment" value="11/06/2016 22:20" />
@@ -650,7 +650,7 @@
 		<property name="folder" ref="folder4" />
 	</bean>
 	
-	<bean id="message10" class="domain.Message">
+	<bean id="message10" class="domain.MessageEmail">
 		<property name="title" value="Buenas tardes" />
 		<property name="text" value="Un ciego pasa por una pescaderia y dice: Hola guapa!!." />
 		<property name="sentMoment" value="11/06/2016 22:20" />

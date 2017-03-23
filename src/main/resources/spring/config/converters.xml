@@ -30,7 +30,7 @@
 		<bean class="converters.CommentableToStringConverter" /> 
 		<bean class="converters.CommentToStringConverter" />
 		<bean class="converters.CustomerToStringConverter" /> 
-		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.MessageEmailToStringConverter" />
 		<bean class="converters.OfferToStringConverter" />
 		<bean class="converters.RequestToStringConverter" />
 		<bean class="converters.TransactionToStringConverter" />
@@ -43,7 +43,7 @@
 		<bean class="converters.StringToCommentableConverter" /> 
 		<bean class="converters.StringToCommentConverter" />
 		<bean class="converters.StringToCustomerConverter" /> 
-		<bean class="converters.StringToMessageConverter" />
+		<bean class="converters.StringToMessageEmailConverter" />
 		<bean class="converters.StringToOfferConverter" />
 		<bean class="converters.StringToRequestConverter" />
 		<bean class="converters.StringToTransactionConverter" />

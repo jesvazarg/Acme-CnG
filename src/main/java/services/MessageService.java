@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import repositories.MessageRepository;
 import domain.Actor;
 import domain.Folder;
-import domain.Message;
+import domain.MessageEmail;
 
 @Service
 @Transactional
@@ -36,31 +36,31 @@ public class MessageService {
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
-	public Message findOne(final int messageId) {
+	public MessageEmail findOne(final int messageId) {
 		Assert.isTrue(messageId != 0);
 
-		Message result;
+		MessageEmail result;
 
 		result = this.messageRepository.findOne(messageId);
 
 		return result;
 	}
 
-	public Collection<Message> findAll() {
-		Collection<Message> result;
+	public Collection<MessageEmail> findAll() {
+		Collection<MessageEmail> result;
 
 		result = this.messageRepository.findAll();
 
 		return result;
 	}
 
-	public Message create() {
-		Message result;
+	public MessageEmail create() {
+		MessageEmail result;
 		Actor actor;
 		Folder folder;
 		Calendar calendar;
 
-		result = new Message();
+		result = new MessageEmail();
 		actor = this.actorService.findByPrincipal();
 		folder = this.folderService.findByActorAndName("outbox", actor);
 
@@ -73,10 +73,10 @@ public class MessageService {
 		return result;
 	}
 
-	public Message create(final Message message) {
-		Message result;
+	public MessageEmail create(final MessageEmail message) {
+		MessageEmail result;
 
-		result = new Message();
+		result = new MessageEmail();
 		result.setTitle(message.getTitle());
 		result.setText(message.getText());
 		result.setSentMoment(message.getSentMoment());
@@ -88,10 +88,10 @@ public class MessageService {
 		return result;
 	}
 
-	public Message save(Message message) {
+	public MessageEmail save(MessageEmail message) {
 		Assert.notNull(message);
 
-		Message messageIn;
+		MessageEmail messageIn;
 		Folder folderIn;
 		Folder folderOut;
 
@@ -110,7 +110,7 @@ public class MessageService {
 		return message;
 	}
 
-	public void delete(final Message message) {
+	public void delete(final MessageEmail message) {
 		Assert.notNull(message);
 		final Actor actor = this.actorService.findByPrincipal();
 
@@ -120,10 +120,10 @@ public class MessageService {
 		this.messageRepository.delete(message);
 	}
 
-	public Message response(final Message message) {
+	public MessageEmail response(final MessageEmail message) {
 		Assert.notNull(message);
 
-		final Message result = this.create();
+		final MessageEmail result = this.create();
 
 		result.setRecipient(message.getSender());
 		result.setTitle("Re: " + message.getTitle());
@@ -132,11 +132,11 @@ public class MessageService {
 
 	}
 
-	public Message reply(final Message message) {
+	public MessageEmail reply(final MessageEmail message) {
 		Assert.notNull(message);
 
 		final Actor actor = this.actorService.findByPrincipal();
-		final Message result = this.create();
+		final MessageEmail result = this.create();
 
 		result.setSender(actor);
 		result.setTitle(message.getTitle());
@@ -148,9 +148,9 @@ public class MessageService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Message> findMessagesByFolderId(final int folderId) {
+	public Collection<MessageEmail> findMessagesByFolderId(final int folderId) {
 
-		Collection<Message> result;
+		Collection<MessageEmail> result;
 
 		result = this.messageRepository.findMessagesByFolderId(folderId);
 

@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form method="post" action="message/actor/createResponse.do" modelAttribute="emailMessage" >
+<form:form method="post" action="message/actor/createResponse.do" modelAttribute="messageEmail" >
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -27,7 +27,7 @@
 	
 	
 	<acme:submit name="save" code="message.save" />
-	<jstl:if test="${emailMessage.id!=0 }">
+	<jstl:if test="${messageEmail.id!=0 }">
 		<acme:submit name="delete" code="message.delete" />
 	</jstl:if>
 	

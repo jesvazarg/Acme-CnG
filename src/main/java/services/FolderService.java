@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import repositories.FolderRepository;
 import domain.Actor;
 import domain.Folder;
-import domain.Message;
+import domain.MessageEmail;
 
 @Service
 @Transactional
@@ -50,10 +50,10 @@ public class FolderService {
 	public Folder create(final Actor actor) {
 		Assert.notNull(actor);
 
-		Collection<Message> messages;
+		Collection<MessageEmail> messages;
 		Folder result;
 
-		messages = new HashSet<Message>();
+		messages = new HashSet<MessageEmail>();
 
 		result = new Folder();
 		result.setMessages(messages);

@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form method="post" action="message/actor/create.do" modelAttribute="emailMessage" >
+<form:form method="post" action="message/actor/create.do" modelAttribute="messageEmail" >
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -19,17 +19,14 @@
 	<acme:select items="${recipients}" itemLabel="name" code="message.recipient" path="recipient" />
 	
 	<acme:input code="message.title" path="title" />
-	<span class="message"><spring:message code="messageError.${title}" /></span>
-	
 	
 	<acme:input code="message.text" path="text" />
-	<span class="message"><spring:message code="messageError.${text}" /></span>
 	
 	<acme:input code="message.attachments" path="attachments" />
 	
 	
 	<acme:submit name="save" code="message.save" />
-	<jstl:if test="${emailMessage.id!=0 }">
+	<jstl:if test="${messageEmail.id!=0 }">
 		<acme:submit name="delete" code="message.delete" />
 	</jstl:if>
 	

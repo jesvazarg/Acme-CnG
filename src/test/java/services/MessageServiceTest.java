@@ -15,7 +15,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
-import domain.Message;
+import domain.MessageEmail;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -40,7 +40,7 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindOne() {
-		Message message;
+		MessageEmail message;
 
 		message = this.messageService.findOne(61);
 
@@ -52,7 +52,7 @@ public class MessageServiceTest extends AbstractTest {
 	public void testCreateSave() {
 		super.authenticate("customer1");
 
-		Message message;
+		MessageEmail message;
 		Actor recipient;
 
 		message = this.messageService.create();
@@ -68,7 +68,7 @@ public class MessageServiceTest extends AbstractTest {
 
 		message = this.messageService.save(message);
 
-		final Collection<Message> all = this.messageService.findAll();
+		final Collection<MessageEmail> all = this.messageService.findAll();
 
 		Assert.isTrue(all.contains(message));
 
@@ -77,7 +77,7 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneNegative() {
-		Message message;
+		MessageEmail message;
 
 		message = this.messageService.findOne(0);
 
@@ -99,15 +99,15 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testRespond() {
 		super.authenticate("customer1");
-		final Message message = this.messageService.findOne(61);
-		Message result = this.messageService.response(message);
+		final MessageEmail message = this.messageService.findOne(61);
+		MessageEmail result = this.messageService.response(message);
 		final Collection<String> attachments = new ArrayList<String>();
 
 		result.setText("Example text");
 		result.setAttachments(attachments);
 
 		result = this.messageService.save(result);
-		final Collection<Message> all = this.messageService.findAll();
+		final Collection<MessageEmail> all = this.messageService.findAll();
 
 		Assert.isTrue(all.contains(result));
 
@@ -119,8 +119,8 @@ public class MessageServiceTest extends AbstractTest {
 		super.authenticate("customer1");
 
 		final Collection<String> attachments = new ArrayList<String>();
-		final Message message = this.messageService.findOne(61);
-		Message result = this.messageService.reply(message);
+		final MessageEmail message = this.messageService.findOne(61);
+		MessageEmail result = this.messageService.reply(message);
 		final Actor actor = this.actorService.findOne(43);
 		attachments.addAll(message.getAttachments());
 
@@ -129,7 +129,7 @@ public class MessageServiceTest extends AbstractTest {
 
 		result = this.messageService.save(result);
 
-		final Collection<Message> all = this.messageService.findAll();
+		final Collection<MessageEmail> all = this.messageService.findAll();
 
 		Assert.isTrue(all.contains(result));
 
@@ -140,10 +140,10 @@ public class MessageServiceTest extends AbstractTest {
 	public void testDeleteMessage() {
 		super.authenticate("customer1");
 
-		final Message message = this.messageService.findOne(62);
+		final MessageEmail message = this.messageService.findOne(62);
 		this.messageService.delete(message);
 
-		final Collection<Message> all = this.messageService.findAll();
+		final Collection<MessageEmail> all = this.messageService.findAll();
 
 		Assert.isTrue(!all.contains(message));
 
@@ -153,15 +153,15 @@ public class MessageServiceTest extends AbstractTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testRespondNegative() {
 		super.authenticate("customer1");
-		final Message message = null;
-		Message result = this.messageService.response(message);
+		final MessageEmail message = null;
+		MessageEmail result = this.messageService.response(message);
 		final Collection<String> attachments = new ArrayList<String>();
 
 		result.setText("Example text");
 		result.setAttachments(attachments);
 
 		result = this.messageService.save(result);
-		final Collection<Message> all = this.messageService.findAll();
+		final Collection<MessageEmail> all = this.messageService.findAll();
 
 		Assert.isTrue(all.contains(result));
 
@@ -173,8 +173,8 @@ public class MessageServiceTest extends AbstractTest {
 		super.authenticate("customer1");
 
 		final Collection<String> attachments = new ArrayList<String>();
-		final Message message = null;
-		Message result = this.messageService.reply(message);
+		final MessageEmail message = null;
+		MessageEmail result = this.messageService.reply(message);
 		final Actor actor = this.actorService.findOne(43);
 		attachments.addAll(message.getAttachments());
 
@@ -183,7 +183,7 @@ public class MessageServiceTest extends AbstractTest {
 
 		result = this.messageService.save(result);
 
-		final Collection<Message> all = this.messageService.findAll();
+		final Collection<MessageEmail> all = this.messageService.findAll();
 
 		Assert.isTrue(all.contains(result));
 
@@ -194,10 +194,10 @@ public class MessageServiceTest extends AbstractTest {
 	public void testDeleteMessageNegative() {
 		super.authenticate("customer1");
 
-		final Message message = this.messageService.findOne(61);
+		final MessageEmail message = this.messageService.findOne(61);
 		this.messageService.delete(message);
 
-		final Collection<Message> all = this.messageService.findAll();
+		final Collection<MessageEmail> all = this.messageService.findAll();
 
 		Assert.isTrue(!all.contains(message));
 

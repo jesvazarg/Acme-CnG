@@ -4,14 +4,14 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Message;
+import domain.MessageEmail;
 
 @Component
 @Transactional
-public class MessageToStringConverter implements Converter<Message, String> {
+public class MessageEmailToStringConverter implements Converter<MessageEmail, String> {
 
 	@Override
-	public String convert(Message message) {
+	public String convert(MessageEmail message) {
 		String result;
 
 		if (message == null){

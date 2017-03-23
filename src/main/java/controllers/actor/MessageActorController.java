@@ -18,7 +18,7 @@ import services.FolderService;
 import services.MessageService;
 import controllers.AbstractController;
 import domain.Actor;
-import domain.Message;
+import domain.MessageEmail;
 
 @Controller
 @RequestMapping("/message/actor")
@@ -46,7 +46,7 @@ public class MessageActorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int messageId) {
 		ModelAndView result;
-		Message message;
+		MessageEmail message;
 		Boolean isRecipient = false;
 		final Actor actor = this.actorService.findByPrincipal();
 
@@ -67,7 +67,7 @@ public class MessageActorController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 
-		final Message message = this.messageService.create();
+		final MessageEmail message = this.messageService.create();
 
 		result = this.createEditModelAndView(message);
 
@@ -75,7 +75,7 @@ public class MessageActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Message messageEmail, final BindingResult binding) {
+	public ModelAndView save(@Valid final MessageEmail messageEmail, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -97,10 +97,10 @@ public class MessageActorController extends AbstractController {
 	public ModelAndView response(@RequestParam final int messageId) {
 		ModelAndView result;
 		final Actor actor = this.actorService.findByPrincipal();
-		final Message messageRequest = this.messageService.findOne(messageId);
+		final MessageEmail messageRequest = this.messageService.findOne(messageId);
 
 		if (messageRequest.getFolder().getActor().equals(actor)) {
-			final Message message = this.messageService.response(messageRequest);
+			final MessageEmail message = this.messageService.response(messageRequest);
 			result = this.createEditModelAndViewResponse(message);
 		} else
 			result = new ModelAndView("redirect:../../folder/actor/list/outBox.do");
@@ -109,7 +109,7 @@ public class MessageActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/createResponse", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveResponse(@Valid final Message messageEmail, final BindingResult binding) {
+	public ModelAndView saveResponse(@Valid final MessageEmail messageEmail, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -130,10 +130,10 @@ public class MessageActorController extends AbstractController {
 	public ModelAndView reply(@RequestParam final int messageId) {
 		ModelAndView result;
 		final Actor actor = this.actorService.findByPrincipal();
-		final Message messageRequest = this.messageService.findOne(messageId);
+		final MessageEmail messageRequest = this.messageService.findOne(messageId);
 
 		if (messageRequest.getFolder().getActor().equals(actor)) {
-			final Message message = this.messageService.reply(messageRequest);
+			final MessageEmail message = this.messageService.reply(messageRequest);
 			result = this.createEditModelAndViewReply(message);
 		} else
 			result = new ModelAndView("redirect:../../folder/actor/list/outBox.do");
@@ -142,7 +142,7 @@ public class MessageActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/reply", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveReply(@Valid final Message messageEmail, final BindingResult binding) {
+	public ModelAndView saveReply(@Valid final MessageEmail messageEmail, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -161,7 +161,7 @@ public class MessageActorController extends AbstractController {
 	//Delete ------------------------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Message message, final BindingResult binding) {
+	public ModelAndView delete(final MessageEmail message, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
@@ -177,12 +177,12 @@ public class MessageActorController extends AbstractController {
 	//Ancillary methods---------------------------------------------------------
 
 	//Create --------------------------------------------------------------------
-	protected ModelAndView createEditModelAndView(final Message message) {
+	protected ModelAndView createEditModelAndView(final MessageEmail message) {
 		final ModelAndView result = this.createEditModelAndView(message, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Message emailMessage, final String message) {
+	protected ModelAndView createEditModelAndView(final MessageEmail messageEmail, final String message) {
 		ModelAndView result;
 		Actor actor;
 		Collection<Actor> recipients;
@@ -191,52 +191,35 @@ public class MessageActorController extends AbstractController {
 		recipients = this.actorService.findAll();
 		recipients.remove(actor);
 
-		String title = "";
-		String text = "";
-
-		if (emailMessage.getTitle() == "")
-			title = "title";
-
-		if (emailMessage.getText() == "")
-			text = "text";
-
 		result = new ModelAndView("message/create");
-		result.addObject("emailMessage", emailMessage);
+		result.addObject("messageEmail", messageEmail);
 		result.addObject("recipients", recipients);
-		result.addObject("title", title);
-		result.addObject("text", text);
 		result.addObject("message", message);
 		return result;
 	}
 
 	//Response --------------------------------------------------------------------
-	protected ModelAndView createEditModelAndViewResponse(final Message message) {
+	protected ModelAndView createEditModelAndViewResponse(final MessageEmail message) {
 		final ModelAndView result = this.createEditModelAndViewResponse(message, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndViewResponse(final Message emailMessage, final String message) {
+	protected ModelAndView createEditModelAndViewResponse(final MessageEmail messageEmail, final String message) {
 		ModelAndView result;
 
-		String text = "";
-
-		if (emailMessage.getText() == "")
-			text = "text";
-
 		result = new ModelAndView("message/response");
-		result.addObject("emailMessage", emailMessage);
-		result.addObject("text", text);
+		result.addObject("messageEmail", messageEmail);
 		result.addObject("message", message);
 		return result;
 	}
 
 	//Reply ------------------------------------------------------------------------
-	protected ModelAndView createEditModelAndViewReply(final Message message) {
+	protected ModelAndView createEditModelAndViewReply(final MessageEmail message) {
 		final ModelAndView result = this.createEditModelAndViewReply(message, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndViewReply(final Message emailMessage, final String message) {
+	protected ModelAndView createEditModelAndViewReply(final MessageEmail messageEmail, final String message) {
 		ModelAndView result;
 		Actor actor;
 		Collection<Actor> recipients;
@@ -246,7 +229,7 @@ public class MessageActorController extends AbstractController {
 		recipients.remove(actor);
 
 		result = new ModelAndView("message/reply");
-		result.addObject("emailMessage", emailMessage);
+		result.addObject("messageEmail", messageEmail);
 		result.addObject("recipients", recipients);
 		result.addObject("message", message);
 		return result;
