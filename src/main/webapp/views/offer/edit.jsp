@@ -18,32 +18,36 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="hasRole('CUSTOMER')">
-	<form:form method="post" action="offer/customer/create.do" modelAttribute="offer" >
+	<form:form method="post" action="offer/customer/edit.do" modelAttribute="offer" >
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="customer" />
 	<form:hidden path="banned" />
+	<form:hidden path="postedToComments"/>
 	
 	<acme:input code="offer.title" path="title" />
 	<acme:input code="offer.description" path="description" />
+	<acme:input code="offer.movingMoment" path="movingMoment" />
 	
-	<form:label path="originPlace">
-		<spring:message code="offer.originPlace" />
-	</form:label>	
-	<jstl:forEach var="originPlace" items="${originPlaces}">
-		<form:checkbox path="originPlace" value="${originPlace}"/><jstl:out value="${originPlace.name}"/>
-	</jstl:forEach>
-	<form:errors path="originPlace" cssClass="error" />
+	<fieldset>
+				<legend align="left">
+					<spring:message code="offer.originPlace" />
+				</legend>
+				<acme:input code="offer.originPlace.address" path="originPlace.address" />
+				<acme:input code="offer.originPlace.latitude" path="originPlace.latitude"/>
+				<acme:input code="offer.originPlace.longitude" path="originPlace.longitude"/>				
+	</fieldset>
 	
-	<form:label path="destinationPlace">
-		<spring:message code="offer.destinationPlace" />
-	</form:label>	
-	<jstl:forEach var="destinationPlace" items="${destinationPlaces}">
-		<form:checkbox path="destinationPlace" value="${destinationPlace}"/><jstl:out value="${destinationPlace.name}"/>
-	</jstl:forEach>
-	<form:errors path="destinationPlace" cssClass="error" />
-	
+	<fieldset>
+				<legend align="left">
+					<spring:message code="offer.destinationPlace" />
+				</legend>
+				<acme:input code="offer.destinationPlace.address" path="destinationPlace.address" />
+				<acme:input code="offer.destinationPlace.latitude" path="destinationPlace.latitude" />
+				<acme:input code="offer.destinationPlace.longitude" path="destinationPlace.longitude" />				
+	</fieldset>
+		
 	
 	
 	<acme:submit name="save" code="offer.save" />

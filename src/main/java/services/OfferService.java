@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.OfferRepository;
+import domain.Comment;
 import domain.Customer;
 import domain.Offer;
 
@@ -59,6 +61,8 @@ public class OfferService {
 		result = new Offer();
 		result.setBanned(false);
 		result.setCustomer(customer);
+		final Collection<Comment> postedToComments = new ArrayList<Comment>();
+		result.setPostedToComments(postedToComments);
 
 		return result;
 	}
