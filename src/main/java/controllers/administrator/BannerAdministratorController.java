@@ -1,5 +1,5 @@
 
-package controllers.customer;
+package controllers.administrator;
 
 import java.util.Collection;
 
@@ -13,28 +13,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CustomerService;
-import services.RequestService;
+import services.BannerService;
 import controllers.AbstractController;
-import domain.Customer;
-import domain.Request;
+import domain.Banner;
 
 @Controller
-@RequestMapping("/request/customer")
-public class RequestCustomerController extends AbstractController {
+@RequestMapping("/banner/administrator")
+public class BannerAdministratorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private RequestService	requestService;
-
-	@Autowired
-	private CustomerService	customerService;
+	private BannerService	bannerService;
 
 
 	// Constructors -----------------------------------------------------------
 
-	public RequestCustomerController() {
+	public BannerAdministratorController() {
 		super();
 	}
 
@@ -43,30 +38,12 @@ public class RequestCustomerController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Request> requests;
+		Collection<Banner> banners;
 
-		requests = this.requestService.findAllNotBanned();
+		banners = this.bannerService.findAll();
 
-		result = new ModelAndView("request/list");
-		result.addObject("requests", requests);
-		result.addObject("general", true);
-
-		return result;
-	}
-
-	// Listing ----------------------------------------------------------------
-
-	@RequestMapping(value = "/listMyRequests", method = RequestMethod.GET)
-	public ModelAndView listMyOffers() {
-		ModelAndView result;
-		Collection<Request> requests;
-		final Customer customer = this.customerService.findByPrincipal();
-
-		requests = this.requestService.findByCustomerId(customer.getId());
-
-		result = new ModelAndView("request/list");
-		result.addObject("requests", requests);
-		result.addObject("general", false);
+		result = new ModelAndView("banner/list");
+		result.addObject("banners", banners);
 
 		return result;
 	}
@@ -76,13 +53,13 @@ public class RequestCustomerController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int requestId) {
 		ModelAndView result;
-		Request request;
+		Banner banner;
 
-		request = this.requestService.findOne(requestId);
+		banner = this.bannerService.findOne(requestId);
 
-		result = new ModelAndView("request/display");
-		result.addObject("request", request);
-		result.addObject("requestURI", "request/customer/display.do");
+		result = new ModelAndView("banner/display");
+		result.addObject("banner", banner);
+		result.addObject("requestURI", "banner/administrator/display.do");
 
 		return result;
 	}
@@ -90,15 +67,15 @@ public class RequestCustomerController extends AbstractController {
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(String picture) {
 		ModelAndView result;
-		Request request;
+		Banner banner;
 
-		request = this.requestService.create();
+		banner = this.bannerService.create(picture);
 
-		result = new ModelAndView("request/edit");
-		result.addObject("request", request);
-		result.addObject("requestURI", "request/customer/edit.do");
+		result = new ModelAndView("banner/edit");
+		result.addObject("banner", banner);
+		result.addObject("requestURI", "banner/administrator/edit.do");
 
 		return result;
 
@@ -109,32 +86,32 @@ public class RequestCustomerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int requestId) {
 		ModelAndView result;
-		Request request;
+		Banner banner;
 
-		request = this.requestService.findOne(requestId);
+		banner = this.bannerService.findOne(requestId);
 
-		result = this.createEditModelAndView(request);
+		result = this.createEditModelAndView(banner);
 
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Request request, final BindingResult binding) {
+	public ModelAndView save(@Valid final Banner banner, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
 
-			result = this.createEditModelAndView(request);
+			result = this.createEditModelAndView(banner);
 		} else
 			try {
-				this.requestService.save(request);
+				this.bannerService.save(banner);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 
-				result = this.createEditModelAndView(request, "request.commit.error");
+				result = this.createEditModelAndView(banner, "request.commit.error");
 			}
 
 		return result;
@@ -142,21 +119,21 @@ public class RequestCustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Request request, final BindingResult binding) {
+	public ModelAndView delete(final Banner banner, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
 
-			result = this.createEditModelAndView(request);
+			result = this.createEditModelAndView(banner);
 		} else
 			try {
-				this.requestService.delete(request);
+				this.bannerService.delete(banner);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 
-				result = this.createEditModelAndView(request, "request.commit.error");
+				result = this.createEditModelAndView(banner, "request.commit.error");
 			}
 
 		return result;
@@ -165,21 +142,21 @@ public class RequestCustomerController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final Request request) {
+	protected ModelAndView createEditModelAndView(final Banner banner) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(request, null);
+		result = this.createEditModelAndView(banner, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Request request, final String message) {
+	protected ModelAndView createEditModelAndView(final Banner banner, final String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("request/edit");
-		result.addObject("request", request);
+		result = new ModelAndView("banner/edit");
+		result.addObject("banner", banner);
 		result.addObject("message", message);
-		result.addObject("requestURI", "request/customer/edit.do");
+		result.addObject("requestURI", "banner/administratr/edit.do");
 
 		return result;
 	}

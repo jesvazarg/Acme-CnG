@@ -12,7 +12,10 @@ import domain.Request;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Integer> {
 
-	@Query("select o from Offer o where o.customer.id=?1")
+	@Query("select r from Request r where r.customer.id=?1")
 	Collection<Request> findByCustomerId(int id);
+
+	@Query("select r from Request r where r.banned=false")
+	Collection<Request> findAllNotBanned();
 
 }

@@ -9,6 +9,8 @@ import org.springframework.util.Assert;
 
 import repositories.ApplyRepository;
 import domain.Apply;
+import domain.Customer;
+import domain.Transaction;
 
 @Service
 @Transactional
@@ -18,8 +20,10 @@ public class ApplyService {
 
 	private ApplyRepository	applyRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	private CustomerService	customerService;
+
 
 	// Constructors------------------------------------------------------------
 	public ApplyService() {
@@ -44,7 +48,7 @@ public class ApplyService {
 		return results;
 	}
 
-	public Apply create(final Apply apply) {
+	public Apply create(Transaction apply) {
 		String status;
 		Apply result;
 
@@ -53,10 +57,23 @@ public class ApplyService {
 		result = new Apply();
 		result.setCustomer(apply.getCustomer());
 		result.setStatus(status);
-		result.setTransaction(apply.getTransaction());
+		result.setTransaction(apply);
 
 		return result;
 
+	}
+
+	public Apply save(final Apply apply) {
+		Assert.notNull(apply);
+		Apply result;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+		Assert.isTrue(customer.equals(apply.getCustomer()));
+
+		result = this.applyRepository.save(apply);
+
+		return result;
 	}
 
 	// Other business methods -------------------------------------------------

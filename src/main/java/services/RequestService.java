@@ -93,4 +93,12 @@ public class RequestService {
 
 		return result;
 	}
+
+	public Collection<Request> findAllNotBanned() {
+		Collection<Request> results;
+
+		results = this.requestRepository.findAllNotBanned();
+
+		return results;
+	}
 }

@@ -34,7 +34,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="offer/customer/listMyOffers.do"><spring:message code="master.page.offer.listMyOffers" /></a></li>
-								
+					<li><a href="request/customer/listMyRequests.do"><spring:message code="master.page.request.listMyRequests" /></a></li>			
 				</ul>
 			</li>
 		</security:authorize>
@@ -61,6 +61,10 @@
 		<security:authorize access="isAuthenticated()">
 			<li>
 				<a class="fNiv" href="offer/customer/list.do"><spring:message code="master.page.offer.list" />
+				</a>
+			</li>
+			<li>
+				<a class="fNiv" href="request/customer/list.do"><spring:message code="master.page.request.list" />
 				</a>
 			</li>
 			<li>

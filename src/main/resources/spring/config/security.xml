@@ -53,6 +53,11 @@
 		<security:intercept-url pattern="/offer/customer/edit.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/offer/customer/delete.do" access="hasRole('CUSTOMER')" />
 		
+		<security:intercept-url pattern="/request/customer/create.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/request/customer/edit.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/request/customer/delete.do" access="hasRole('CUSTOMER')" />
+		
+		
 		<!-- isAnonymous -->
 		<security:intercept-url pattern="/customer/create.do" access="isAnonymous()" /> 
 		
@@ -73,6 +78,9 @@
 	
 		<security:intercept-url pattern="/offer/customer/list.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/offer/customer/display.do" access="isAuthenticated()" />  
+	
+		<security:intercept-url pattern="/request/customer/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/request/customer/display.do" access="isAuthenticated()" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
