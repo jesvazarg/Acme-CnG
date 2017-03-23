@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.RequestRepository;
+import domain.Customer;
 import domain.Request;
 
 @Service
@@ -18,8 +19,10 @@ public class RequestService {
 
 	private RequestRepository	requestRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	private CustomerService		customerService;
+
 
 	// Constructors------------------------------------------------------------
 	public RequestService() {
@@ -44,5 +47,50 @@ public class RequestService {
 		return results;
 	}
 
+	public Request create() {
+		Request result;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+
+		result = new Request();
+		result.setBanned(false);
+		result.setCustomer(customer);
+
+		return result;
+	}
+
+	public Request save(final Request request) {
+		Assert.notNull(request);
+		Request result;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+		Assert.isTrue(customer.equals(request.getCustomer()));
+
+		result = this.requestRepository.save(request);
+
+		return result;
+	}
+
+	public void delete(final Request request) {
+		Assert.notNull(request);
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+		Assert.isTrue(customer.equals(request.getCustomer()));
+
+		this.requestRepository.delete(request);
+	}
+
 	// Other business methods -------------------------------------------------
+
+	public Collection<Request> findByCustomerId(final int customerId) {
+		Collection<Request> result;
+		Customer customer;
+		customer = this.customerService.findOne(customerId);
+		result = this.requestRepository.findByCustomerId(customer.getId());
+
+		return result;
+	}
 }

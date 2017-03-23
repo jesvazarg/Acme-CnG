@@ -44,5 +44,29 @@ public class BannerService {
 		return results;
 	}
 
+	public Banner create(final String picture) {
+		Banner result;
+
+		result = new Banner();
+		result.setPicture(picture);
+
+		return result;
+	}
+
+	public Banner save(final Banner banner) {
+		Assert.notNull(banner);
+		Banner result;
+
+		result = this.bannerRepository.save(banner);
+
+		return result;
+	}
+
+	public void delete(final Banner banner) {
+		Assert.notNull(banner);
+
+		this.bannerRepository.delete(banner);
+	}
+
 	// Other business methods -------------------------------------------------
 }

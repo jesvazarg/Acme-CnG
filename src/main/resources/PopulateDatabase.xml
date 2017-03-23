@@ -334,6 +334,110 @@
 		
 	</bean>
 	
+	<!-- Requests -->
+	
+	<bean id="request1" class="domain.Request">
+		<property name="title" value="Viaje al sur" />
+		<property name="description" value="Me gustaría poder ir a Sevilla" />
+		<property name="movingMoment" value="17/12/2017 9:25" />
+		<property name="originPlace" ref="place1" />
+		<property name="destinationPlace" ref="place3" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer1" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="request2" class="domain.Request">
+		<property name="title" value="Necesito coche para ir al Teide" />
+		<property name="description" value="Necesito un coche para visitar el Teide en verano" />
+		<property name="movingMoment" value="10/08/2017 9:00" />
+		<property name="originPlace" ref="place2" />
+		<property name="destinationPlace" ref="place2" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer2" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="request3" class="domain.Request">
+		<property name="title" value="Solicito coche para viajar por Barcelona" />
+		<property name="description" value="Lo necesito para tomar el aire" />
+		<property name="movingMoment" value="10/10/2017 19:00" />
+		<property name="originPlace" ref="place1" />
+		<property name="destinationPlace" ref="place1" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer3" />
+		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="request4" class="domain.Request">
+		<property name="title" value="Viaje a Barcelona" />
+		<property name="description" value="Me gustaría poder ir a Barcelona desde Sevilla" />
+		<property name="movingMoment" value="12/11/2017 19:00" />
+		<property name="originPlace" ref="place3" />
+		<property name="destinationPlace" ref="place1" />
+		<property name="banned" value="false" />
+		<property name="customer" ref="customer1" />
+		<property name="postedToComments">
+			<list>
+			</list>
+			
+		</property>
+		
+	</bean>
+	
+	<!-- Banners -->
+	
+	<bean id="banner1" class="domain.Banner">
+		<property name="picture" value="http://www.muypymes.com/wp-content/uploads/2011/09/coche_alquiler.jpg" />
+	</bean>
+	
+	<bean id="banner2" class="domain.Banner">
+		<property name="picture" value="https://www.sixt.es/fileadmin/_processed_/csm_alquiler-de-coches-automaticos_b342e432d4.png" />
+	</bean>
+	
+	<bean id="banner3" class="domain.Banner">
+		<property name="picture" value="http://3.bp.blogspot.com/-WIGHnX14S1Q/UU76uPUCvDI/AAAAAAAAAIg/Lnm2mdLIL-0/s1600/alquiler-de-coches-3.jpg" />
+	</bean>
+	
+	<!-- Apply -->
+	
+	<bean id="apply1" class="domain.Apply">
+		<property name="status" value="DENIED" />
+		<property name="customer" ref="customer1" />
+		<property name="transaction" ref="request1" />
+	</bean>
+	
+	<bean id="apply2" class="domain.Apply">
+		<property name="status" value="PENDING" />
+		<property name="customer" ref="customer1" />
+		<property name="transaction" ref="offer1" />
+	</bean>
+	
+	<bean id="apply3" class="domain.Apply">
+		<property name="status" value="DENIED" />
+		<property name="customer" ref="customer3" />
+		<property name="transaction" ref="request3" />
+	</bean>
+	
+	<bean id="apply4" class="domain.Apply">
+		<property name="status" value="ACCEPTED" />
+		<property name="customer" ref="customer2" />
+		<property name="transaction" ref="request2" />
+	</bean>
+	
+	
 	<!-- Folders -->
 
 	<bean id="folder1" class="domain.Folder">

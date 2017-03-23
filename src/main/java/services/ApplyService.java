@@ -44,5 +44,20 @@ public class ApplyService {
 		return results;
 	}
 
+	public Apply create(final Apply apply) {
+		String status;
+		Apply result;
+
+		status = new String();
+
+		result = new Apply();
+		result.setCustomer(apply.getCustomer());
+		result.setStatus(status);
+		result.setTransaction(apply.getTransaction());
+
+		return result;
+
+	}
+
 	// Other business methods -------------------------------------------------
 }
