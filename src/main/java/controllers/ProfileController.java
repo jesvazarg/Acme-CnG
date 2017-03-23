@@ -48,12 +48,24 @@ public class ProfileController extends AbstractController {
 	public ModelAndView display() {
 		final ModelAndView result;
 		Actor principal;
+		final Collection<Authority> authorities;
+		String authority;
+		Boolean isAdmin = false;
 
 		principal = this.actorService.findByPrincipal();
 
+		authorities = principal.getUserAccount().getAuthorities();
+		for (final Authority a : authorities) {
+			authority = a.getAuthority();
+			if (authority.equals("ADMIN"))
+				isAdmin = true;
+		}
+
 		result = new ModelAndView("profile/display");
+		result.addObject("principal", principal);
 		result.addObject("profile", principal);
 		result.addObject("same", true);
+		result.addObject("isAdmin", isAdmin);
 		result.addObject("requestURI", "profile/display.do");
 
 		return result;
@@ -67,7 +79,7 @@ public class ProfileController extends AbstractController {
 		Boolean same = false;
 		final Collection<Authority> authorities;
 		String authority;
-		Boolean sameOrAdmin = false;
+		Boolean isAdmin = false;
 
 		actor = this.actorService.findOne(actorId);
 
@@ -78,14 +90,15 @@ public class ProfileController extends AbstractController {
 		authorities = principal.getUserAccount().getAuthorities();
 		for (final Authority a : authorities) {
 			authority = a.getAuthority();
-			if ((same == true) || (authority.equals("ADMIN")))
-				sameOrAdmin = true;
+			if (authority.equals("ADMIN"))
+				isAdmin = true;
 		}
 
 		result = new ModelAndView("profile/display");
+		result.addObject("principal", principal);
 		result.addObject("profile", actor);
 		result.addObject("same", same);
-		result.addObject("sameOrAdmin", sameOrAdmin);
+		result.addObject("isAdmin", isAdmin);
 		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());
 
 		return result;

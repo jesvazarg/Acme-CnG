@@ -33,9 +33,9 @@
 		</li>
 		<li>
 			<b><spring:message code="profile.comments" /></b>
-			<display:table name="${profile.comments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+			<display:table name="${profile.postedToComments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 				
-				<jstl:if test="${!row.banned or sameOrAdmin}">
+				<jstl:if test="${!row.banned or isAdmin or ((row.postedBy.id==principal.id))}">
 					<spring:message code="profile.comments.title" var="titleHeader" />
 					<display:column property="title" title="${titleHeader}" sortable="true" />
 					
@@ -50,7 +50,7 @@
 				</jstl:if>
 					<spring:message code="profile.comments.banned" var="bannedHeader" />
 					<display:column property="banned" title="${bannedHeader}" sortable="true" />
-				<jstl:if test="${!row.banned or sameOrAdmin}">
+				<jstl:if test="${!row.banned or isAdmin or ((row.postedBy.id==principal.id))}">
 					<display:column>
 						<a href="profile/display.do?actorId=${row.postedBy.id}"><jstl:out value="${row.postedBy.name }"/> </a>
 					</display:column>
