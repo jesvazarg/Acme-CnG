@@ -354,7 +354,7 @@
 	<bean id="request2" class="domain.Request">
 		<property name="title" value="Necesito coche para ir al Teide" />
 		<property name="description" value="Necesito un coche para visitar el Teide en verano" />
-		<property name="movingMoment" value="10/08/2017 9:00" />
+		<property name="movingMoment" value="08/10/2017 9:00" />
 		<property name="originPlace" ref="place2" />
 		<property name="destinationPlace" ref="place2" />
 		<property name="banned" value="false" />
