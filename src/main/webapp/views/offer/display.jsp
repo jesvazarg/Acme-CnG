@@ -66,3 +66,13 @@
 		</jstl:if>
 	</div>
 </security:authorize>
+
+<security:authorize access="hasRole('CUSTOMER')">
+
+		<jstl:if test="${isCustomer}">
+			<li><a href="offer/customer/edit.do?offerId=${offer.id}">
+				<spring:message code="offer.edit"/>
+			</a></li>
+		</jstl:if>
+	
+	</security:authorize>

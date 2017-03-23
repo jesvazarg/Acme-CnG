@@ -26,6 +26,10 @@
 	<acme:column code="offer.originPlace" property="originPlace" />
 	<acme:column code="offer.destinationPlace" property="destinationPlace" />
 	
+	<jstl:if test="${general!=true}">
+				<acme:column code="offer.banned" property="banned"/>
+	</jstl:if>
+			
 	<display:column>
 		<a href="offer/customer/display.do?offerId=${offer.id}"><spring:message
 			code="offer.display" />

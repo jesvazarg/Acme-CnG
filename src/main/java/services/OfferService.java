@@ -52,6 +52,14 @@ public class OfferService {
 		return results;
 	}
 
+	public Collection<Offer> findAllNotBanned() {
+		Collection<Offer> results;
+
+		results = this.offerRepository.findAllNotBanned();
+
+		return results;
+	}
+
 	public Offer create() {
 		Offer result;
 		Customer customer;
@@ -98,5 +106,13 @@ public class OfferService {
 		result = this.offerRepository.findByCustomerId(customer.getId());
 
 		return result;
+	}
+
+	public Boolean belongsToCurrentCustomer(final Offer offer) {
+		Boolean res = false;
+		final Customer customer = this.customerService.findByPrincipal();
+		if (offer.getCustomer().equals(customer))
+			res = true;
+		return res;
 	}
 }

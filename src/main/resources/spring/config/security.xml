@@ -45,8 +45,7 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
-		<security:intercept-url pattern="/offer/customer/list.do" access="permitAll" />
-		<security:intercept-url pattern="/offer/customer/display.do" access="permitAll" />  
+
 		
 		<!-- CUSTOMER -->
 		
@@ -71,6 +70,9 @@
 		<security:intercept-url pattern="/message/actor/createResponse.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/actor/reply.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/actor/delete.do" access="isAuthenticated()" /> 
+	
+		<security:intercept-url pattern="/offer/customer/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/offer/customer/display.do" access="isAuthenticated()" />  
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CustomerService;
 import services.OfferService;
 import controllers.AbstractController;
+import domain.Customer;
 import domain.Offer;
 
 @Controller
@@ -25,6 +27,9 @@ public class OfferCustomerController extends AbstractController {
 
 	@Autowired
 	private OfferService	offerService;
+
+	@Autowired
+	private CustomerService	customerService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -40,10 +45,28 @@ public class OfferCustomerController extends AbstractController {
 		ModelAndView result;
 		Collection<Offer> offers;
 
-		offers = this.offerService.findAll();
+		offers = this.offerService.findAllNotBanned();
 
 		result = new ModelAndView("offer/list");
 		result.addObject("offers", offers);
+		result.addObject("general", true);
+
+		return result;
+	}
+
+	// Listing ----------------------------------------------------------------
+
+	@RequestMapping(value = "/listMyOffers", method = RequestMethod.GET)
+	public ModelAndView listMyOffers() {
+		ModelAndView result;
+		Collection<Offer> offers;
+		final Customer customer = this.customerService.findByPrincipal();
+
+		offers = this.offerService.findByCustomerId(customer.getId());
+
+		result = new ModelAndView("offer/list");
+		result.addObject("offers", offers);
+		result.addObject("general", false);
 
 		return result;
 	}
@@ -54,11 +77,14 @@ public class OfferCustomerController extends AbstractController {
 	public ModelAndView display(@RequestParam final int offerId) {
 		ModelAndView result;
 		Offer offer;
+		Boolean res = false;
 
 		offer = this.offerService.findOne(offerId);
+		res = this.offerService.belongsToCurrentCustomer(offer);
 
 		result = new ModelAndView("offer/display");
 		result.addObject("offer", offer);
+		result.addObject("isCustomer", res);
 		result.addObject("requestURI", "offer/customer/display.do");
 
 		return result;

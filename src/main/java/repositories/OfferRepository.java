@@ -15,4 +15,7 @@ public interface OfferRepository extends JpaRepository<Offer, Integer> {
 	@Query("select o from Offer o where o.customer.id=?1")
 	Collection<Offer> findByCustomerId(int id);
 
+	@Query("select o from Offer o where o.banned=false")
+	Collection<Offer> findAllNotBanned();
+
 }
