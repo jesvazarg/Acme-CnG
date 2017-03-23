@@ -51,7 +51,7 @@
 </jstl:if>
 
 	<div>
-		<a href="message/actor/reply.do?messageId=${thisMessage.id}"><spring:message
+		<a href="message/actor/forward.do?messageId=${thisMessage.id}"><spring:message
 				code="message.reply" /></a>
 	</div>
 

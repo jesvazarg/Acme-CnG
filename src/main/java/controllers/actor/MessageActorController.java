@@ -126,7 +126,7 @@ public class MessageActorController extends AbstractController {
 	}
 
 	//Reply ------------------------------------------------------------------------
-	@RequestMapping(value = "/reply", method = RequestMethod.GET)
+	@RequestMapping(value = "/forward", method = RequestMethod.GET)
 	public ModelAndView reply(@RequestParam final int messageId) {
 		ModelAndView result;
 		final Actor actor = this.actorService.findByPrincipal();
@@ -141,7 +141,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/reply", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/forward", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveReply(@Valid final MessageEmail messageEmail, final BindingResult binding) {
 		ModelAndView result;
 

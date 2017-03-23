@@ -68,7 +68,7 @@
 		<security:intercept-url pattern="/message/actor/display.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/actor/create.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/actor/createResponse.do" access="isAuthenticated()" />
-		<security:intercept-url pattern="/message/actor/reply.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/actor/forward.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/actor/delete.do" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/offer/customer/list.do" access="isAuthenticated()" />

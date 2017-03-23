@@ -21,7 +21,6 @@
 	
 	
 	<acme:input code="message.text" path="text" />
-	<span class="message"><spring:message code="messageError.${text}" /></span>
 	
 	<acme:input code="message.attachments" path="attachments" />
 	
