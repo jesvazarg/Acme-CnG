@@ -28,7 +28,7 @@ public class StringToCommentableConverter implements Converter<String, Commentab
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.commentableRepository.findOne(id);
+				result = this.commentableRepository.findById(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

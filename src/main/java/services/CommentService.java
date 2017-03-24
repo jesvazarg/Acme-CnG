@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Calendar;
@@ -14,92 +15,89 @@ import domain.Actor;
 import domain.Comment;
 import domain.Commentable;
 
-
 @Service
 @Transactional
 public class CommentService {
 
 	//ManagedRepository----------------------------------------------
-	
+
 	@Autowired
-	private CommentRepository commentRepository;
-	
+	private CommentRepository	commentRepository;
+
 	//Supporting Services--------------------------------------------
-	
+
 	@Autowired
-	private ActorService actorService;
-	
+	private ActorService		actorService;
+
+
 	//Constructor----------------------------------------------------
-	
-	public CommentService(){
+
+	public CommentService() {
 		super();
 	}
-	
+
 	//SimpleCRUDMethods ----------------------------------------------
-	
-	public Comment findOne(int commentId){
+
+	public Comment findOne(final int commentId) {
 		Assert.notNull(commentId);
-		Comment result=commentRepository.findOne(commentId);
+		final Comment result = this.commentRepository.findOne(commentId);
 		Assert.notNull(result);
-		
+
 		return result;
-		
+
 	}
-	
-	public Collection<Comment> findAll(){
-		
-		return commentRepository.findAll();
+
+	public Collection<Comment> findAll() {
+
+		return this.commentRepository.findAll();
 	}
-	
-	public Comment create (Commentable postedTo){
-		
-		Comment result = new Comment();
-		
-		Actor principal = actorService.findByPrincipal();
+
+	public Comment create(final Commentable postedTo) {
+
+		final Comment result = new Comment();
+
+		final Actor principal = this.actorService.findByPrincipal();
 		Assert.notNull(principal);
 		result.setPostedBy(principal);
-		
-		
-		Calendar thisMoment = Calendar.getInstance();
+
+		final Calendar thisMoment = Calendar.getInstance();
 		result.setPostedMoment(thisMoment.getTime());
 
 		Assert.notNull(postedTo);
 		result.setPostedTo(postedTo);
-		
+
 		result.setBanned(false);
-		
-		return result;	
-	}
-	
-	public Comment save(Comment comment){
-		
-		Assert.notNull(comment);
-		Assert.isTrue(actorService.findByPrincipal().equals(comment.getPostedBy()));
-		
-		Comment result=commentRepository.save(comment);
-		
+
 		return result;
 	}
-	
-	public void delete(Comment comment){
-		Assert.isTrue(actorService.findByPrincipal().equals(comment.getPostedBy()));
+
+	public Comment save(final Comment comment) {
+
 		Assert.notNull(comment);
-		
-		commentRepository.delete(comment);
+		Assert.isTrue(this.actorService.findByPrincipal().equals(comment.getPostedBy()));
+
+		final Comment result = this.commentRepository.save(comment);
+
+		return result;
 	}
-	
-	
+
+	public void delete(final Comment comment) {
+		Assert.isTrue(this.actorService.findByPrincipal().equals(comment.getPostedBy()));
+		Assert.notNull(comment);
+
+		this.commentRepository.delete(comment);
+	}
+
 	// Other business methods -------------------------------------------------
-	
-	public void banComment(Comment comment){
-		
+
+	public void banComment(final Comment comment) {
+
 		Assert.notNull(comment);
-		
+
 		comment.setBanned(true);
-		
-		commentRepository.save(comment);
-		
+
+		this.commentRepository.save(comment);
+
 	}
-	
-	
+
 }

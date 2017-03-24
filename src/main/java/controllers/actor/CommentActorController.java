@@ -1,3 +1,4 @@
+
 package controllers.actor;
 
 import javax.validation.Valid;
@@ -16,52 +17,51 @@ import controllers.AbstractController;
 import domain.Comment;
 import domain.Commentable;
 
-
 @Controller
 @RequestMapping("/comment/actor")
-public class CommentActorController extends AbstractController{
-	
-	
+public class CommentActorController extends AbstractController {
+
 	//Controller-----------------------------------------
-	
-	public CommentActorController(){
+
+	public CommentActorController() {
 		super();
 	}
 
+
 	//Services --------------------------------------------
-	
+
 	@Autowired
-	private CommentService commentService;
-	
-//	@Autowired
-//	private ActorService actorService;
-	
+	private CommentService		commentService;
+
+	//	@Autowired
+	//	private ActorService actorService;
+
 	@Autowired
-	private CommentableService commentableService;
-	
+	private CommentableService	commentableService;
+
+
 	//Create -------------------------------------------------
 
-	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public ModelAndView create(@RequestParam int commentablePostedToId){
-		
-		ModelAndView result;
-		Comment comment;
-		
-		Commentable commentablePostedTo = commentableService.findById(commentablePostedToId);
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int commentablePostedToId) {
 
-		comment = commentService.create(commentablePostedTo);
-		
+		ModelAndView result;
+		Commentable postedTo;
+		Comment comment;
+
+		postedTo = this.commentableService.findById(commentablePostedToId);
+
+		comment = this.commentService.create(postedTo);
+
 		result = new ModelAndView("comment/edit");
 		result.addObject("comment", comment);
-		result.addObject("requestURI", "comment/actor/edit.do");
-			
+
 		return result;
 	}
-	
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Comment comment, BindingResult binding){
-		
+	public ModelAndView save(@Valid final Comment comment, final BindingResult binding) {
+
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
@@ -71,7 +71,7 @@ public class CommentActorController extends AbstractController{
 		} else
 			try {
 				this.commentService.save(comment);
-				result = new ModelAndView("redirect:../../profile/display.do?actorId="+comment.getPostedTo().getId());
+				result = new ModelAndView("redirect:../../profile/display.do?actorId=" + comment.getPostedTo().getId());
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 
@@ -79,15 +79,15 @@ public class CommentActorController extends AbstractController{
 			}
 		return result;
 	}
-	
+
 	//Ancillary methods----------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(Comment comment) {
-		ModelAndView result = createEditModelAndView(comment, null);
+	protected ModelAndView createEditModelAndView(final Comment comment) {
+		final ModelAndView result = this.createEditModelAndView(comment, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(Comment comment, String message) {
+	protected ModelAndView createEditModelAndView(final Comment comment, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("comment/edit");
@@ -97,5 +97,4 @@ public class CommentActorController extends AbstractController{
 		return result;
 	}
 
-	
 }
