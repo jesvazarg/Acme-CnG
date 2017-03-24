@@ -115,6 +115,24 @@ public class OfferCustomerController extends AbstractController {
 		return result;
 	}
 
+	// Bann -------------------------------------------------------------
+
+	@RequestMapping(value = "/bann", method = RequestMethod.GET)
+	public ModelAndView bann(@RequestParam final int offerId) {
+		ModelAndView result;
+		Collection<Offer> offers;
+		Offer offer;
+
+		offer = this.offerService.bannOffer(offerId);
+		offers = this.offerService.findAllNotBanned();
+
+		result = new ModelAndView("offer/list");
+		result.addObject("offers", offers);
+		result.addObject("general", true);
+
+		return result;
+	}
+
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

@@ -48,6 +48,7 @@
 		<!-- ADMIN -->
 		
 		<security:intercept-url pattern="/banner/administrator/edit.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/offer/customer/bann.do" access="hasRole('ADMIN')" />
 		
 		<!-- CUSTOMER -->
 		

@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.OfferRepository;
+import domain.Actor;
+import domain.Administrator;
 import domain.Comment;
 import domain.Customer;
 import domain.Offer;
@@ -21,12 +23,18 @@ public class OfferService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private OfferRepository	offerRepository;
+	private OfferRepository			offerRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private CustomerService	customerService;
+	private CustomerService			customerService;
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	// Constructors------------------------------------------------------------
@@ -122,6 +130,18 @@ public class OfferService {
 		if (offer.getCustomer().equals(customer))
 			res = true;
 		return res;
+	}
+
+	public Offer bannOffer(final int offerId) {
+		Offer result;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Administrator administrator = this.administratorService.findByUserAccount(actor.getUserAccount());
+		final Offer offer = this.offerRepository.findOne(offerId);
+		if (administrator != null)
+			offer.setBanned(true);
+
+		result = this.offerRepository.save(offer);
+		return result;
 	}
 
 }

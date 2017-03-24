@@ -60,6 +60,14 @@
 		</a>
 	</display:column>
 	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="offer/customer/bann.do?offerId=${offer.id}"><spring:message
+				code="offer.bann" />
+			</a>
+		</display:column>
+	</security:authorize>
+		
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
 			<jstl:if test="${principalUserAccount.id == offer.customer.userAccount.id &&  offer.banned=='false'}">
