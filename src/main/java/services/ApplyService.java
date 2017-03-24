@@ -55,16 +55,16 @@ public class ApplyService {
 	}
 
 	public Apply create(int transactionId) {
-		String status;
 		Apply result;
 		Transaction t;
+		Customer customer;
 
 		t = transactionService.findOne(transactionId);
-		status = new String();
+		customer = customerService.findByPrincipal();
 
 		result = new Apply();
-		result.setCustomer(t.getCustomer());
-		result.setStatus(status);
+		result.setCustomer(customer);
+		result.setStatus("PENDING");
 		result.setTransaction(t);
 
 		return result;

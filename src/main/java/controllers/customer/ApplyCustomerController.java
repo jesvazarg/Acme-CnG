@@ -66,16 +66,16 @@ public class ApplyCustomerController extends AbstractController {
 
 	// Creation ---------------------------------------------------------------
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "createApply")
 	public ModelAndView create(@RequestParam final int transactionId) {
 		ModelAndView result;
 		Apply apply;
 
-		apply = this.applyService.create(transactionId);
+		apply = applyService.create(transactionId);
+		applyService.save(apply);
+		System.out.println(apply.getCustomer().getName());
 
-		result = new ModelAndView("request/edit");
-		result.addObject("apply", apply);
-		result.addObject("requestURI", "request/customer/edit.do");
+		result = new ModelAndView("redirect:../../");
 
 		return result;
 
