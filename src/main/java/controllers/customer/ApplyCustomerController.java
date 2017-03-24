@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ApplyService;
 import controllers.AbstractController;
 import domain.Apply;
-import domain.Transaction;
 
 @Controller
 @RequestMapping("/apply/customer")
@@ -52,11 +51,11 @@ public class ApplyCustomerController extends AbstractController {
 	// Displaying -------------------------------------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int requestId) {
+	public ModelAndView display(@RequestParam final int applyId) {
 		ModelAndView result;
 		Apply apply;
 
-		apply = this.applyService.findOne(requestId);
+		apply = this.applyService.findOne(applyId);
 
 		result = new ModelAndView("apply/display");
 		result.addObject("apply", apply);
@@ -68,11 +67,11 @@ public class ApplyCustomerController extends AbstractController {
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(Transaction t) {
+	public ModelAndView create(@RequestParam final int transactionId) {
 		ModelAndView result;
 		Apply apply;
 
-		apply = this.applyService.create(t);
+		apply = this.applyService.create(transactionId);
 
 		result = new ModelAndView("request/edit");
 		result.addObject("apply", apply);
@@ -108,7 +107,7 @@ public class ApplyCustomerController extends AbstractController {
 		} else
 			try {
 				this.applyService.save(apply);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/apply/customer/list.do");
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 

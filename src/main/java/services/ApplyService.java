@@ -3,6 +3,7 @@ package services;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -18,11 +19,16 @@ public class ApplyService {
 
 	// Managed repository -----------------------------------------------------
 
-	private ApplyRepository	applyRepository;
+	@Autowired
+	private ApplyRepository		applyRepository;
 
 	// Supporting services ----------------------------------------------------
 
-	private CustomerService	customerService;
+	@Autowired
+	private CustomerService		customerService;
+
+	@Autowired
+	private TransactionService	transactionService;
 
 
 	// Constructors------------------------------------------------------------
@@ -48,16 +54,18 @@ public class ApplyService {
 		return results;
 	}
 
-	public Apply create(Transaction apply) {
+	public Apply create(int transactionId) {
 		String status;
 		Apply result;
+		Transaction t;
 
+		t = transactionService.findOne(transactionId);
 		status = new String();
 
 		result = new Apply();
-		result.setCustomer(apply.getCustomer());
+		result.setCustomer(t.getCustomer());
 		result.setStatus(status);
-		result.setTransaction(apply);
+		result.setTransaction(t);
 
 		return result;
 

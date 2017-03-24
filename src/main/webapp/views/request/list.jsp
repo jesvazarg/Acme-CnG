@@ -46,10 +46,10 @@
 	
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
-			<jstl:if test="${principalUserAccount.id == row.customer.userAccount.id &&  row.banned=='false'}">
-				<li><a href="apply/customer/create.do?requestId=${row.id}">
+			<jstl:if test="${principalUserAccount.id != row.customer.userAccount.id &&  row.banned=='false'}">
+				<a href="apply/customer/create.do?requestId=${row.id}">
 					<spring:message code="request.apply"/>
-				</a></li>
+				</a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>	
