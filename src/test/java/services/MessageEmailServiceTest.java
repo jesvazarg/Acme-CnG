@@ -22,12 +22,12 @@ import domain.MessageEmail;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class MessageServiceTest extends AbstractTest {
+public class MessageEmailServiceTest extends AbstractTest {
 
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private MessageService	messageService;
+	private MessageEmailService	messageService;
 
 	@Autowired
 	private ActorService	actorService;

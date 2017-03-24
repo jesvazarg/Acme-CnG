@@ -28,7 +28,7 @@ public class FolderService {
 	private ActorService		actorService;
 
 	@Autowired
-	private MessageService		messageService;
+	private MessageEmailService		messageService;
 
 
 	// Constructors -----------------------------------------------------------

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.FolderService;
-import services.MessageService;
+import services.MessageEmailService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Folder;
@@ -27,7 +27,7 @@ public class FolderActorController extends AbstractController {
 	private FolderService	folderService;
 
 	@Autowired
-	private MessageService	messageService;
+	private MessageEmailService	messageService;
 
 	@Autowired
 	private ActorService	actorService;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.MessageRepository;
+import repositories.MessageEmailRepository;
 import domain.MessageEmail;
 
 @Component
@@ -15,7 +15,7 @@ import domain.MessageEmail;
 public class StringToMessageEmailConverter implements Converter<String, MessageEmail> {
 
 	@Autowired
-	MessageRepository	messageRepository;
+	MessageEmailRepository	messageRepository;
 
 
 	@Override

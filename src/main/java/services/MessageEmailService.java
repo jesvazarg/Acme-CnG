@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.MessageRepository;
+import repositories.MessageEmailRepository;
 import domain.Actor;
 import domain.Folder;
 import domain.MessageEmail;
 
 @Service
 @Transactional
-public class MessageService {
+public class MessageEmailService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageEmailRepository	messageRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
@@ -31,7 +31,7 @@ public class MessageService {
 
 
 	// Constructors------------------------------------------------------------
-	public MessageService() {
+	public MessageEmailService() {
 		super();
 	}
 
