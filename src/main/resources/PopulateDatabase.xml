@@ -403,14 +403,6 @@
 		<property name="picture" value="http://www.muypymes.com/wp-content/uploads/2011/09/coche_alquiler.jpg" />
 	</bean>
 	
-	<bean id="banner2" class="domain.Banner">
-		<property name="picture" value="https://www.sixt.es/fileadmin/_processed_/csm_alquiler-de-coches-automaticos_b342e432d4.png" />
-	</bean>
-	
-	<bean id="banner3" class="domain.Banner">
-		<property name="picture" value="http://3.bp.blogspot.com/-WIGHnX14S1Q/UU76uPUCvDI/AAAAAAAAAIg/Lnm2mdLIL-0/s1600/alquiler-de-coches-3.jpg" />
-	</bean>
-	
 	<!-- Apply -->
 	
 	<bean id="apply1" class="domain.Apply">
