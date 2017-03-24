@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
@@ -116,6 +117,29 @@ public class OfferServiceTest extends AbstractTest {
 		System.out.println("----------------------------------------");
 		super.authenticate(null);
 
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	@Rollback(value = true)
+	public void testEditOfferNegative() {
+		super.authenticate("customer1");
+		Offer offer;
+
+		offer = this.offerService.findOne(58);
+
+		offer.setTitle("");
+		offer.setDescription("description");
+
+		final Place place = new Place();
+		place.setAddress("Madrid");
+
+		offer.setOriginPlace(place);
+		offer.setDestinationPlace(place);
+
+		offer = this.offerService.save(offer);
+		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
+		System.out.println("----------------------------------------");
+		super.authenticate(null);
 	}
 
 }

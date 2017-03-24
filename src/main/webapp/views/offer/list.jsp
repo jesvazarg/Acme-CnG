@@ -68,15 +68,6 @@
 		</display:column>
 	</security:authorize>
 		
-	<security:authorize access="hasRole('CUSTOMER')">
-		<display:column>
-			<jstl:if test="${principalUserAccount.id == offer.customer.userAccount.id &&  offer.banned=='false'}">
-				<li><a href="apply/customer/create.do?offerId=${offer.id}">
-					<spring:message code="offer.apply"/>
-				</a></li>
-			</jstl:if>
-		</display:column>
-	</security:authorize>	
 	
 </display:table>
 
