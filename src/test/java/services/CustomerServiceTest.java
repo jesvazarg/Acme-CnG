@@ -32,7 +32,7 @@ public class CustomerServiceTest extends AbstractTest {
 	public void testFindOne() {
 		Customer customer;
 
-		customer = this.customerService.findOne(44);
+		customer = this.customerService.findOne(55);
 
 		System.out.println("findOne: " + customer.getId() + " name: " + customer.getName());
 		System.out.println("----------------------------------------");
@@ -63,7 +63,7 @@ public class CustomerServiceTest extends AbstractTest {
 	public void testSave() {
 		Customer customer;
 
-		customer = this.customerService.findOne(44);
+		customer = this.customerService.findOne(55);
 
 		customer.setName("Customer test");
 		customer.setEmail("customertest@gmail.com");
@@ -100,7 +100,7 @@ public class CustomerServiceTest extends AbstractTest {
 	public void testFindByUserAccountId() {
 		Customer customer;
 
-		customer = this.customerService.findByUserAccountId(39);
+		customer = this.customerService.findByUserAccountId(50);
 
 		System.out.println("create+save: " + customer.getId() + " name: " + customer.getName() + " username: " + customer.getUserAccount().getUsername());
 		System.out.println("----------------------------------------");
