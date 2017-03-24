@@ -97,6 +97,14 @@ public class RequestService {
 		return result;
 	}
 
+	public Collection<Request> findByKeywordNotBanned(final String keyword) {
+		Collection<Request> result;
+
+		result = this.requestRepository.findByKeywordNotBanned("%" + keyword + "%");
+
+		return result;
+	}
+
 	public Collection<Request> findAllNotBanned() {
 		Collection<Request> results;
 

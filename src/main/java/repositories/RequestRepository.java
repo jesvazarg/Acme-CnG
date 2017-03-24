@@ -18,4 +18,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("select r from Request r where r.banned=false")
 	Collection<Request> findAllNotBanned();
 
+	@Query("select r from Request r where (r.title like ?1 or r.description like ?1 or r.originPlace.address like ?1 or r.destinationPlace.address like ?1) and r.banned=false")
+	Collection<Request> findByKeywordNotBanned(String keyword);
+
 }

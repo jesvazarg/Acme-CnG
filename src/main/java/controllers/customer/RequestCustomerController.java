@@ -54,6 +54,22 @@ public class RequestCustomerController extends AbstractController {
 		return result;
 	}
 
+	// Search -----------------------------------------------------------------
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search(@RequestParam final String keyword) {
+		ModelAndView result;
+		Collection<Request> requests;
+
+		requests = this.requestService.findByKeywordNotBanned(keyword);
+
+		result = new ModelAndView("request/list");
+		result.addObject("requests", requests);
+		result.addObject("general", true);
+
+		return result;
+	}
+
 	// Listing ----------------------------------------------------------------
 
 	@RequestMapping(value = "/listMyRequests", method = RequestMethod.GET)
