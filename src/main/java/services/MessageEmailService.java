@@ -24,10 +24,10 @@ public class MessageEmailService {
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private FolderService		folderService;
+	private FolderService			folderService;
 
 
 	// Constructors------------------------------------------------------------
@@ -93,6 +93,7 @@ public class MessageEmailService {
 
 	public MessageEmail save(MessageEmail message) {
 		Assert.notNull(message);
+		Assert.isTrue(this.validatorURL(message.getAttachments()));
 
 		MessageEmail messageIn;
 		Folder folderIn;
@@ -166,10 +167,14 @@ public class MessageEmailService {
 		Boolean res = false;
 		if (!lista.isEmpty()) {
 			for (final String aux : lista)
-				if ((aux.subSequence(0, 11).equals("http://www.") || (aux.subSequence(0, 12).equals("https://www."))
-					&& ((aux.subSequence(aux.length() - 4, aux.length() - 3).equals(".")) || (aux.subSequence(aux.length() - 3, aux.length() - 2).equals(".")))))
-					res = true;
-				else {
+				if (aux.length() > 11) {
+					if ((aux.subSequence(0, 11).equals("http://www.") || (aux.subSequence(0, 12).equals("https://www."))))
+						res = true;
+					else {
+						res = false;
+						break;
+					}
+				} else {
 					res = false;
 					break;
 				}
