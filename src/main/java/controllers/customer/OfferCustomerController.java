@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.CommentService;
 import services.CustomerService;
 import services.OfferService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Comment;
 import domain.Customer;
 import domain.Offer;
 
@@ -35,6 +37,9 @@ public class OfferCustomerController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
+	
+	@Autowired
+	private CommentService commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -107,9 +112,12 @@ public class OfferCustomerController extends AbstractController {
 		if (customer != null)
 			res = this.offerService.belongsToCurrentCustomer(offer);
 
+		Collection<Comment> comments = this.commentService.getCommentsFilterBan(offer.getPostedToComments());
+		
 		result = new ModelAndView("offer/display");
 		result.addObject("offer", offer);
 		result.addObject("isCustomer", res);
+		result.addObject("comments",comments);
 		result.addObject("requestURI", "offer/customer/display.do");
 
 		return result;

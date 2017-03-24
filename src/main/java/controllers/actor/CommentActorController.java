@@ -14,8 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 import services.CommentService;
 import services.CommentableService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Comment;
 import domain.Commentable;
+import domain.Offer;
+import domain.Request;
 
 @Controller
 @RequestMapping("/comment/actor")
@@ -62,7 +65,7 @@ public class CommentActorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Comment comment, final BindingResult binding) {
 
-		ModelAndView result;
+		ModelAndView result=new ModelAndView();
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
@@ -71,7 +74,14 @@ public class CommentActorController extends AbstractController {
 		} else
 			try {
 				this.commentService.save(comment);
-				result = new ModelAndView("redirect:../../profile/display.do?actorId=" + comment.getPostedTo().getId());
+				if(comment.getPostedTo() instanceof Actor){
+				    result = new ModelAndView("redirect:../../profile/display.do?actorId=" + comment.getPostedTo().getId());
+				}else if(comment.getPostedTo() instanceof Offer){
+					result = new ModelAndView("redirect:../../offer/customer/display.do?offerId=" + comment.getPostedTo().getId());
+				}else if(comment.getPostedTo() instanceof Request){
+					result = new ModelAndView("redirect:../../request/customer/display.do?requestId="+ comment.getPostedTo().getId());
+					
+				}
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 

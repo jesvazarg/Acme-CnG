@@ -46,10 +46,10 @@
 				
 				<spring:message code="profile.comments.starsNumber" var="starsNumberHeader" />
 				<display:column property="starsNumber" title="${starsNumberHeader}" sortable="true" />
-			
+				
 				<spring:message code="profile.comments.banned" var="bannedHeader" />
 				<display:column property="banned" title="${bannedHeader}" sortable="true" />
-			
+				
 				<spring:message code="profile.comments.postedBy" var="postedByHeader" />
 				<display:column title="${postedByHeader}">
 					<a href="profile/display.do?actorId=${row.postedBy.id}"><jstl:out value="${row.postedBy.name }"/> </a>
@@ -68,6 +68,7 @@
 		<security:authorize access="isAuthenticated()">
 		  		<acme:button url="comment/actor/create.do?commentablePostedToId=${profile.id}" code="profile.newComment"/>
 		</security:authorize>
+		
 		
 		<jstl:if test="${same}">
 			<acme:button url="folder/actor/list/inBox.do" code="profile.inBox" />

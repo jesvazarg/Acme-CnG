@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.CommentService;
 import services.CustomerService;
 import services.RequestService;
 import controllers.AbstractController;
+import domain.Actor;
+import domain.Comment;
 import domain.Customer;
 import domain.Request;
 
@@ -30,6 +34,12 @@ public class RequestCustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService	customerService;
+	
+	@Autowired
+	private ActorService actorService;
+	
+	@Autowired
+	private CommentService commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -93,11 +103,15 @@ public class RequestCustomerController extends AbstractController {
 	public ModelAndView display(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
-
+		Collection<Comment> comments;
+		
 		request = this.requestService.findOne(requestId);
-
+		
+		comments = this.commentService.getCommentsFilterBan(request.getPostedToComments());
+		
 		result = new ModelAndView("request/display");
 		result.addObject("request", request);
+		result.addObject("comments",comments);
 		result.addObject("requestURI", "request/customer/display.do");
 
 		return result;

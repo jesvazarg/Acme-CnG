@@ -55,8 +55,7 @@
 	
 	<spring:message code="offer.customer" var="customerHeader" />
 	<display:column title="${customerHeader}">
-		<a href="profile/display.do?actorId=${offer.customer.id}"><spring:message
-			code="offer.display" />
+		<a href="profile/display.do?actorId=${offer.customer.id}"><jstl:out value="${offer.customer.name}"/>
 		</a>
 	</display:column>
 	
