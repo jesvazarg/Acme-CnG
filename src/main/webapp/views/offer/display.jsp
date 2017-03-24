@@ -81,8 +81,11 @@
 				<security:authorize access="hasRole('ADMIN')">
 					<display:column>
 						<jstl:if test="${!row.banned}">
-							<a href="comment/actor/ban.do?commentId=${row.id}"><spring:message code="offer.bann" /></a>
+							<form:form action="comment/actor/ban.do?commentId=${row.id}" modelAttribute="comment">
+								<input type="submit" name="ban" value="<spring:message code="offer.bann" />" />
+							</form:form>
 						</jstl:if>
+						
 					</display:column>
 				</security:authorize>
 			

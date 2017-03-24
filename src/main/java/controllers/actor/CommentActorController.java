@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -89,7 +90,30 @@ public class CommentActorController extends AbstractController {
 			}
 		return result;
 	}
+	
+	//Banning------------------------------------------------------------------------
 
+	 @RequestMapping(value = "/ban", method = RequestMethod.POST, params = "ban")
+	public ModelAndView ban(@RequestParam final int commentId){
+		 	ModelAndView result=new ModelAndView();
+		 	Comment comment=commentService.findOne(commentId);
+		 	Assert.notNull(comment);
+		 	
+			this.commentService.banComment(comment);
+			
+			if(comment.getPostedTo() instanceof Actor){
+			    result = new ModelAndView("redirect:../../profile/display.do?actorId=" + comment.getPostedTo().getId());
+			}else if(comment.getPostedTo() instanceof Offer){
+				result = new ModelAndView("redirect:../../offer/customer/display.do?offerId=" + comment.getPostedTo().getId());
+			}else if(comment.getPostedTo() instanceof Request){
+				result = new ModelAndView("redirect:../../request/customer/display.do?requestId="+ comment.getPostedTo().getId());
+				
+			}
+						
+			return result;
+	 }
+	
+	
 	//Ancillary methods----------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Comment comment) {
