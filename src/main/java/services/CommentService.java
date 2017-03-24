@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -20,10 +21,12 @@ public class CommentService {
 
 	//ManagedRepository----------------------------------------------
 	
+	@Autowired
 	private CommentRepository commentRepository;
 	
 	//Supporting Services--------------------------------------------
 	
+	@Autowired
 	private ActorService actorService;
 	
 	//Constructor----------------------------------------------------
@@ -56,9 +59,10 @@ public class CommentService {
 		Assert.notNull(principal);
 		result.setPostedBy(principal);
 		
+		
 		Calendar thisMoment = Calendar.getInstance();
 		result.setPostedMoment(thisMoment.getTime());
-		
+
 		Assert.notNull(postedTo);
 		result.setPostedTo(postedTo);
 		

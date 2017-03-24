@@ -28,10 +28,10 @@ public class CommentableService {
 
 	// Simple CRUD methods ----------------------------------------------------
 
-	public Commentable findOne(final int commentableId) {
+	public Commentable findOne(int commentableId) {
 		Commentable result;
 
-		result = this.commentableRepository.findOne(commentableId);
+		result = commentableRepository.findOne(commentableId);
 
 		return result;
 	}
@@ -46,4 +46,12 @@ public class CommentableService {
 
 	// Other business methods -------------------------------------------------
 
+	
+	public Commentable findById(int commentableId){
+		Commentable result;
+		
+		result = commentableRepository.findById(commentableId);
+		
+		return result;
+	}
 }

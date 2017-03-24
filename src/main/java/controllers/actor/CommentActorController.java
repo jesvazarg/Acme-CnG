@@ -1,5 +1,7 @@
 package controllers.actor;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import services.ActorService;
 import services.CommentService;
 import services.CommentableService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Comment;
 import domain.Commentable;
 
@@ -31,8 +34,8 @@ public class CommentActorController extends AbstractController{
 	@Autowired
 	private CommentService commentService;
 	
-	@Autowired
-	private ActorService actorService;
+//	@Autowired
+//	private ActorService actorService;
 	
 	@Autowired
 	private CommentableService commentableService;
@@ -45,7 +48,8 @@ public class CommentActorController extends AbstractController{
 		ModelAndView result;
 		Comment comment;
 		
-		Commentable commentablePostedTo = commentableService.findOne(commentablePostedToId);
+		Commentable commentablePostedTo = commentableService.findById(commentablePostedToId);
+
 		comment = commentService.create(commentablePostedTo);
 		
 		result = new ModelAndView("comment/edit");

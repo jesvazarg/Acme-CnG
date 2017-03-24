@@ -60,9 +60,7 @@
 		</li>
 		
 		<security:authorize access="isAuthenticated()">
-			
 		  		<acme:button url="comment/actor/create.do?commentablePostedToId=${profile.id}" code="profile.newComment"/>
-			
 		</security:authorize>
 		
 		<jstl:if test="${same}">
