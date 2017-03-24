@@ -69,6 +69,7 @@ public class Transaction extends Commentable {
 	}
 
 	@NotNull
+	@Valid
 	@AttributeOverrides({
 		@AttributeOverride(name = "address", column = @Column(name = "originAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "originLatitude")), @AttributeOverride(name = "longitude", column = @Column(name = "originLongitude")),
 	})
@@ -81,6 +82,7 @@ public class Transaction extends Commentable {
 	}
 
 	@NotNull
+	@Valid
 	@AttributeOverrides({
 		@AttributeOverride(name = "address", column = @Column(name = "destinationAddress")), @AttributeOverride(name = "latitude", column = @Column(name = "destinationLatitude")),
 		@AttributeOverride(name = "longitude", column = @Column(name = "destinationLongitude")),
