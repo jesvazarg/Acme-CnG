@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -98,6 +99,33 @@ public class CommentService {
 
 		this.commentRepository.save(comment);
 
+	}
+
+	public Collection<Comment> getCommentsFilterBan(final Collection<Comment> comments) {
+		final Collection<Comment> result = new ArrayList<Comment>();
+		Actor actor;
+		Boolean isAdmin;
+		Boolean view = true;
+
+		actor = this.actorService.findByPrincipal();
+		isAdmin = this.actorService.checkAuthority(actor, "ADMIN");
+		//		authorities = actor.getUserAccount().getAuthorities();
+		//		isAdmin = authorities.contains("ADMIN");
+		System.out.println("es admin " + isAdmin);
+
+		for (final Comment c : comments) {
+			if (c.getBanned()) {
+				System.out.println("es ban " + c.getBanned());
+				if (!isAdmin && (c.getPostedBy().getId() != actor.getId())) {
+					System.out.println(c.getPostedBy().getId() + " es igual " + actor.getId());
+					view = false;
+				}
+			}
+			if (view)
+				result.add(c);
+			view = true;
+		}
+		return result;
 	}
 
 }

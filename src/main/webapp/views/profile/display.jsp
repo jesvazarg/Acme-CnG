@@ -33,32 +33,33 @@
 		</li>
 		<li>
 			<b><spring:message code="profile.comments" /></b>
-			<display:table name="${profile.postedToComments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+			<display:table name="${comments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+			
+				<spring:message code="profile.comments.title" var="titleHeader" />
+				<display:column property="title" title="${titleHeader}" sortable="true" />
 				
-				<jstl:if test="${!row.banned or isAdmin or ((row.postedBy.id==principal.id))}">
-					<spring:message code="profile.comments.title" var="titleHeader" />
-					<display:column property="title" title="${titleHeader}" sortable="true" />
-					
-					<spring:message code="profile.comments.postedMoment" var="postedMomentHeader" />
-					<display:column property="postedMoment" title="${postedMomentHeader}" sortable="true" />
-					
-					<spring:message code="profile.comments.text" var="textHeader" />
-					<display:column property="text" title="${textHeader}" sortable="false" />
-					
-					<spring:message code="profile.comments.starsNumber" var="starsNumberHeader" />
-					<display:column property="starsNumber" title="${starsNumberHeader}" sortable="true" />
-				</jstl:if>
-					<spring:message code="profile.comments.banned" var="bannedHeader" />
-					<display:column property="banned" title="${bannedHeader}" sortable="true" />
-				<jstl:if test="${!row.banned or isAdmin or ((row.postedBy.id==principal.id))}">
-					<spring:message code="profile.comments.postedBy" var="postedByHeader" />
-					<display:column title="${postedByHeader}">
-						<a href="profile/display.do?actorId=${row.postedBy.id}"><jstl:out value="${row.postedBy.name }"/> </a>
-					</display:column>
-				</jstl:if>
+				<spring:message code="profile.comments.postedMoment" var="postedMomentHeader" />
+				<display:column property="postedMoment" title="${postedMomentHeader}" sortable="true" />
+				
+				<spring:message code="profile.comments.text" var="textHeader" />
+				<display:column property="text" title="${textHeader}" sortable="false" />
+				
+				<spring:message code="profile.comments.starsNumber" var="starsNumberHeader" />
+				<display:column property="starsNumber" title="${starsNumberHeader}" sortable="true" />
+			
+				<spring:message code="profile.comments.banned" var="bannedHeader" />
+				<display:column property="banned" title="${bannedHeader}" sortable="true" />
+			
+				<spring:message code="profile.comments.postedBy" var="postedByHeader" />
+				<display:column title="${postedByHeader}">
+					<a href="profile/display.do?actorId=${row.postedBy.id}"><jstl:out value="${row.postedBy.name }"/> </a>
+				</display:column>
+				
 				<security:authorize access="hasRole('ADMIN')">
 					<display:column>
-						<a href="comment/actor/ban.do?commentId=${row.id}"><spring:message code="profile.comments.ban" /></a>
+						<jstl:if test="${!row.banned}">
+							<a href="comment/actor/ban.do?commentId=${row.id}"><spring:message code="profile.comments.ban" /></a>
+						</jstl:if>
 					</display:column>
 				</security:authorize>
 			</display:table>

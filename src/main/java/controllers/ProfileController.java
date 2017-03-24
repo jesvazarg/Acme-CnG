@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
 import services.ActorService;
+import services.CommentService;
 import domain.Actor;
+import domain.Comment;
 import forms.CreateActorForm;
 
 @Controller
@@ -34,6 +35,9 @@ public class ProfileController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private CommentService	commentService;
 
 
 	// Constructors ---------------------------------------------------------------		
@@ -48,24 +52,17 @@ public class ProfileController extends AbstractController {
 	public ModelAndView display() {
 		final ModelAndView result;
 		Actor principal;
-		final Collection<Authority> authorities;
-		String authority;
-		Boolean isAdmin = false;
+		final Collection<Comment> comments;
 
 		principal = this.actorService.findByPrincipal();
 
-		authorities = principal.getUserAccount().getAuthorities();
-		for (final Authority a : authorities) {
-			authority = a.getAuthority();
-			if (authority.equals("ADMIN"))
-				isAdmin = true;
-		}
+		comments = this.commentService.getCommentsFilterBan(principal.getPostedToComments());
 
 		result = new ModelAndView("profile/display");
 		result.addObject("principal", principal);
 		result.addObject("profile", principal);
 		result.addObject("same", true);
-		result.addObject("isAdmin", isAdmin);
+		result.addObject("comments", comments);
 		result.addObject("requestURI", "profile/display.do");
 
 		return result;
@@ -77,9 +74,7 @@ public class ProfileController extends AbstractController {
 		Actor actor;
 		final Actor principal;
 		Boolean same = false;
-		final Collection<Authority> authorities;
-		String authority;
-		Boolean isAdmin = false;
+		final Collection<Comment> comments;
 
 		actor = this.actorService.findOne(actorId);
 
@@ -87,18 +82,13 @@ public class ProfileController extends AbstractController {
 		if (actor.equals(principal))
 			same = true;
 
-		authorities = principal.getUserAccount().getAuthorities();
-		for (final Authority a : authorities) {
-			authority = a.getAuthority();
-			if (authority.equals("ADMIN"))
-				isAdmin = true;
-		}
+		comments = this.commentService.getCommentsFilterBan(actor.getPostedToComments());
 
 		result = new ModelAndView("profile/display");
 		result.addObject("principal", principal);
 		result.addObject("profile", actor);
 		result.addObject("same", same);
-		result.addObject("isAdmin", isAdmin);
+		result.addObject("comments", comments);
 		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());
 
 		return result;
