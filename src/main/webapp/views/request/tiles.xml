@@ -27,7 +27,7 @@
 	</definition>
 	
 	<definition name="request/list" extends="master.page">	
-		<put-attribute name="title" value="list requestts" />
+		<put-attribute name="title" value="List requests" />
 		<put-attribute name="body" value="/views/request/list.jsp" />
 	</definition>
 	

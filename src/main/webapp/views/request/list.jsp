@@ -30,13 +30,15 @@
 		<acme:column code="request.banned" property="banned"/>
 	</jstl:if>
 			
-	<display:column>
+	<spring:message code="request.request" var="requestHeader" />
+	<display:column title="${requestHeader}">
 		<a href="request/customer/display.do?requestId=${row.id}"><spring:message
 			code="request.display" />
 		</a>
 	</display:column>
 	
-	<display:column>
+	<spring:message code="request.customer" var="customerHeader" />
+	<display:column title="${customerHeader}">
 		<a href="profile/display.do?actorId=${row.customer.id}"><spring:message
 			code="request.display" />
 		</a>
