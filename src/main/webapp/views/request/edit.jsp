@@ -28,7 +28,7 @@
 	
 	<acme:input code="request.title" path="title" />
 	<acme:input code="request.description" path="description" />
-	<acme:input code="request.movingMoment" path="movingMoment" />
+	<acme:input code="request.movingMoment" path="movingMoment" /><spring:message code="movingMoment.format" />
 	
 	<fieldset>
 				<legend align="left">

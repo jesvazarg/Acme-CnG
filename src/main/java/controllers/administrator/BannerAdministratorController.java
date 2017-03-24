@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BannerService;
@@ -33,36 +32,20 @@ public class BannerAdministratorController extends AbstractController {
 		super();
 	}
 
-	// Listing ----------------------------------------------------------------
-
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-		ModelAndView result;
-		Collection<Banner> banners;
-
-		banners = this.bannerService.findAll();
-
-		result = new ModelAndView("banner/list");
-		result.addObject("banners", banners);
-
-		return result;
-	}
-
-	// Displaying -------------------------------------------------------------
-
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int requestId) {
-		ModelAndView result;
-		Banner banner;
-
-		banner = this.bannerService.findOne(requestId);
-
-		result = new ModelAndView("banner/display");
-		result.addObject("banner", banner);
-		result.addObject("requestURI", "banner/administrator/display.do");
-
-		return result;
-	}
+	//	// Listing ----------------------------------------------------------------
+	//
+	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	//	public ModelAndView list() {
+	//		ModelAndView result;
+	//		Collection<Banner> banners;
+	//
+	//		banners = this.bannerService.findAll();
+	//
+	//		result = new ModelAndView("banner/list");
+	//		result.addObject("banners", banners);
+	//
+	//		return result;
+	//	}
 
 	// Creation ---------------------------------------------------------------
 
@@ -84,13 +67,13 @@ public class BannerAdministratorController extends AbstractController {
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int requestId) {
+	public ModelAndView edit() {
 		ModelAndView result;
-		Banner banner;
+		Collection<Banner> banners;
 
-		banner = this.bannerService.findOne(requestId);
+		banners = this.bannerService.findAll();
 
-		result = this.createEditModelAndView(banner);
+		result = this.createEditModelAndView((Banner) banners.toArray()[0]);
 
 		return result;
 
@@ -107,7 +90,7 @@ public class BannerAdministratorController extends AbstractController {
 		} else
 			try {
 				this.bannerService.save(banner);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:../../");
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 
@@ -156,7 +139,7 @@ public class BannerAdministratorController extends AbstractController {
 		result = new ModelAndView("banner/edit");
 		result.addObject("banner", banner);
 		result.addObject("message", message);
-		result.addObject("requestURI", "banner/administratr/edit.do");
+		result.addObject("requestURI", "banner/administrator/edit.do");
 
 		return result;
 	}

@@ -24,7 +24,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-										
+					<li><a href="banner/administrator/edit.do"><spring:message code="master.page.banner.editBanner" /></a></li>									
 				</ul>
 			</li>
 		</security:authorize>

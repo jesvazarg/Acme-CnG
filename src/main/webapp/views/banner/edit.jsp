@@ -1,5 +1,5 @@
 <%--
- * index.jsp
+ * action-2.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -15,11 +15,19 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
-
-<p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
-
-<security:authorize access="isAnonymous()">
-	<img src="${banners[0].picture}" style="max-width: 200px; max-height: 200px;" />
+<security:authorize access="hasRole('ADMIN')">
+	<form:form method="post" action="banner/administrator/edit.do" modelAttribute="banner" >
+	
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	
+	<acme:input code="banner.picture" path="picture" />
+		
+	<acme:submit name="save" code="banner.save" />
+	
+	<acme:cancel url="" code="banner.cancel" />
+	
+</form:form>
 </security:authorize>
