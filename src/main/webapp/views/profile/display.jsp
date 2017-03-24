@@ -56,6 +56,11 @@
 						<a href="profile/display.do?actorId=${row.postedBy.id}"><jstl:out value="${row.postedBy.name }"/> </a>
 					</display:column>
 				</jstl:if>
+				<security:authorize access="hasRole('ADMIN')">
+					<display:column>
+						<a href="comment/actor/ban.do?commentId=${row.id}"><spring:message code="profile.comments.ban" /></a>
+					</display:column>
+				</security:authorize>
 			</display:table>
 		</li>
 		
