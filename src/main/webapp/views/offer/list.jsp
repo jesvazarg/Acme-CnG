@@ -17,7 +17,24 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-
+<jstl:if test="${general}">
+	<spring:message code="offer.searchText"/>
+	<input type="text" value="" id="textSearch" />
+	<input type="button" id="buttonSearch"
+	value="<spring:message code="offer.search"/>" />
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var urlSearch = 'offer/customer/search.do?keyword=';
+			$("#buttonSearch").click(function(){
+				window.location.replace(urlSearch + $("#textSearch").val());
+			});
+			$("#buttonSearch").onsubmit(function(){
+				window.location.replace(urlSearch + $("#textSearch").val());
+			});
+		});
+	</script>
+</jstl:if>
 <display:table name="offers" id="offer" requestURI="${requestURI }" class="displaytag">
 	
 	<acme:column code="offer.title" property="title"/>

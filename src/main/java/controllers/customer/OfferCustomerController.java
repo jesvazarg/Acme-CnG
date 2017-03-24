@@ -59,6 +59,22 @@ public class OfferCustomerController extends AbstractController {
 		return result;
 	}
 
+	// Search -----------------------------------------------------------------
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search(@RequestParam final String keyword) {
+		ModelAndView result;
+		Collection<Offer> offers;
+
+		offers = this.offerService.findByKeywordNotBanned(keyword);
+
+		result = new ModelAndView("offer/list");
+		result.addObject("offers", offers);
+		result.addObject("general", true);
+
+		return result;
+	}
+
 	// Listing ----------------------------------------------------------------
 
 	@RequestMapping(value = "/listMyOffers", method = RequestMethod.GET)

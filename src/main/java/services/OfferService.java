@@ -108,6 +108,14 @@ public class OfferService {
 		return result;
 	}
 
+	public Collection<Offer> findByKeywordNotBanned(final String keyword) {
+		Collection<Offer> result;
+
+		result = this.offerRepository.findByKeywordNotBanned("%" + keyword + "%");
+
+		return result;
+	}
+
 	public Boolean belongsToCurrentCustomer(final Offer offer) {
 		Boolean res = false;
 		final Customer customer = this.customerService.findByPrincipal();
@@ -115,4 +123,5 @@ public class OfferService {
 			res = true;
 		return res;
 	}
+
 }
