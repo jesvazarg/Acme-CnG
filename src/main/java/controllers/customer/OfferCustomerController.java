@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.CustomerService;
 import services.OfferService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Customer;
 import domain.Offer;
 
@@ -30,6 +32,9 @@ public class OfferCustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService	customerService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -78,9 +83,13 @@ public class OfferCustomerController extends AbstractController {
 		ModelAndView result;
 		Offer offer;
 		Boolean res = false;
-
 		offer = this.offerService.findOne(offerId);
-		res = this.offerService.belongsToCurrentCustomer(offer);
+
+		final Actor actor = this.actorService.findByPrincipal();
+		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
+
+		if (customer != null)
+			res = this.offerService.belongsToCurrentCustomer(offer);
 
 		result = new ModelAndView("offer/display");
 		result.addObject("offer", offer);
