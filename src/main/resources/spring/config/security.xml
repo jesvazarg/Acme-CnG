@@ -82,6 +82,7 @@
 		<security:intercept-url pattern="/offer/customer/display.do" access="isAuthenticated()" />  
 	
 		<security:intercept-url pattern="/comment/actor/create.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/comment/actor/edit.do" access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/request/customer/list.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/request/customer/display.do" access="isAuthenticated()" />

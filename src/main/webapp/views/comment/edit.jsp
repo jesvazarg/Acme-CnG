@@ -33,5 +33,6 @@
 </form:select>
 <form:errors path="starsNumber" cssClass="error" />
 
+<acme:submit name="save" code="comment.save"/>
 
 </form:form>
