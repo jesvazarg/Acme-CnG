@@ -119,16 +119,17 @@ public class OfferServiceTest extends AbstractTest {
 
 	}
 
+	//Test negativo con description vacio.
 	@Test(expected = IllegalArgumentException.class)
 	@Rollback(value = true)
-	public void testEditOfferNegative() {
+	public void testEditOfferTiNegative() {
 		super.authenticate("customer1");
 		Offer offer;
 
 		offer = this.offerService.findOne(58);
 
-		offer.setTitle("");
-		offer.setDescription("description");
+		offer.setTitle("test title");
+		offer.setDescription("");
 
 		final Place place = new Place();
 		place.setAddress("Madrid");
@@ -137,9 +138,128 @@ public class OfferServiceTest extends AbstractTest {
 		offer.setDestinationPlace(place);
 
 		offer = this.offerService.save(offer);
-		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
 		System.out.println("----------------------------------------");
 		super.authenticate(null);
 	}
+
+	//	//Test negativo con titulo vacio.
+	//	@Test(expected = IllegalArgumentException.class)
+	//	@Rollback(value = true)
+	//	public void testEditOfferNegative() {
+	//		super.authenticate("customer1");
+	//		Offer offer;
+	//
+	//		offer = this.offerService.findOne(58);
+	//
+	//		offer.setTitle("");
+	//		offer.setDescription("description");
+	//
+	//		final Place place = new Place();
+	//		place.setAddress("Madrid");
+	//
+	//		offer.setOriginPlace(place);
+	//		offer.setDestinationPlace(place);
+	//
+	//		offer = this.offerService.save(offer);
+	//		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
+	//		System.out.println("----------------------------------------");
+	//		super.authenticate(null);
+	//	}
+	//
+	//	//Test negativo con titulo vacio.
+	//	@Test(expected = IllegalArgumentException.class)
+	//	@Rollback(value = true)
+	//	public void testEditOfferNegative() {
+	//		super.authenticate("customer1");
+	//		Offer offer;
+	//
+	//		offer = this.offerService.findOne(58);
+	//
+	//		offer.setTitle("");
+	//		offer.setDescription("description");
+	//
+	//		final Place place = new Place();
+	//		place.setAddress("Madrid");
+	//
+	//		offer.setOriginPlace(place);
+	//		offer.setDestinationPlace(place);
+	//
+	//		offer = this.offerService.save(offer);
+	//		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
+	//		System.out.println("----------------------------------------");
+	//		super.authenticate(null);
+	//	}
+	//
+	//	//Test negativo con titulo vacio.
+	//	@Test(expected = IllegalArgumentException.class)
+	//	@Rollback(value = true)
+	//	public void testEditOfferNegative() {
+	//		super.authenticate("customer1");
+	//		Offer offer;
+	//
+	//		offer = this.offerService.findOne(58);
+	//
+	//		offer.setTitle("");
+	//		offer.setDescription("description");
+	//
+	//		final Place place = new Place();
+	//		place.setAddress("Madrid");
+	//
+	//		offer.setOriginPlace(place);
+	//		offer.setDestinationPlace(place);
+	//
+	//		offer = this.offerService.save(offer);
+	//		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
+	//		System.out.println("----------------------------------------");
+	//		super.authenticate(null);
+	//	}
+	//
+	//	//Test negativo con titulo vacio.
+	//	@Test(expected = IllegalArgumentException.class)
+	//	@Rollback(value = true)
+	//	public void testEditOfferNegative() {
+	//		super.authenticate("customer1");
+	//		Offer offer;
+	//
+	//		offer = this.offerService.findOne(58);
+	//
+	//		offer.setTitle("");
+	//		offer.setDescription("description");
+	//
+	//		final Place place = new Place();
+	//		place.setAddress("Madrid");
+	//
+	//		offer.setOriginPlace(place);
+	//		offer.setDestinationPlace(place);
+	//
+	//		offer = this.offerService.save(offer);
+	//		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
+	//		System.out.println("----------------------------------------");
+	//		super.authenticate(null);
+	//	}
+	//
+	//	//Test negativo con titulo vacio.
+	//	@Test(expected = IllegalArgumentException.class)
+	//	@Rollback(value = true)
+	//	public void testEditOfferNegative() {
+	//		super.authenticate("customer1");
+	//		Offer offer;
+	//
+	//		offer = this.offerService.findOne(58);
+	//
+	//		offer.setTitle("");
+	//		offer.setDescription("description");
+	//
+	//		final Place place = new Place();
+	//		place.setAddress("Madrid");
+	//
+	//		offer.setOriginPlace(place);
+	//		offer.setDestinationPlace(place);
+	//
+	//		offer = this.offerService.save(offer);
+	//		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
+	//		System.out.println("----------------------------------------");
+	//		super.authenticate(null);
+	//	}
 
 }
