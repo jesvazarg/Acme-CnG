@@ -84,7 +84,7 @@ public class CommentService {
 	}
 
 	public void delete(final Comment comment) {
-		Assert.isTrue((this.actorService.findByPrincipal().equals(comment.getPostedBy()))||(this.actorService.findByPrincipal() instanceof Administrator));
+		Assert.isTrue((this.actorService.findByPrincipal().equals(comment.getPostedBy())) || (this.actorService.findByPrincipal() instanceof Administrator));
 		Assert.notNull(comment);
 
 		this.commentRepository.delete(comment);
@@ -112,16 +112,11 @@ public class CommentService {
 		isAdmin = this.actorService.checkAuthority(actor, "ADMIN");
 		//		authorities = actor.getUserAccount().getAuthorities();
 		//		isAdmin = authorities.contains("ADMIN");
-		System.out.println("es admin " + isAdmin);
 
 		for (final Comment c : comments) {
-			if (c.getBanned()) {
-				System.out.println("es ban " + c.getBanned());
-				if (!isAdmin && (c.getPostedBy().getId() != actor.getId())) {
-					System.out.println(c.getPostedBy().getId() + " es igual " + actor.getId());
+			if (c.getBanned())
+				if (!isAdmin && (c.getPostedBy().getId() != actor.getId()))
 					view = false;
-				}
-			}
 			if (view)
 				result.add(c);
 			view = true;

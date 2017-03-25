@@ -10,39 +10,67 @@
 <security:authorize access="hasRole('ADMIN')">
 	<h2><spring:message code="admin.dashboard.levelC"/></h2>
 
-	<b><spring:message code="admin.dashboard.c1"/></b>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c1"/></b></legend>
+	<br/>
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.c2"/></b>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c2"/></b></legend>
 	<br/>
 	&nbsp&nbsp&nbsp&nbsp<jstl:out value="${avgTransactionsPerCustomer}" />
+	<br/><br/>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c3"/></b></legend>
+	<br/>
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.c3"/></b>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c4"/></b></legend>
+	<br/>
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.c4"/></b>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c5"/></b></legend>
+	<br/>
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.c5"/></b>
+	</fieldset>
 	
-	<br/><br/><br/>
+	<br/>
 	<h2><spring:message code="admin.dashboard.levelB"/></h2>
-
-	<b><spring:message code="admin.dashboard.b1"/></b>
+	
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.b1"/></b></legend>
+	<br/>
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.b2"/></b>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.b2"/></b></legend>
 	<br/>
 	&nbsp&nbsp&nbsp&nbsp<jstl:out value="${avgCommentsPerActor}" />
+	<br/><br/>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.b3"/></b></legend>
+	<br/>
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.b3"/></b>
+	</fieldset>
 	
-	<br/><br/><br/>
+	<br/>
 	<h2><spring:message code="admin.dashboard.levelA"/></h2>
-
-	<b><spring:message code="admin.dashboard.a1"/></b>
+	
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a1"/></b></legend>
 	<ul>
 		<li>
 			<b><spring:message code="admin.dashboard.min"/>:</b>
@@ -57,15 +85,24 @@
 			<jstl:out value="${minAvMaxMessagesPerActor[2]}"/>
 		</li>
 	</ul>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a2"/></b></legend>
+	<br/>
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.a2"/></b>
+	</fieldset>
+	
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a3"/></b></legend>
+	
 	
 	<br/><br/>
-	<b><spring:message code="admin.dashboard.a3"/></b>
+	</fieldset>
 	
-	<br/><br/>
-	<b><spring:message code="admin.dashboard.a4"/></b>
+	<br/>
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a4"/></b></legend>
 	<display:table name="actorMoreGotMessages" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 		
 		<spring:message code="admin.dashboard.actor.name" var="nameHeader" />
@@ -78,5 +115,6 @@
 		<display:column property="phoneNumber" title="${phoneNumberHeader}"	sortable="false" />
 		
 	</display:table>
+	</fieldset>
 	
 </security:authorize>
