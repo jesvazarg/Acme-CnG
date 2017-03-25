@@ -187,4 +187,10 @@ public class CustomerService {
 	public Double avgTransactionsPerCustomer() {
 		return this.customerRepository.avgTransactionsPerCustomer();
 	}
+
+	public Customer customerWithMostAcceptedApplies() {
+		Customer customer;
+		customer = this.customerRepository.customerWithMostAcceptedApplies();
+		return customer;
+	}
 }

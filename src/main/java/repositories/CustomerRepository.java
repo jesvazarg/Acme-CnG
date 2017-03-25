@@ -17,4 +17,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	//C2: Número medio de ofertas y solicitudes por cliente.
 	@Query("select avg(c.transactions.size) from Customer c")
 	Double avgTransactionsPerCustomer();
+
+	//C4: 
+	@Query("select c from Customer c join c.applies a where ((a.status='ACCEPTED') and (c.applies.size=(select max(cu.applies.size) from Customer cu join cu.applies ap where (ap.status='ACCEPTED'))))")
+	Customer customerWithMostAcceptedApplies();
+
 }

@@ -91,4 +91,10 @@ public class TransactionService {
 
 		return result;
 	}
+
+	public Double ratioOfferPerRequest() {
+		Double res;
+		res = this.transactionRepository.rationOfferPerRequest();
+		return res;
+	}
 }
