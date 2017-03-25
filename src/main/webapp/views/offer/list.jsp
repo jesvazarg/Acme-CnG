@@ -59,6 +59,18 @@
 		</a>
 	</display:column>
 	
+	<security:authorize access="hasRole('CUSTOMER')">
+	<security:authentication var="principalUserAccount" property="principal" />
+		<display:column>
+			<jstl:if test="${principalUserAccount.id != offer.customer.userAccount.id &&  offer.banned=='false'}">
+				<form:form action="apply/customer/create.do?transactionId=${offer.id}"
+					modelAttribute="apply" method="post">
+					<acme:submit name="createApply" code="offer.apply"/>
+				</form:form>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<a href="offer/customer/bann.do?offerId=${offer.id}"><spring:message
