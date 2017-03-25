@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.CommentService;
 import domain.Actor;
+import domain.Administrator;
 import domain.Comment;
 import forms.CreateActorForm;
 
@@ -53,11 +54,12 @@ public class ProfileController extends AbstractController {
 		final ModelAndView result;
 		Actor principal;
 		final Collection<Comment> comments;
+		
 
 		principal = this.actorService.findByPrincipal();
 
 		comments = this.commentService.getCommentsFilterBan(principal.getPostedToComments());
-
+		
 		result = new ModelAndView("profile/display");
 		result.addObject("principal", principal);
 		result.addObject("profile", principal);
@@ -75,6 +77,7 @@ public class ProfileController extends AbstractController {
 		final Actor principal;
 		Boolean same = false;
 		final Collection<Comment> comments;
+		boolean isAdmin=false;
 
 		actor = this.actorService.findOne(actorId);
 
@@ -83,12 +86,17 @@ public class ProfileController extends AbstractController {
 			same = true;
 
 		comments = this.commentService.getCommentsFilterBan(actor.getPostedToComments());
+		
+		if(principal instanceof Administrator){
+			isAdmin=true;
+		}
 
 		result = new ModelAndView("profile/display");
 		result.addObject("principal", principal);
 		result.addObject("profile", actor);
 		result.addObject("same", same);
 		result.addObject("comments", comments);
+		result.addObject("isAdmin", isAdmin);
 		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());
 
 		return result;

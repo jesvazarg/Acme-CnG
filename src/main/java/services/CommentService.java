@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.CommentRepository;
 import domain.Actor;
+import domain.Administrator;
 import domain.Comment;
 import domain.Commentable;
 
@@ -83,7 +84,7 @@ public class CommentService {
 	}
 
 	public void delete(final Comment comment) {
-		Assert.isTrue(this.actorService.findByPrincipal().equals(comment.getPostedBy()));
+		Assert.isTrue((this.actorService.findByPrincipal().equals(comment.getPostedBy()))||(this.actorService.findByPrincipal() instanceof Administrator));
 		Assert.notNull(comment);
 
 		this.commentRepository.delete(comment);

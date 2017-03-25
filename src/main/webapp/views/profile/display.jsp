@@ -45,6 +45,14 @@
 					<a href="profile/display.do?actorId=${row.postedBy.id}"><jstl:out value="${row.postedBy.name }"/> </a>
 				</display:column>
 				
+				<display:column>
+					<jstl:if test="${isAdmin or principal==row.postedBy}">
+						<form:form action="comment/actor/delete.do?commentId=${row.id}" modelAttribute="comment">
+								<input type="submit" name="delete" value="<spring:message code="profile.delete" />" />
+						</form:form>
+					</jstl:if>
+				</display:column>
+				
 				<security:authorize access="hasRole('ADMIN')">
 					<display:column>
 						<jstl:if test="${!row.banned}">

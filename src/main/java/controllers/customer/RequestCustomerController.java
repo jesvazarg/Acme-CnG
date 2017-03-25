@@ -19,6 +19,7 @@ import services.CustomerService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Administrator;
 import domain.Comment;
 import domain.Customer;
 import domain.Request;
@@ -104,13 +105,22 @@ public class RequestCustomerController extends AbstractController {
 		ModelAndView result;
 		Request request;
 		Collection<Comment> comments;
+		boolean isAdmin=false;
+		
+		Actor actor = actorService.findByPrincipal();
 		
 		request = this.requestService.findOne(requestId);
 		
 		comments = this.commentService.getCommentsFilterBan(request.getPostedToComments());
 		
+		if(actor instanceof Administrator){
+			isAdmin=true;
+		}
+		
 		result = new ModelAndView("request/display");
 		result.addObject("request", request);
+		result.addObject("isAdmin", isAdmin);
+		result.addObject("principal", actor);
 		result.addObject("comments",comments);
 		result.addObject("requestURI", "request/customer/display.do");
 

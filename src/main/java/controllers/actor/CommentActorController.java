@@ -113,6 +113,31 @@ public class CommentActorController extends AbstractController {
 			return result;
 	 }
 	
+	 //Deleting-------------------------------------------------------------
+	 
+	 @RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	 public ModelAndView delete(@RequestParam int commentId){
+		 ModelAndView result = new ModelAndView();
+		 Comment comment = this.commentService.findOne(commentId);
+		 
+		 try {
+				this.commentService.delete(comment);
+				
+				if(comment.getPostedTo() instanceof Actor){
+				    result = new ModelAndView("redirect:../../profile/display.do?actorId=" + comment.getPostedTo().getId());
+				}else if(comment.getPostedTo() instanceof Offer){
+					result = new ModelAndView("redirect:../../offer/customer/display.do?offerId=" + comment.getPostedTo().getId());
+				}else if(comment.getPostedTo() instanceof Request){
+					result = new ModelAndView("redirect:../../request/customer/display.do?requestId="+ comment.getPostedTo().getId());
+				}
+			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+
+				result = this.createEditModelAndView(comment, "comment.commit.error");
+			}
+		return result;
+	 }
+	 
 	
 	//Ancillary methods----------------------------------------------------
 
