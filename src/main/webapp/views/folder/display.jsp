@@ -13,6 +13,7 @@
 	<acme:column code="message.sentMoment" property="sentMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
 	<acme:column code="message.title" property="title" />
 	<acme:column code="message.sender" property="sender.name" />
+	<acme:column code="message.recipient" property="recipient.name" />
 	
 	<display:column>
 		<a href="message/actor/display.do?messageId=${row.id} "><spring:message code="message.display" /></a>
