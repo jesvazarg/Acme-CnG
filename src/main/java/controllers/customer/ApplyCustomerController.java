@@ -91,11 +91,10 @@ public class ApplyCustomerController extends AbstractController {
 		ModelAndView result;
 		Apply apply;
 
-		apply = applyService.create(transactionId);
-		applyService.save(apply);
-		System.out.println(apply.getCustomer().getName());
+		apply = this.applyService.create(transactionId);
+		this.applyService.save(apply);
 
-		result = new ModelAndView("redirect:../../");
+		result = new ModelAndView("redirect:../../request/customer/list.do");
 
 		return result;
 

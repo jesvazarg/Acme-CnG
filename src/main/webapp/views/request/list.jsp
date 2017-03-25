@@ -64,13 +64,23 @@
 	<security:authentication var="principalUserAccount" property="principal" />
 		<display:column>
 			<jstl:if test="${principalUserAccount.id != row.customer.userAccount.id && row.banned=='false'}">
-			
-				<form:form action="apply/customer/create.do?transactionId=${row.id}"
-					modelAttribute="apply" method="post">
-					<acme:submit name="createApply" code="request.apply"/>
-					<%-- <input type="submit" name="apply"
-						value="<spring:message code="request.apply" />" />&nbsp; --%>
-				</form:form>
+				<jstl:set var="showButton" value="true" />
+				<jstl:forEach items="${row.applies }" var="apply">
+					<jstl:if test="${apply.customer.userAccount.id == principalUserAccount.id }">
+						<jstl:set var="showButton" value="false" />
+					</jstl:if>
+				</jstl:forEach>
+				
+				<jsp:useBean id="now" class="java.util.Date"/>
+				<jstl:if test="${showButton && (row.movingMoment gt now || row.movingMoment== now) }">
+					<form:form action="apply/customer/create.do?transactionId=${row.id}"
+						modelAttribute="apply" method="post">
+						<acme:submit name="createApply" code="request.apply"/>
+						<%-- <input type="submit" name="apply"
+							value="<spring:message code="request.apply" />" />&nbsp; --%>
+					</form:form>
+				</jstl:if>
+				
 			</jstl:if>
 		</display:column>
 	</security:authorize>	
