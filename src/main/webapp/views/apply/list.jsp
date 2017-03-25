@@ -38,8 +38,8 @@
 <display:table name="applies" id="row" requestURI="${requestURI }" class="displaytag">
 	
 	<acme:column code="apply.status" property="status"/>
-	<acme:column code="apply.customer" property="customer"/>
-	<acme:column code="apply.transaction" property="transaction"/>
+	<acme:column code="apply.customer" property="customer.name"/>
+	<acme:column code="apply.transaction" property="transaction.title"/>
 	
 	
 </display:table>

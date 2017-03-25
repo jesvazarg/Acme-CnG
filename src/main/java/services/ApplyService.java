@@ -94,4 +94,13 @@ public class ApplyService {
 
 		return result;
 	}
+
+	public Collection<Apply> findApplicationsReceived(final int customerId) {
+		Collection<Apply> result;
+		Customer customer;
+		customer = this.customerService.findOne(customerId);
+		result = this.applyRepository.findApplicationsReceived(customer.getId());
+
+		return result;
+	}
 }

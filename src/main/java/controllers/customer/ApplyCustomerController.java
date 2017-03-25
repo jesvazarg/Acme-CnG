@@ -44,8 +44,9 @@ public class ApplyCustomerController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Apply> applies;
+		final Customer customer = this.customerService.findByPrincipal();
 
-		applies = this.applyService.findAll();
+		applies = this.applyService.findApplicationsReceived(customer.getId());
 
 		result = new ModelAndView("apply/list");
 		result.addObject("applies", applies);
@@ -94,7 +95,7 @@ public class ApplyCustomerController extends AbstractController {
 		apply = this.applyService.create(transactionId);
 		this.applyService.save(apply);
 
-		result = new ModelAndView("redirect:../../request/customer/list.do");
+		result = new ModelAndView("redirect:../../apply/customer/listMyApplies.do");
 
 		return result;
 

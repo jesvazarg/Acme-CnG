@@ -25,6 +25,7 @@
 	<form:hidden path="customer" />
 	<form:hidden path="banned" />
 	<form:hidden path="postedToComments"/>
+	<form:hidden path="applies" />
 	
 	<acme:input code="request.title" path="title" />
 	<acme:input code="request.description" path="description" />

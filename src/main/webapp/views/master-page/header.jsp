@@ -39,6 +39,10 @@
 					<li><a href="apply/customer/listMyApplies.do"><spring:message code="master.page.apply.listMyApplies" /></a></li>
 				</ul>
 			</li>
+			<li>
+				<a class="fNiv" href="apply/customer/list.do"><spring:message code="master.page.apply.list" />
+				</a>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
@@ -69,10 +73,7 @@
 				<a class="fNiv" href="request/customer/list.do"><spring:message code="master.page.request.list" />
 				</a>
 			</li>
-			<li>
-				<a class="fNiv" href="apply/customer/list.do"><spring:message code="master.page.apply.list" />
-				</a>
-			</li>
+			
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 

@@ -62,14 +62,27 @@
 	<security:authorize access="hasRole('CUSTOMER')">
 	<security:authentication var="principalUserAccount" property="principal" />
 		<display:column>
-			<jstl:if test="${principalUserAccount.id != offer.customer.userAccount.id &&  offer.banned=='false'}">
-				<form:form action="apply/customer/create.do?transactionId=${offer.id}"
-					modelAttribute="apply" method="post">
-					<acme:submit name="createApply" code="offer.apply"/>
-				</form:form>
+			<jstl:if test="${principalUserAccount.id != offer.customer.userAccount.id && offer.banned=='false'}">
+				<jstl:set var="showButton" value="true" />
+				<jstl:forEach items="${offer.applies }" var="apply">
+					<jstl:if test="${apply.customer.userAccount.id == principalUserAccount.id }">
+						<jstl:set var="showButton" value="false" />
+					</jstl:if>
+				</jstl:forEach>
+				
+				<jsp:useBean id="now" class="java.util.Date"/>
+				<jstl:if test="${showButton && (offer.movingMoment gt now || offer.movingMoment== now) }">
+					<form:form action="apply/customer/create.do?transactionId=${offer.id}"
+						modelAttribute="apply" method="post">
+						<acme:submit name="createApply" code="request.apply"/>
+						<%-- <input type="submit" name="apply"
+							value="<spring:message code="request.apply" />" />&nbsp; --%>
+					</form:form>
+				</jstl:if>
+				
 			</jstl:if>
 		</display:column>
-	</security:authorize>
+	</security:authorize>	
 	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>

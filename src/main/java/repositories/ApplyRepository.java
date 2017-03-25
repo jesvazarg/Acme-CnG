@@ -19,4 +19,6 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
 	@Query("select a from Apply a where a.customer.id=?1")
 	Collection<Apply> findByCustomerId(int id);
 
+	@Query("select a from Apply a where a.transaction.customer.id=?1")
+	Collection<Apply> findApplicationsReceived(int id);
 }

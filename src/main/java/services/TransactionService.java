@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.TransactionRepository;
+import domain.Apply;
 import domain.Customer;
 import domain.Transaction;
 
@@ -53,12 +55,15 @@ public class TransactionService {
 	public Transaction create() {
 		Transaction result;
 		Customer customer;
+		Collection<Apply> applies;
 
 		customer = this.customerService.findByPrincipal();
+		applies = new ArrayList<Apply>();
 
 		result = new Transaction();
 		result.setBanned(false);
 		result.setCustomer(customer);
+		result.setApplies(applies);
 
 		return result;
 	}

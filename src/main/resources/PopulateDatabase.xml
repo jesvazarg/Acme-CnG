@@ -408,7 +408,7 @@
 		<property name="originPlace" ref="place1" />
 		<property name="destinationPlace" ref="place1" />
 		<property name="banned" value="false" />
-		<property name="customer" ref="customer3" />
+		<property name="customer" ref="customer1" />
 		<property name="postedToComments">
 			<list>
 			</list>
@@ -450,13 +450,13 @@
 	
 	<bean id="apply1" class="domain.Apply">
 		<property name="status" value="DENIED" />
-		<property name="customer" ref="customer1" />
+		<property name="customer" ref="customer2" />
 		<property name="transaction" ref="request1" />
 	</bean>
 	
 	<bean id="apply2" class="domain.Apply">
 		<property name="status" value="PENDING" />
-		<property name="customer" ref="customer1" />
+		<property name="customer" ref="customer2" />
 		<property name="transaction" ref="offer1" />
 	</bean>
 	
@@ -468,7 +468,7 @@
 	
 	<bean id="apply4" class="domain.Apply">
 		<property name="status" value="ACCEPTED" />
-		<property name="customer" ref="customer2" />
+		<property name="customer" ref="customer1" />
 		<property name="transaction" ref="request2" />
 	</bean>
 	
