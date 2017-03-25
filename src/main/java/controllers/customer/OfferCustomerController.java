@@ -38,9 +38,9 @@ public class OfferCustomerController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
-	
+
 	@Autowired
-	private CommentService commentService;
+	private CommentService	commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -56,12 +56,21 @@ public class OfferCustomerController extends AbstractController {
 		ModelAndView result;
 		Collection<Offer> offers;
 
-		offers = this.offerService.findAllNotBanned();
+		final Actor actor = this.actorService.findByPrincipal();
+		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
 
 		result = new ModelAndView("offer/list");
-		result.addObject("offers", offers);
-		result.addObject("general", true);
+		if (customer == null) {
+			offers = this.offerService.findAll();
+			result.addObject("offers", offers);
+			result.addObject("general", false);
 
+		} else {
+			offers = this.offerService.findAllNotBanned();
+			result.addObject("offers", offers);
+			result.addObject("general", true);
+		}
+		result.addObject("myOfferOption", false);
 		return result;
 	}
 
@@ -95,6 +104,7 @@ public class OfferCustomerController extends AbstractController {
 		result.addObject("offers", offers);
 		result.addObject("general", false);
 
+		result.addObject("myOfferOption", true);
 		return result;
 	}
 
@@ -106,26 +116,25 @@ public class OfferCustomerController extends AbstractController {
 		Offer offer;
 		Boolean res = false;
 		offer = this.offerService.findOne(offerId);
-		boolean isAdmin=false;
+		boolean isAdmin = false;
 
 		final Actor actor = this.actorService.findByPrincipal();
 		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
 
-		if(actor instanceof Administrator){
-			isAdmin=true;
-		}
-		
+		if (actor instanceof Administrator)
+			isAdmin = true;
+
 		if (customer != null)
 			res = this.offerService.belongsToCurrentCustomer(offer);
 
-		Collection<Comment> comments = this.commentService.getCommentsFilterBan(offer.getPostedToComments());
-		
+		final Collection<Comment> comments = this.commentService.getCommentsFilterBan(offer.getPostedToComments());
+
 		result = new ModelAndView("offer/display");
 		result.addObject("offer", offer);
 		result.addObject("isAdmin", isAdmin);
 		result.addObject("principal", actor);
 		result.addObject("isCustomer", res);
-		result.addObject("comments",comments);
+		result.addObject("comments", comments);
 		result.addObject("requestURI", "offer/customer/display.do");
 
 		return result;

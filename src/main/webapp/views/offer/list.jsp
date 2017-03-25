@@ -60,6 +60,7 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('CUSTOMER')">
+	<jstl:if test="${myOfferOption!=true}">
 	<security:authentication var="principalUserAccount" property="principal" />
 		<display:column>
 			<jstl:if test="${principalUserAccount.id != offer.customer.userAccount.id && offer.banned=='false'}">
@@ -82,7 +83,9 @@
 				
 			</jstl:if>
 		</display:column>
+	</jstl:if>
 	</security:authorize>	
+	
 	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>

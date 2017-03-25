@@ -42,7 +42,7 @@ public class OfferServiceTest extends AbstractTest {
 		offer = this.offerService.findOne(58);
 		System.out.println("findOne: " + offer.getId() + "title: " + offer.getTitle());
 		System.out.println("----------------------------------------");
-		super.authenticate(null);
+		this.unauthenticate();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -53,7 +53,7 @@ public class OfferServiceTest extends AbstractTest {
 		offer = this.offerService.findOne(0);
 		System.out.println("findOne: " + offer.getId() + "title: " + offer.getTitle());
 		System.out.println("----------------------------------------");
-		super.authenticate(null);
+		this.unauthenticate();
 	}
 
 	// Crear, guardar, editar y borrar offer
@@ -82,7 +82,7 @@ public class OfferServiceTest extends AbstractTest {
 		final Collection<Offer> offers = this.offerService.findAll();
 		//Assert.isTrue(offers.contains(offer));
 		System.out.println("----------------------------------------");
-		super.authenticate(null);
+		this.unauthenticate();
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class OfferServiceTest extends AbstractTest {
 		offer = this.offerService.save(offer);
 		Assert.isTrue(this.offerService.findOne(58).getTitle().equalsIgnoreCase("test offer"));
 		System.out.println("----------------------------------------");
-		super.authenticate(null);
+		this.unauthenticate();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -115,7 +115,7 @@ public class OfferServiceTest extends AbstractTest {
 		offer = this.offerService.save(null);
 
 		System.out.println("----------------------------------------");
-		super.authenticate(null);
+		this.unauthenticate();
 
 	}
 

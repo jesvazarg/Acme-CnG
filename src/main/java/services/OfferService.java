@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.OfferRepository;
 import domain.Actor;
 import domain.Administrator;
+import domain.Apply;
 import domain.Comment;
 import domain.Customer;
 import domain.Offer;
@@ -79,6 +80,8 @@ public class OfferService {
 		result.setCustomer(customer);
 		final Collection<Comment> postedToComments = new ArrayList<Comment>();
 		result.setPostedToComments(postedToComments);
+		final Collection<Apply> applies = new ArrayList<Apply>();
+		result.setApplies(applies);
 
 		return result;
 	}
