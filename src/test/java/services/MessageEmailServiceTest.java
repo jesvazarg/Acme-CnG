@@ -30,7 +30,7 @@ public class MessageEmailServiceTest extends AbstractTest {
 	private MessageEmailService	messageService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -46,7 +46,7 @@ public class MessageEmailServiceTest extends AbstractTest {
 		super.authenticate("customer1");
 		MessageEmail message;
 
-		message = this.messageService.findOne(84);
+		message = this.messageService.findOne(80);
 
 		System.out.println("findOne: " + message.getId() + "title: " + message.getTitle() + message.getText());
 		System.out.println("----------------------------------------");
@@ -61,7 +61,7 @@ public class MessageEmailServiceTest extends AbstractTest {
 		Actor recipient;
 
 		message = this.messageService.create();
-		recipient = this.actorService.findOne(56);
+		recipient = this.actorService.findOne(55);
 		final Collection<String> attachments = new ArrayList<String>();
 
 		message.setTitle("Example title");
@@ -104,7 +104,7 @@ public class MessageEmailServiceTest extends AbstractTest {
 	@Test
 	public void testResponderAUnMensaje() {
 		super.authenticate("customer1");
-		final MessageEmail message = this.messageService.findOne(84);
+		final MessageEmail message = this.messageService.findOne(80);
 		MessageEmail result = this.messageService.response(message);
 		final Collection<String> attachments = new ArrayList<String>();
 
@@ -124,9 +124,9 @@ public class MessageEmailServiceTest extends AbstractTest {
 		super.authenticate("customer1");
 
 		final Collection<String> attachments = new ArrayList<String>();
-		final MessageEmail message = this.messageService.findOne(84);
+		final MessageEmail message = this.messageService.findOne(80);
 		MessageEmail result = this.messageService.reply(message);
-		final Actor actor = this.actorService.findOne(57);
+		final Actor actor = this.actorService.findOne(55);
 		attachments.addAll(message.getAttachments());
 
 		result.setRecipient(actor);
@@ -145,7 +145,7 @@ public class MessageEmailServiceTest extends AbstractTest {
 	public void testEliminarUnMensaje() {
 		super.authenticate("customer1");
 
-		final MessageEmail message = this.messageService.findOne(84);
+		final MessageEmail message = this.messageService.findOne(80);
 		this.messageService.delete(message);
 
 		final Collection<MessageEmail> all = this.messageService.findAll();
