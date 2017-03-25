@@ -184,6 +184,13 @@ public class OfferCustomerController extends AbstractController {
 
 		offer = this.offerService.findOne(offerId);
 
+		final Actor actor = this.actorService.findByPrincipal();
+		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
+		if (offer.getCustomer().getId() != customer.getId()) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			return result;
+		}
+
 		result = this.createEditModelAndView(offer);
 
 		return result;
@@ -194,6 +201,13 @@ public class OfferCustomerController extends AbstractController {
 	public ModelAndView save(@Valid final Offer offer, final BindingResult binding) {
 		ModelAndView result;
 
+		final Actor actor = this.actorService.findByPrincipal();
+		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
+
+		if (offer.getCustomer().getId() != customer.getId()) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			return result;
+		}
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
 
