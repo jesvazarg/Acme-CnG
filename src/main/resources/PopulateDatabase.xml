@@ -255,6 +255,11 @@
 				<ref bean="comment3"/>
 			</list>
 		</property>
+		<property name="applies">
+			<list>
+				<ref bean="apply2"/>
+			</list>
+		</property>
 		
 	</bean>
 	
@@ -267,6 +272,10 @@
 		<property name="banned" value="false" />
 		<property name="customer" ref="customer1" />
 		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		<property name="applies">
 			<list>
 			</list>
 		</property>
@@ -285,6 +294,10 @@
 			<list>
 			</list>
 		</property>
+		<property name="applies">
+			<list>
+			</list>
+		</property>
 		
 	</bean>
 	
@@ -297,6 +310,10 @@
 		<property name="banned" value="false" />
 		<property name="customer" ref="customer2" />
 		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		<property name="applies">
 			<list>
 			</list>
 		</property>
@@ -316,6 +333,10 @@
 				<ref bean="comment2"/>
 			</list>
 		</property>
+		<property name="applies">
+			<list>
+			</list>
+		</property>
 		
 	</bean>
 	
@@ -328,6 +349,10 @@
 		<property name="banned" value="false" />
 		<property name="customer" ref="customer3" />
 		<property name="postedToComments">
+			<list>
+			</list>
+		</property>
+		<property name="applies">
 			<list>
 			</list>
 		</property>
@@ -348,6 +373,11 @@
 			<list>
 			</list>
 		</property>
+		<property name="applies">
+			<list>
+				<ref bean="apply1"/>
+			</list>
+		</property>
 		
 	</bean>
 	
@@ -361,6 +391,11 @@
 		<property name="customer" ref="customer2" />
 		<property name="postedToComments">
 			<list>
+			</list>
+		</property>
+		<property name="applies">
+			<list>
+				<ref bean="apply4"/>
 			</list>
 		</property>
 		
@@ -378,6 +413,11 @@
 			<list>
 			</list>
 		</property>
+		<property name="applies">
+			<list>
+				<ref bean="apply3"/>
+			</list>
+		</property>
 		
 	</bean>
 	
@@ -392,7 +432,10 @@
 		<property name="postedToComments">
 			<list>
 			</list>
-			
+		</property>
+		<property name="applies">
+			<list>
+			</list>
 		</property>
 		
 	</bean>

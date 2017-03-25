@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplyService;
+import services.CustomerService;
 import controllers.AbstractController;
 import domain.Apply;
+import domain.Customer;
 
 @Controller
 @RequestMapping("/apply/customer")
@@ -25,6 +27,9 @@ public class ApplyCustomerController extends AbstractController {
 
 	@Autowired
 	private ApplyService	applyService;
+
+	@Autowired
+	private CustomerService	customerService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -44,6 +49,21 @@ public class ApplyCustomerController extends AbstractController {
 
 		result = new ModelAndView("apply/list");
 		result.addObject("applies", applies);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/listMyApplies", method = RequestMethod.GET)
+	public ModelAndView listMyApplies() {
+		ModelAndView result;
+		Collection<Apply> applies;
+		final Customer customer = this.customerService.findByPrincipal();
+
+		applies = this.applyService.findByCustomerId(customer.getId());
+
+		result = new ModelAndView("apply/list");
+		result.addObject("applies", applies);
+		result.addObject("general", false);
 
 		return result;
 	}

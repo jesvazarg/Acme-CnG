@@ -62,7 +62,7 @@
 	
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
-			<jstl:if test="${principalUserAccount.id != row.customer.userAccount.id &&  row.banned=='false'}">
+			<jstl:if test="${principalUserAccount.id == row.customer.userAccount.id &&  row.banned=='false'}">
 				<form:form action="apply/customer/create.do?transactionId=${row.id}"
 					modelAttribute="apply" method="post">
 					<acme:submit name="createApply" code="request.apply"/>

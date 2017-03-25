@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -10,6 +11,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -106,7 +108,8 @@ public class Transaction extends Commentable {
 
 
 	// Relationships ----------------------------------------------------------
-	private Customer	customer;
+	private Customer			customer;
+	private Collection<Apply>	applies;
 
 
 	@NotNull
@@ -118,6 +121,17 @@ public class Transaction extends Commentable {
 
 	public void setCustomer(final Customer customer) {
 		this.customer = customer;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "transaction")
+	public Collection<Apply> getApplies() {
+		return applies;
+	}
+
+	public void setApplies(Collection<Apply> applies) {
+		this.applies = applies;
 	}
 
 }

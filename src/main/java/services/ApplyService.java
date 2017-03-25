@@ -85,4 +85,13 @@ public class ApplyService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public Collection<Apply> findByCustomerId(final int customerId) {
+		Collection<Apply> result;
+		Customer customer;
+		customer = this.customerService.findOne(customerId);
+		result = this.applyRepository.findByCustomerId(customer.getId());
+
+		return result;
+	}
 }
