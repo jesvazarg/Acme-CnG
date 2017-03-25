@@ -31,14 +31,6 @@ public class CommentableServiceTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	@Test
-	public void testFindOne() {
-		final Commentable commentable;
-
-		commentable = this.commentableService.findOne(55);
-		Assert.notNull(commentable);
-	}
-
-	@Test
 	public void testFindById() {
 		final Commentable commentable;
 
