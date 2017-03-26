@@ -69,7 +69,7 @@ public class OfferServiceTest extends AbstractTest {
 		offer.setDescription("description");
 
 		final Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR, +2);
+		calendar.set(2018, 05, 15, 13, 30, 25);
 		offer.setMovingMoment(calendar.getTime());
 
 		final Place place = new Place();
