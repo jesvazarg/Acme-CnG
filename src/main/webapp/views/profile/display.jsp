@@ -25,20 +25,11 @@
 			<b><spring:message code="profile.comments" /></b>
 			<display:table name="${comments}" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 				<jstl:if test="${!row.banned}">
-					<spring:message code="profile.comments.title" var="titleHeader" />
-					<display:column property="title" title="${titleHeader}" sortable="true" style="none"/>
-					
-					<spring:message code="profile.comments.postedMoment" var="postedMomentHeader" />
-					<display:column property="postedMoment" title="${postedMomentHeader}" sortable="true" style="none"/>
-					
-					<spring:message code="profile.comments.text" var="textHeader" />
-					<display:column property="text" title="${textHeader}" sortable="false" style="none"/>
-					
-					<spring:message code="profile.comments.starsNumber" var="starsNumberHeader" />
-					<display:column property="starsNumber" title="${starsNumberHeader}" sortable="true" style="none"/>
-					
-					<spring:message code="profile.comments.banned" var="bannedHeader" />
-					<display:column property="banned" title="${bannedHeader}" sortable="true" style="none"/>
+					<acme:column code="profile.comments.title" property="title" sortable="true"/>
+					<acme:column code="profile.comments.postedMoment" property="postedMoment" sortable="true"/>
+					<acme:column code="profile.comments.text" property="text"/>
+					<acme:column code="profile.comments.starsNumber" property="starsNumber" sortable="true"/>
+					<acme:column code="profile.comments.banned" property="banned" sortable="true"/>
 					
 					<spring:message code="profile.comments.postedBy" var="postedByHeader" />
 					<display:column title="${postedByHeader}">
@@ -47,20 +38,11 @@
 				</jstl:if>
 				
 				<jstl:if test="${row.banned}">
-					<spring:message code="profile.comments.title" var="titleHeader" />
-					<display:column property="title" title="${titleHeader}" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
-					
-					<spring:message code="profile.comments.postedMoment" var="postedMomentHeader" />
-					<display:column property="postedMoment" title="${postedMomentHeader}" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
-					
-					<spring:message code="profile.comments.text" var="textHeader" />
-					<display:column property="text" title="${textHeader}" sortable="false" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
-					
-					<spring:message code="profile.comments.starsNumber" var="starsNumberHeader" />
-					<display:column property="starsNumber" title="${starsNumberHeader}" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
-					
-					<spring:message code="profile.comments.banned" var="bannedHeader" />
-					<display:column property="banned" title="${bannedHeader}" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+					<acme:column code="profile.comments.title" property="title" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+					<acme:column code="profile.comments.postedMoment" property="postedMoment" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+					<acme:column code="profile.comments.text" property="text" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+					<acme:column code="profile.comments.starsNumber" property="starsNumber" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+					<acme:column code="profile.comments.banned" property="banned" sortable="true" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
 					
 					<spring:message code="profile.comments.postedBy" var="postedByHeader" />
 					<display:column title="${postedByHeader}">

@@ -170,6 +170,10 @@ public class ActorService {
 		return this.actorRepository.avgCommentsPerActor();
 	}
 
+	public Collection<Actor> find10PercentAvgCommentsPerActor() {
+		return this.actorRepository.find10PercentAvgCommentsPerActor();
+	}
+
 	public Double[] minAvMaxMessagesPerActor() {
 		return this.actorRepository.minAvMaxMessagesPerActor();
 	}
@@ -179,8 +183,8 @@ public class ActorService {
 	}
 
 	public Collection<Actor> findActorWithMostMessagesSent() {
-		Collection<Actor> result = this.actorRepository.findActorWithMostMessagesSent();
-		
+		final Collection<Actor> result = this.actorRepository.findActorWithMostMessagesSent();
+
 		return result;
 	}
 }

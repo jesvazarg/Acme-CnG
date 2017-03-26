@@ -124,4 +124,8 @@ public class CommentService {
 		return result;
 	}
 
+	public Double findAvgPerCommentable() {
+		return this.commentRepository.findAvgPerCommentable();
+	}
+
 }

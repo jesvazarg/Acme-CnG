@@ -37,14 +37,28 @@
 </jstl:if>
 <display:table name="offers" id="offer" requestURI="${requestURI }" class="displaytag">
 	
-	<acme:column code="offer.title" property="title"/>
-	<acme:column code="offer.description" property="description"/>
-	<acme:column code="offer.movingMoment" property="movingMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
-	<acme:column code="offer.originPlace" property="originPlace" />
-	<acme:column code="offer.destinationPlace" property="destinationPlace" />
+	<jstl:if test="${offer.banned}">
+		<acme:column code="offer.title" property="title" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="offer.description" property="description" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="offer.movingMoment" property="movingMoment" format="{0,date,dd/MM/yyyy HH:mm}" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="offer.originPlace" property="originPlace" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="offer.destinationPlace" property="destinationPlace" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+	</jstl:if>
+	<jstl:if test="${!offer.banned}">
+		<acme:column code="offer.title" property="title" />
+		<acme:column code="offer.description" property="description"/>
+		<acme:column code="offer.movingMoment" property="movingMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
+		<acme:column code="offer.originPlace" property="originPlace" />
+		<acme:column code="offer.destinationPlace" property="destinationPlace" />
+	</jstl:if>
 	
 	<jstl:if test="${general!=true}">
-				<acme:column code="offer.banned" property="banned"/>
+		<jstl:if test="${offer.banned}">
+			<acme:column code="offer.banned" property="banned" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		</jstl:if>
+		<jstl:if test="${!offer.banned}">
+			<acme:column code="offer.banned" property="banned"/>
+		</jstl:if>
 	</jstl:if>
 			
 	<display:column>

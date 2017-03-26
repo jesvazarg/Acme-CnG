@@ -11,110 +11,116 @@
 	<h2><spring:message code="admin.dashboard.levelC"/></h2>
 
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c1"/></b></legend>
-	<br/>
-	
-	<br/><br/>
+		<br/>
+		&nbsp&nbsp&nbsp&nbsp<jstl:out value="${ratioOfferPerRequest}" />
+		<br/><br/>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c2"/></b></legend>
-	<br/>
-	&nbsp&nbsp&nbsp&nbsp<jstl:out value="${avgTransactionsPerCustomer}" />
-	<br/><br/>
+		<br/>
+		&nbsp&nbsp&nbsp&nbsp<jstl:out value="${avgTransactionsPerCustomer}" />
+		<br/><br/>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c3"/></b></legend>
-	<br/>
-	
-	<br/><br/>
+		<br/>
+		
+		<br/><br/>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c4"/></b></legend>
-	<br/>
-	
-	<br/><br/>
+		<br/>
+		&nbsp&nbsp&nbsp&nbsp<jstl:out value="${customerWithMostAcceptedApplies.name}" />
+		<br/><br/>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c5"/></b></legend>
-	<br/>
-	
-	<br/><br/>
+		<display:table name="findCustomerWithMostDeniedApplications" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+			
+			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phoneNumber" property="phoneNumber"/>
+			
+		</display:table>
 	</fieldset>
 	
 	<br/>
 	<h2><spring:message code="admin.dashboard.levelB"/></h2>
 	
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.b1"/></b></legend>
-	<br/>
-	
-	<br/><br/>
+		<br/>
+		&nbsp&nbsp&nbsp&nbsp<jstl:out value="${findAvgPerCommentable}" />
+		<br/><br/>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.b2"/></b></legend>
-	<br/>
-	&nbsp&nbsp&nbsp&nbsp<jstl:out value="${avgCommentsPerActor}" />
-	<br/><br/>
+		<br/>
+		&nbsp&nbsp&nbsp&nbsp<jstl:out value="${avgCommentsPerActor}" />
+		<br/><br/>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.b3"/></b></legend>
-	<br/>
-	
-	<br/><br/>
+		<display:table name="find10PercentAvgCommentsPerActor" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+			
+			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phoneNumber" property="phoneNumber"/>
+			
+		</display:table>
 	</fieldset>
 	
 	<br/>
 	<h2><spring:message code="admin.dashboard.levelA"/></h2>
 	
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a1"/></b></legend>
-	<ul>
-		<li>
-			<b><spring:message code="admin.dashboard.min"/>:</b>
-			<jstl:out value="${minAvMaxMessagesPerActor[0]}"/>
-		</li>
-		<li>
-			<b><spring:message code="admin.dashboard.avg"/>:</b>
-			<jstl:out value="${minAvMaxMessagesPerActor[1]}"/>
-		</li>
-		<li>
-			<b><spring:message code="admin.dashboard.max"/>:</b>
-			<jstl:out value="${minAvMaxMessagesPerActor[2]}"/>
-		</li>
-	</ul>
+		<ul>
+			<li>
+				<b><spring:message code="admin.dashboard.min"/>:</b>
+				<jstl:out value="${minAvMaxMessagesPerActor[0]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.avg"/>:</b>
+				<jstl:out value="${minAvMaxMessagesPerActor[1]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.max"/>:</b>
+				<jstl:out value="${minAvMaxMessagesPerActor[2]}"/>
+			</li>
+		</ul>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a2"/></b></legend>
-	<br/>
-	
-	<br/><br/>
+		<br/>
+		
+		<br/><br/>
 	</fieldset>
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a3"/></b></legend>
-	
-	
-	<br/><br/>
+		<display:table name="findActorWithMostMessagesSent" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+			
+			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phoneNumber" property="phoneNumber"/>
+			
+		</display:table>
 	</fieldset>
 	
-	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a4"/></b></legend>
-	<display:table name="actorMoreGotMessages" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
-		
-		<spring:message code="admin.dashboard.actor.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="true" />
-	
-		<spring:message code="admin.dashboard.actor.email" var="emailHeader" />
-		<display:column property="email" title="${emailHeader}"	sortable="false" />
-		
-		<spring:message code="admin.dashboard.actor.phoneNumber" var="phoneNumberHeader" />
-		<display:column property="phoneNumber" title="${phoneNumberHeader}"	sortable="false" />
-		
-	</display:table>
+		<display:table name="actorMoreGotMessages" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+			
+			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phoneNumber" property="phoneNumber"/>
+			
+		</display:table>
 	</fieldset>
 	
 </security:authorize>

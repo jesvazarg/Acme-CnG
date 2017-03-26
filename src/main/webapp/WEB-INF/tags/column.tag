@@ -16,12 +16,16 @@
 
 <%@ attribute name="sortable" required="false" %>
 <%@ attribute name="format" required="false" %>
+<%@ attribute name="style" required="false" %>
 
 <jstl:if test="${sortable == null}">
 	<jstl:set var="sortable" value="false" />
+</jstl:if>
+<jstl:if test="${style == null}">
+	<jstl:set var="style" value="none" />
 </jstl:if>
 
 <%-- Definition --%>
 
 <spring:message code="${code}" var="titleHeader" />
-<display:column property="${property}" title="${titleHeader}" sortable="${sortable}" format="${format}"  />
+<display:column property="${property}" title="${titleHeader}" sortable="${sortable}" format="${format}"  style="${style}"/>

@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.ApplyService;
+import services.CommentService;
 import services.CustomerService;
+import services.TransactionService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Customer;
 
 @Controller
 @RequestMapping("/administrator")
@@ -20,10 +24,19 @@ public class DashboardAdministratorController extends AbstractController {
 
 	// Services -----------------------------------------------------------
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private CustomerService	customerService;
+	private ApplyService		applyService;
+
+	@Autowired
+	private CommentService		commentService;
+
+	@Autowired
+	private CustomerService		customerService;
+
+	@Autowired
+	private TransactionService	transactionService;
 
 
 	// Constructor --------------------------------------------------------
@@ -37,28 +50,53 @@ public class DashboardAdministratorController extends AbstractController {
 	public ModelAndView dashboard() {
 		ModelAndView result;
 		//Level C
+		Double ratioOfferPerRequest;
 		Double avgTransactionsPerCustomer;
+		final Double findAvgApplyTransaction;
+		Customer customerWithMostAcceptedApplies;
+		Collection<Customer> findCustomerWithMostDeniedApplications;
 		//Level B
+		Double findAvgPerCommentable;
 		Double avgCommentsPerActor;
+		Collection<Actor> find10PercentAvgCommentsPerActor;
 		//Level A
 		Double[] minAvMaxMessagesPerActor;
+		//Falta query A2
+		Collection<Actor> findActorWithMostMessagesSent;
 		Collection<Actor> actorMoreGotMessages;
 
 		//Level C
+		ratioOfferPerRequest = this.transactionService.ratioOfferPerRequest();
 		avgTransactionsPerCustomer = this.customerService.avgTransactionsPerCustomer();
+		//findAvgApplyTransaction = this.applyService.findAvgApplyTransaction();
+		customerWithMostAcceptedApplies = this.customerService.customerWithMostAcceptedApplies();
+		findCustomerWithMostDeniedApplications = this.customerService.findCustomerWithMostDeniedApplications();
 		//Level B
+		findAvgPerCommentable = this.commentService.findAvgPerCommentable();
 		avgCommentsPerActor = this.actorService.avgCommentsPerActor();
+		find10PercentAvgCommentsPerActor = this.actorService.find10PercentAvgCommentsPerActor();
 		//Level A
 		minAvMaxMessagesPerActor = this.actorService.minAvMaxMessagesPerActor();
+		//Falta query A2
+		findActorWithMostMessagesSent = this.actorService.findActorWithMostMessagesSent();
 		actorMoreGotMessages = this.actorService.actorMoreGotMessages();
 
 		result = new ModelAndView("administrator/dashboard");
 		//Level C
+		result.addObject("ratioOfferPerRequest", ratioOfferPerRequest);
 		result.addObject("avgTransactionsPerCustomer", avgTransactionsPerCustomer);
+		//result.addObject("findAvgApplyTransaction", findAvgApplyTransaction);
+		result.addObject("customerWithMostAcceptedApplies", customerWithMostAcceptedApplies);
+		result.addObject("findCustomerWithMostDeniedApplications", findCustomerWithMostDeniedApplications);
 		//Level B
+		result.addObject("findAvgPerCommentable", findAvgPerCommentable);
 		result.addObject("avgCommentsPerActor", avgCommentsPerActor);
+		result.addObject("find10PercentAvgCommentsPerActor", find10PercentAvgCommentsPerActor);
+
 		//Level A
 		result.addObject("minAvMaxMessagesPerActor", minAvMaxMessagesPerActor);
+		//Falta query A2
+		result.addObject("findActorWithMostMessagesSent", findActorWithMostMessagesSent);
 		result.addObject("actorMoreGotMessages", actorMoreGotMessages);
 
 		return result;
