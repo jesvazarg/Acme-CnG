@@ -178,4 +178,9 @@ public class ActorService {
 		return this.actorRepository.actorMoreGotMessages();
 	}
 
+	public Collection<Actor> findActorWithMostMessagesSent() {
+		Collection<Actor> result = this.actorRepository.findActorWithMostMessagesSent();
+		
+		return result;
+	}
 }

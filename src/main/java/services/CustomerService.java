@@ -193,4 +193,11 @@ public class CustomerService {
 		customer = this.customerRepository.customerWithMostAcceptedApplies();
 		return customer;
 	}
+	
+	public Collection<Customer> findCustomerWithMostDeniedApplications(){
+		Collection<Customer> result;
+		result= this.customerRepository.findCustomerWithMostDeniedApplications();
+		
+		return result;
+	}
 }

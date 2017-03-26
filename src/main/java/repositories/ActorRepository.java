@@ -29,6 +29,10 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query("select min(f.messages.size), avg(f.messages.size), max(f.messages.size) from Actor a join a.folders f where f.name='outBox'")
 	Double[] minAvMaxMessagesPerActor();
 
+	//A3 The actors who have sent more messages.
+	@Query("select m.sender from MessageEmail m group by m.sender having count(m)>=ALL(select count(m1) from MessageEmail m1 group by m1.sender)")
+	Collection<Actor> findActorWithMostMessagesSent();
+	
 	//A4: The actors who have got more messages.
 
 	@Query("select a from Actor a join a.folders f where (f.name='inBox') and (f.messages.size=(select max(fo.messages.size) from Folder fo where fo.name='inBox'))")
