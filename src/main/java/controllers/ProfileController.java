@@ -77,7 +77,6 @@ public class ProfileController extends AbstractController {
 		final Actor principal;
 		Boolean same = false;
 		final Collection<Comment> comments;
-		boolean isAdmin=false;
 
 		actor = this.actorService.findOne(actorId);
 
@@ -87,16 +86,12 @@ public class ProfileController extends AbstractController {
 
 		comments = this.commentService.getCommentsFilterBan(actor.getPostedToComments());
 		
-		if(principal instanceof Administrator){
-			isAdmin=true;
-		}
 
 		result = new ModelAndView("profile/display");
 		result.addObject("principal", principal);
 		result.addObject("profile", actor);
 		result.addObject("same", same);
 		result.addObject("comments", comments);
-		result.addObject("isAdmin", isAdmin);
 		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());
 
 		return result;

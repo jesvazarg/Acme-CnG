@@ -79,7 +79,7 @@
 				</display:column>
 				
 				<display:column>
-					<jstl:if test="${isAdmin or principal==row.postedBy}">
+					<jstl:if test="${principal==row.postedBy}">
 						<form:form action="comment/actor/delete.do?commentId=${row.id}" modelAttribute="comment">
 								<input type="submit" name="delete" value="<spring:message code="offer.delete" />" />
 						</form:form>

@@ -114,7 +114,6 @@ public class RequestCustomerController extends AbstractController {
 		Request request;
 		Boolean res = false;
 		Collection<Comment> comments;
-		boolean isAdmin = false;
 
 		final Actor actor = this.actorService.findByPrincipal();
 		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
@@ -123,15 +122,11 @@ public class RequestCustomerController extends AbstractController {
 
 		comments = this.commentService.getCommentsFilterBan(request.getPostedToComments());
 
-		if (actor instanceof Administrator)
-			isAdmin = true;
-
 		if (customer != null)
 			res = this.requestService.belongsToCurrentCustomer(request);
 
 		result = new ModelAndView("request/display");
 		result.addObject("request", request);
-		result.addObject("isAdmin", isAdmin);
 		result.addObject("principal", actor);
 		result.addObject("isCustomer", res);
 		result.addObject("comments", comments);

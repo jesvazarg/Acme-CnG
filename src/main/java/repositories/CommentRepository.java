@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,4 +15,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	// B1: Average number of comments per actor, offer, or request.
 	@Query("select avg(c.comments.size) from Commentable c")
 	Double findAvgPerCommentable();
+	
+	@Query("select c from Comment c")
+	Collection<Comment> findAll2();
 }

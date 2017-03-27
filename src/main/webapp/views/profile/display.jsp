@@ -51,7 +51,7 @@
 				</jstl:if>
 				
 				<display:column>
-					<jstl:if test="${isAdmin or principal==row.postedBy}">
+					<jstl:if test="${principal==row.postedBy}">
 						<form:form action="comment/actor/delete.do?commentId=${row.id}" modelAttribute="comment">
 							<acme:submit name="delete" code="profile.delete"/>
 						</form:form>

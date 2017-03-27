@@ -116,13 +116,9 @@ public class OfferCustomerController extends AbstractController {
 		Offer offer;
 		Boolean res = false;
 		offer = this.offerService.findOne(offerId);
-		boolean isAdmin = false;
 
 		final Actor actor = this.actorService.findByPrincipal();
 		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
-
-		if (actor instanceof Administrator)
-			isAdmin = true;
 
 		if (customer != null)
 			res = this.offerService.belongsToCurrentCustomer(offer);
@@ -131,7 +127,6 @@ public class OfferCustomerController extends AbstractController {
 
 		result = new ModelAndView("offer/display");
 		result.addObject("offer", offer);
-		result.addObject("isAdmin", isAdmin);
 		result.addObject("principal", actor);
 		result.addObject("isCustomer", res);
 		result.addObject("comments", comments);

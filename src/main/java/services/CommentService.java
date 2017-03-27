@@ -84,8 +84,9 @@ public class CommentService {
 	}
 
 	public void delete(final Comment comment) {
-		Assert.isTrue((this.actorService.findByPrincipal().equals(comment.getPostedBy())) || (this.actorService.findByPrincipal() instanceof Administrator));
+		
 		Assert.notNull(comment);
+		Assert.isTrue((this.actorService.findByPrincipal().equals(comment.getPostedBy())));
 
 		this.commentRepository.delete(comment);
 	}
@@ -108,6 +109,7 @@ public class CommentService {
 		Boolean isAdmin;
 		Boolean view = true;
 
+		Assert.notNull(comments);
 		actor = this.actorService.findByPrincipal();
 		isAdmin = this.actorService.checkAuthority(actor, "ADMIN");
 		//		authorities = actor.getUserAccount().getAuthorities();
