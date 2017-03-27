@@ -102,11 +102,15 @@
 	
 	
 	<security:authorize access="hasRole('ADMIN')">
+	
 		<display:column>
+		<jstl:if test="${!offer.banned}">
 			<a href="offer/customer/bann.do?offerId=${offer.id}"><spring:message
 				code="offer.bann" />
 			</a>
+		</jstl:if>
 		</display:column>
+
 	</security:authorize>
 		
 	
