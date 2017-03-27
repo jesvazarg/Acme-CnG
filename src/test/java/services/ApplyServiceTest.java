@@ -76,7 +76,7 @@ public class ApplyServiceTest extends AbstractTest {
 
 	@Test
 	public void testPublishApplyRequest() {
-		super.authenticate("customer1");
+		super.authenticate("customer2");
 		Apply apply;
 		Transaction transaction;
 
