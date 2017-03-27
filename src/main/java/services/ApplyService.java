@@ -73,6 +73,7 @@ public class ApplyService {
 
 	public Apply save(final Apply apply) {
 		Assert.notNull(apply);
+		Assert.notNull(apply.getCustomer());
 		Apply result;
 
 		result = this.applyRepository.save(apply);
