@@ -74,6 +74,10 @@ public class ApplyService {
 	public Apply save(final Apply apply) {
 		Assert.notNull(apply);
 		Assert.notNull(apply.getCustomer());
+		Assert.notNull(apply.getTransaction());
+		Assert.isTrue(apply.getStatus().equals("ACCEPTED") || apply.getStatus().equals("DENIED") || apply.getStatus().equals("PENDING"));
+		Assert.isTrue(apply.getCustomer() != apply.getTransaction().getCustomer());
+
 		Apply result;
 
 		result = this.applyRepository.save(apply);

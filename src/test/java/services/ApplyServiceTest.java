@@ -155,16 +155,56 @@ public class ApplyServiceTest extends AbstractTest {
 	public void testEditApplyNegative2() {
 		super.authenticate("customer1");
 		Apply apply;
-		Transaction transaction = null;
+		Transaction transaction;
+
+		transaction = transactionService.findOne(60);
 
 		apply = this.applyService.create(transaction.getId());
 
-		apply.setTransaction(transaction);
+		apply.setTransaction(null);
 
 		apply = this.applyService.save(apply);
 
 		System.out.println("----------------------------------------");
 		this.unauthenticate();
 
+	}
+
+	//Status distinto de Accepted, Denied o Pending
+	@Test(expected = IllegalArgumentException.class)
+	public void tesEditApplyNegative3() {
+		super.authenticate("customer1");
+		Apply apply;
+
+		apply = this.applyService.findOne(68);
+		System.out.println(apply.getStatus());
+		apply.setStatus("HOLI");
+
+		apply = this.applyService.save(apply);
+
+		System.out.println(apply.getStatus());
+		Assert.isTrue(!apply.equals("PENDING"));
+		System.out.println("----------------------------------------");
+		this.unauthenticate();
+	}
+
+	//Mismo customer para el apply que para la transaction
+	@Test(expected = IllegalArgumentException.class)
+	public void testEditApplyNegative4() {
+		super.authenticate("customer1");
+		Apply apply;
+		Transaction transaction;
+
+		transaction = transactionService.findOne(60);
+
+		apply = this.applyService.create(transaction.getId());
+		apply.setCustomer(transaction.getCustomer());
+		apply.setTransaction(transaction);
+
+		apply = this.applyService.save(apply);
+		final Collection<Apply> applications = this.applyService.findAll();
+		Assert.isTrue(applications.contains(apply));
+		System.out.println("----------------------------------------");
+		this.unauthenticate();
 	}
 }
