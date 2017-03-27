@@ -107,19 +107,9 @@
 </security:authorize>
 
 <security:authorize access="hasRole('CUSTOMER')">
-	<div>
-		<jstl:if test="${principalUserAccount.id == offer.customer.userAccount.id &&  offer.banned=='false'}">
-			<li><a href="apply/customer/create.do?requestId=${offer.id}">
-				<spring:message code="request.apply"/>
-			</a></li>
-		</jstl:if>
-	</div>
-</security:authorize>
-
-<security:authorize access="hasRole('CUSTOMER')">
 
 		<jstl:if test="${isCustomer}">
-			<li><a href="request/customer/edit.do?requestId=${offer.id}">
+			<li><a href="request/customer/edit.do?requestId=${request.id}">
 				<spring:message code="request.edit"/>
 			</a></li>
 		</jstl:if>

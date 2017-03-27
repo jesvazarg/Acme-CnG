@@ -35,12 +35,12 @@ public class RequestCustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService	customerService;
-	
+
 	@Autowired
-	private ActorService actorService;
-	
+	private ActorService	actorService;
+
 	@Autowired
-	private CommentService commentService;
+	private CommentService	commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -56,12 +56,20 @@ public class RequestCustomerController extends AbstractController {
 		ModelAndView result;
 		Collection<Request> requests;
 
-		requests = this.requestService.findAllNotBanned();
+		final Actor actor = this.actorService.findByPrincipal();
+		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
 
 		result = new ModelAndView("request/list");
-		result.addObject("requests", requests);
-		result.addObject("general", true);
+		if (customer == null) {
+			requests = this.requestService.findAll();
+			result.addObject("requests", requests);
+			result.addObject("general", false);
 
+		} else {
+			requests = this.requestService.findAllNotBanned();
+			result.addObject("requests", requests);
+			result.addObject("general", true);
+		}
 		return result;
 	}
 
@@ -104,27 +112,45 @@ public class RequestCustomerController extends AbstractController {
 	public ModelAndView display(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
+		Boolean res = false;
 		Collection<Comment> comments;
-		boolean isAdmin=false;
-		
-		Actor actor = actorService.findByPrincipal();
-		
+		boolean isAdmin = false;
+
+		final Actor actor = this.actorService.findByPrincipal();
+		final Customer customer = this.customerService.findByUserAccountId(actor.getUserAccount().getId());
+
 		request = this.requestService.findOne(requestId);
-		
+
 		comments = this.commentService.getCommentsFilterBan(request.getPostedToComments());
-		
-		if(actor instanceof Administrator){
-			isAdmin=true;
-		}
-		
+
+		if (actor instanceof Administrator)
+			isAdmin = true;
+
+		if (customer != null)
+			res = this.requestService.belongsToCurrentCustomer(request);
+
 		result = new ModelAndView("request/display");
 		result.addObject("request", request);
 		result.addObject("isAdmin", isAdmin);
 		result.addObject("principal", actor);
-		result.addObject("comments",comments);
+		result.addObject("isCustomer", res);
+		result.addObject("comments", comments);
 		result.addObject("requestURI", "request/customer/display.do");
 
 		return result;
+	}
+
+	// Bann -------------------------------------------------------------
+
+	@RequestMapping(value = "/bann", method = RequestMethod.GET)
+	public ModelAndView bann(@RequestParam final int requestId) {
+		Collection<Request> requests;
+		Request request;
+
+		request = this.requestService.bannRequest(requestId);
+		requests = this.requestService.findAllNotBanned();
+
+		return this.list();
 	}
 
 	// Creation ---------------------------------------------------------------

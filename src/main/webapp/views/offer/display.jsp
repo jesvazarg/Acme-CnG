@@ -128,14 +128,4 @@
 		</jstl:if>
 	
 </security:authorize>
-
-<security:authorize access="hasRole('CUSTOMER')">
-		
-			<jstl:if test="${!isCustomer}">
-				<li><a href="apply/customer/create.do?offerId=${offer.id}">
-					<spring:message code="offer.apply"/>
-				</a></li>
-			</jstl:if>
-		
-	</security:authorize>	
 	

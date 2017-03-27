@@ -128,6 +128,14 @@ public class RequestService {
 		return results;
 	}
 
+	public Boolean belongsToCurrentCustomer(final Request request) {
+		Boolean res = false;
+		final Customer customer = this.customerService.findByPrincipal();
+		if (request.getCustomer().equals(customer))
+			res = true;
+		return res;
+	}
+
 	public Request bannRequest(final int requestId) {
 		Request result;
 		final Actor actor = this.actorService.findByPrincipal();

@@ -144,16 +144,11 @@ public class OfferCustomerController extends AbstractController {
 
 	@RequestMapping(value = "/bann", method = RequestMethod.GET)
 	public ModelAndView bann(@RequestParam final int offerId) {
-		final ModelAndView result;
 		Collection<Offer> offers;
 		Offer offer;
 
 		offer = this.offerService.bannOffer(offerId);
 		offers = this.offerService.findAllNotBanned();
-
-		//		result = new ModelAndView("offer/list");
-		//		result.addObject("offers", offers);
-		//		result.addObject("general", true);
 
 		return this.list();
 	}

@@ -37,11 +37,20 @@
 </jstl:if>
 <display:table name="requests" id="row" requestURI="${requestURI }" class="displaytag">
 	
-	<acme:column code="request.title" property="title"/>
-	<acme:column code="request.description" property="description"/>
-	<acme:column code="request.movingMoment" property="movingMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
-	<acme:column code="request.originPlace" property="originPlace" />
-	<acme:column code="request.destinationPlace" property="destinationPlace" />
+	<jstl:if test="${row.banned}">
+		<acme:column code="request.title" property="title" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="request.description" property="description" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="request.movingMoment" property="movingMoment" format="{0,date,dd/MM/yyyy HH:mm}" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="request.originPlace" property="originPlace" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+		<acme:column code="request.destinationPlace" property="destinationPlace" style="background:Tomato;border:solid;border-color:black;font-weight:bold"/>
+	</jstl:if>
+	<jstl:if test="${!row.banned}">
+		<acme:column code="request.title" property="title"/>
+		<acme:column code="request.description" property="description"/>
+		<acme:column code="request.movingMoment" property="movingMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
+		<acme:column code="request.originPlace" property="originPlace" />
+		<acme:column code="request.destinationPlace" property="destinationPlace" />
+	</jstl:if>
 	
 	<jstl:if test="${general!=true}">
 		<acme:column code="request.banned" property="banned"/>
@@ -85,7 +94,21 @@
 		</display:column>
 	</security:authorize>	
 	
+		<security:authorize access="hasRole('ADMIN')">
+	
+		<display:column>
+		<jstl:if test="${!row.banned}">
+			<a href="request/customer/bann.do?requestId=${row.id}"><spring:message
+				code="request.ban" />
+			</a>
+		</jstl:if>
+		</display:column>
+
+	</security:authorize>
+	
 </display:table>
+
+
 
 <security:authorize access="hasRole('CUSTOMER')">	
 	<li>
