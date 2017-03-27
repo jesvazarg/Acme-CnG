@@ -37,7 +37,6 @@
 </jstl:if>
 <display:table name="applies" id="row" requestURI="${requestURI }" class="displaytag">
 	
-	
 		<display:column>
 				<jstl:if test="${row.status=='PENDING'}">
 					<spring:message code="apply.pending"/>
