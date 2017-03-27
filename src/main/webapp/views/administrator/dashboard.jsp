@@ -25,9 +25,16 @@
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c3"/></b></legend>
-		<br/>
-		
-		<br/><br/>
+		<ul>
+			<li>
+				<b><spring:message code="admin.dashboard.request"/>:</b>
+				<jstl:out value="${findAvgApplyRequest}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.offer"/>:</b>
+				<jstl:out value="${findAvgApplyOffer}"/>
+			</li>
+		</ul>
 	</fieldset>
 	
 	<br/>
@@ -97,9 +104,20 @@
 	
 	<br/>
 	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.a2"/></b></legend>
-		<br/>
-		
-		<br/><br/>
+		<ul>
+			<li>
+				<b><spring:message code="admin.dashboard.min"/>:</b>
+				<jstl:out value="${minAvMaxMessagesReceivedPerActor[0]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.avg"/>:</b>
+				<jstl:out value="${minAvMaxMessagesReceivedPerActor[1]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.max"/>:</b>
+				<jstl:out value="${minAvMaxMessagesReceivedPerActor[2]}"/>
+			</li>
+		</ul>
 	</fieldset>
 	
 	<br/>

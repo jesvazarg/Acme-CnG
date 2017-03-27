@@ -53,7 +53,7 @@
 				<display:column>
 					<jstl:if test="${isAdmin or principal==row.postedBy}">
 						<form:form action="comment/actor/delete.do?commentId=${row.id}" modelAttribute="comment">
-								<input type="submit" name="delete" value="<spring:message code="profile.delete" />" />
+							<acme:submit name="delete" code="profile.delete"/>
 						</form:form>
 					</jstl:if>
 				</display:column>
@@ -62,7 +62,7 @@
 					<display:column>
 						<jstl:if test="${!row.banned}">
 							<form:form action="comment/actor/ban.do?commentId=${row.id}" modelAttribute="comment">
-								<input type="submit" name="ban" value="<spring:message code="offer.bann" />" />
+								<acme:submit name="ban" code="profile.comments.ban"/>
 							</form:form>
 						</jstl:if>
 					</display:column>

@@ -52,7 +52,8 @@ public class DashboardAdministratorController extends AbstractController {
 		//Level C
 		Double ratioOfferPerRequest;
 		Double avgTransactionsPerCustomer;
-		final Double findAvgApplyTransaction;
+		Double findAvgApplyRequest;
+		Double findAvgApplyOffer;
 		Customer customerWithMostAcceptedApplies;
 		Collection<Customer> findCustomerWithMostDeniedApplications;
 		//Level B
@@ -61,14 +62,15 @@ public class DashboardAdministratorController extends AbstractController {
 		Collection<Actor> find10PercentAvgCommentsPerActor;
 		//Level A
 		Double[] minAvMaxMessagesPerActor;
-		//Falta query A2
+		Double[] minAvMaxMessagesReceivedPerActor;
 		Collection<Actor> findActorWithMostMessagesSent;
 		Collection<Actor> actorMoreGotMessages;
 
 		//Level C
 		ratioOfferPerRequest = this.transactionService.ratioOfferPerRequest();
 		avgTransactionsPerCustomer = this.customerService.avgTransactionsPerCustomer();
-		//findAvgApplyTransaction = this.applyService.findAvgApplyTransaction();
+		findAvgApplyRequest = this.applyService.findAvgApplyRequest();
+		findAvgApplyOffer = this.applyService.findAvgApplyOffer();
 		customerWithMostAcceptedApplies = this.customerService.customerWithMostAcceptedApplies();
 		findCustomerWithMostDeniedApplications = this.customerService.findCustomerWithMostDeniedApplications();
 		//Level B
@@ -77,7 +79,7 @@ public class DashboardAdministratorController extends AbstractController {
 		find10PercentAvgCommentsPerActor = this.actorService.find10PercentAvgCommentsPerActor();
 		//Level A
 		minAvMaxMessagesPerActor = this.actorService.minAvMaxMessagesPerActor();
-		//Falta query A2
+		minAvMaxMessagesReceivedPerActor = this.actorService.minAvMaxMessagesReceivedPerActor();
 		findActorWithMostMessagesSent = this.actorService.findActorWithMostMessagesSent();
 		actorMoreGotMessages = this.actorService.actorMoreGotMessages();
 
@@ -85,7 +87,8 @@ public class DashboardAdministratorController extends AbstractController {
 		//Level C
 		result.addObject("ratioOfferPerRequest", ratioOfferPerRequest);
 		result.addObject("avgTransactionsPerCustomer", avgTransactionsPerCustomer);
-		//result.addObject("findAvgApplyTransaction", findAvgApplyTransaction);
+		result.addObject("findAvgApplyRequest", findAvgApplyRequest);
+		result.addObject("findAvgApplyOffer", findAvgApplyOffer);
 		result.addObject("customerWithMostAcceptedApplies", customerWithMostAcceptedApplies);
 		result.addObject("findCustomerWithMostDeniedApplications", findCustomerWithMostDeniedApplications);
 		//Level B
@@ -95,11 +98,10 @@ public class DashboardAdministratorController extends AbstractController {
 
 		//Level A
 		result.addObject("minAvMaxMessagesPerActor", minAvMaxMessagesPerActor);
-		//Falta query A2
+		result.addObject("minAvMaxMessagesReceivedPerActor", minAvMaxMessagesReceivedPerActor);
 		result.addObject("findActorWithMostMessagesSent", findActorWithMostMessagesSent);
 		result.addObject("actorMoreGotMessages", actorMoreGotMessages);
 
 		return result;
 	}
-
 }
