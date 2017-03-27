@@ -16,6 +16,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
 	Collection<Transaction> findByCustomerId(int id);
 
 	//C1:
-	@Query("select (select count(o) from Offer o) / count(r) from Request r")
+	@Query("select (select count(o)*1.0 from Offer o) / count(r)*1.0 from Request r")
 	Double rationOfferPerRequest();
 }
