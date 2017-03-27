@@ -30,6 +30,12 @@ public class BannerServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	//NOTA IMPORTANTE
+	//SE HA DECIDIDO NO USAR EL ESQUEMA VISTO EN TEORIA YA QUE PERDERIAMOS DEMASIADO TIEMPO
+	//EN SU IMPLEMENTACION. 
+
+	// Administrar los banners que se mostrarán en la página principal.
+
 	@Test
 	public void testFindById() {
 		Banner banner;
@@ -51,9 +57,8 @@ public class BannerServiceTest extends AbstractTest {
 		Collection<Banner> banners;
 
 		banners = this.bannerService.findAll();
-		for (Banner b : banners) {
+		for (final Banner b : banners)
 			b.setPicture("http://segurosbaratos.motorgiga.com/uploads/comparador_seguros_de_coche.jpg");
-		}
 		Assert.isTrue(banners.size() == 1);
 	}
 

@@ -30,6 +30,10 @@ public class CommentableServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	//NOTA IMPORTANTE
+	//SE HA DECIDIDO NO USAR EL ESQUEMA VISTO EN TEORIA YA QUE PERDERIAMOS DEMASIADO TIEMPO
+	//EN SU IMPLEMENTACION. 
+
 	@Test
 	public void testFindById() {
 		final Commentable commentable;

@@ -38,8 +38,10 @@ public class CustomerServiceTest extends AbstractTest {
 		System.out.println("----------------------------------------");
 	}
 
+	//Registrar los usuarios del sistema.
+
 	@Test
-	public void testCreateSave() {
+	public void testRegistrarUsuarios() {
 		Customer customer;
 		final UserAccount userAccount;
 

@@ -31,7 +31,7 @@ public class OfferServiceTest extends AbstractTest {
 	private CustomerService	customerService;
 
 
-	//Mostrar un offer 
+	//Mostrar un offer a un actor del sistema
 
 	@Test
 	public void testShowOffer() {

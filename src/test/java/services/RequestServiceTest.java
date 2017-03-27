@@ -28,7 +28,11 @@ public class RequestServiceTest extends AbstractTest {
 	private RequestService	requestService;
 
 
-	//Mostrar un offer 
+	//NOTA IMPORTANTE
+	//SE HA DECIDIDO NO USAR EL ESQUEMA VISTO EN TEORIA YA QUE PERDERIAMOS DEMASIADO TIEMPO
+	//EN SU IMPLEMENTACION. 
+
+	//Mostrar una solicitud 
 
 	@Test
 	public void testShowRequest() {
@@ -52,7 +56,7 @@ public class RequestServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
-	// Publicar una oferta
+	// Publicar una solicitud
 
 	@Test
 	public void testPublishRequest() {
@@ -81,7 +85,7 @@ public class RequestServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
-	//Banear un oferta
+	//Banear un solicitud
 
 	@Test
 	public void testBanRequest() {
@@ -95,7 +99,7 @@ public class RequestServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
-	//Buscar ofertas
+	//Buscar solicitudes
 	@Test
 	public void testSearchRequest() {
 		super.authenticate("customer2");
@@ -106,7 +110,7 @@ public class RequestServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
-	//Publicar un request (test negativo)
+	//Publicar una solicitud (test negativo)
 
 	//Con request null
 	@Test(expected = IllegalArgumentException.class)
