@@ -68,6 +68,8 @@
 		<security:intercept-url pattern="/apply/customer/create.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/apply/customer/list.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/apply/customer/listMyApplies.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/apply/customer/edit.do" access="hasRole('CUSTOMER')" />
+		
 		
 		
 		<!-- isAnonymous -->

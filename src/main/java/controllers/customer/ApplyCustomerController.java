@@ -103,14 +103,37 @@ public class ApplyCustomerController extends AbstractController {
 
 	// Edition ----------------------------------------------------------------
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int requestId) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "acceptApply")
+	public ModelAndView editAccept(@RequestParam final int applyId) {
 		ModelAndView result;
 		Apply apply;
 
-		apply = this.applyService.findOne(requestId);
+		System.out.println(applyId);
 
-		result = this.createEditModelAndView(apply);
+		apply = this.applyService.findOne(applyId);
+
+		apply.setStatus("ACCEPTED");
+
+		this.applyService.save(apply);
+		result = new ModelAndView("redirect:../../apply/customer/list.do");
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "denyApply")
+	public ModelAndView editDeny(@RequestParam final int applyId) {
+		ModelAndView result;
+		Apply apply;
+
+		System.out.println(applyId);
+
+		apply = this.applyService.findOne(applyId);
+
+		apply.setStatus("DENIED");
+
+		this.applyService.save(apply);
+		result = new ModelAndView("redirect:../../apply/customer/list.do");
 
 		return result;
 

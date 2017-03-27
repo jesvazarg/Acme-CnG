@@ -37,9 +37,39 @@
 </jstl:if>
 <display:table name="applies" id="row" requestURI="${requestURI }" class="displaytag">
 	
-	<acme:column code="apply.status" property="status"/>
+	
+		<display:column>
+				<jstl:if test="${row.status=='PENDING'}">
+					<spring:message code="apply.pending"/>
+				</jstl:if>
+				<jstl:if test="${row.status=='ACCEPTED'}">
+					<spring:message code="apply.accepted"/>
+				</jstl:if>
+				<jstl:if test="${row.status=='DENIED'}">
+					<spring:message code="apply.denied"/>
+				</jstl:if>
+		</display:column>
 	<acme:column code="apply.customer" property="customer.name"/>
 	<acme:column code="apply.transaction" property="transaction.title"/>
+	
+	<security:authorize access="hasRole('CUSTOMER')">
+	<security:authentication var="principalUserAccount" property="principal" />
+		<display:column>
+			<jstl:if test="${principalUserAccount.id != row.customer.userAccount.id}">
+				<jstl:if test="${row.status=='PENDING'}">
+					<form:form action="apply/customer/edit.do?applyId=${row.id}"
+						modelAttribute="apply" method="post">
+						<acme:submit name="acceptApply" code="apply.accept"/>
+					</form:form>
+					<form:form action="apply/customer/edit.do?applyId=${row.id}"
+						modelAttribute="apply" method="post">
+						<acme:submit name="denyApply" code="apply.deny"/>
+					</form:form>
+				</jstl:if>
+			</jstl:if>
+				
+		</display:column>
+	</security:authorize>	
 	
 	
 </display:table>

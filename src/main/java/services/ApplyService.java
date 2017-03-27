@@ -74,10 +74,6 @@ public class ApplyService {
 	public Apply save(final Apply apply) {
 		Assert.notNull(apply);
 		Apply result;
-		Customer customer;
-
-		customer = this.customerService.findByPrincipal();
-		Assert.isTrue(customer.equals(apply.getCustomer()));
 
 		result = this.applyRepository.save(apply);
 
