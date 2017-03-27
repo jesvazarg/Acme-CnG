@@ -79,15 +79,24 @@ public class BannerServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void testEditBannerNegative() {
+	public void testEditBannerNegative1() {
 		super.authenticate("admin");
 		Banner banner;
 
 		banner = this.bannerService.findOne(67);
-		banner.setPicture("");
+		banner.setPicture("http://segurosbaratos.motorgiga.com/uploads/comparador_seguros_de_coche.jpg");
 		bannerService.save(banner);
 
 		this.unauthenticate();
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testEditBannerNegative2() {
+		super.authenticate("admin");
+		Banner banner = null;
+
+		bannerService.save(banner);
+
+		this.unauthenticate();
+	}
 }
