@@ -99,4 +99,12 @@ public class ApplyService {
 
 		return result;
 	}
+
+	public Double findAvgApplyRequest() {
+		return this.applyRepository.findAvgApplyRequest();
+	}
+
+	public Double findAvgApplyOffer() {
+		return this.applyRepository.findAvgApplyOffer();
+	}
 }

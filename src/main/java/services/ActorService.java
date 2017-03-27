@@ -178,6 +178,10 @@ public class ActorService {
 		return this.actorRepository.minAvMaxMessagesPerActor();
 	}
 
+	public Double[] minAvMaxMessagesReceivedPerActor() {
+		return this.actorRepository.minAvMaxMessagesReceivedPerActor();
+	}
+
 	public Collection<Actor> actorMoreGotMessages() {
 		return this.actorRepository.actorMoreGotMessages();
 	}
