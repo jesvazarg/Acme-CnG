@@ -31,6 +31,47 @@ public class OfferServiceTest extends AbstractTest {
 	private CustomerService	customerService;
 
 
+	// ESQUEMA PROPORCIONADO POR LOS PROFESORES
+	//Con este esquema vamos a comprobar la funcion de delete de la entidad offer
+
+	@Test
+	public void driver() {
+		final Object testingData[][] = {
+			{
+				"customer1", 56, null
+			}, {
+				"customer1", 57, null
+			}, {
+				"customer1", 58, null
+			}, {
+				"customer1", 61, IllegalArgumentException.class
+			}, {
+				"null", 58, IllegalArgumentException.class
+			}, {
+				"null", 61, IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.template((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	protected void template(final String username, final int idOffer, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+			final Offer offer = this.offerService.findOne(idOffer);
+			this.offerService.delete(offer);
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
 	//Mostrar un offer a un actor del sistema
 
 	@Test
