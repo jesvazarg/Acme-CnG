@@ -153,7 +153,8 @@ public class MessageEmailService {
 	// Other business methods -------------------------------------------------
 
 	public Collection<MessageEmail> findMessagesByFolderId(final int folderId) {
-
+		final Folder folder = this.folderService.findOne(folderId);
+		Assert.isTrue(folder.getActor().equals(this.actorService.findByPrincipal()));
 		Collection<MessageEmail> result;
 
 		result = this.messageRepository.findMessagesByFolderId(folderId);

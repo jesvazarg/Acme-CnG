@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import repositories.CommentRepository;
 import domain.Actor;
-import domain.Administrator;
 import domain.Comment;
 import domain.Commentable;
 
@@ -63,6 +62,7 @@ public class CommentService {
 		result.setPostedBy(principal);
 
 		final Calendar thisMoment = Calendar.getInstance();
+		thisMoment.set(Calendar.MILLISECOND, -10);
 		result.setPostedMoment(thisMoment.getTime());
 
 		Assert.notNull(postedTo);
@@ -84,7 +84,7 @@ public class CommentService {
 	}
 
 	public void delete(final Comment comment) {
-		
+
 		Assert.notNull(comment);
 		Assert.isTrue((this.actorService.findByPrincipal().equals(comment.getPostedBy())));
 

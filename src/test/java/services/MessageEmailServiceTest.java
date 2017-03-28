@@ -209,4 +209,24 @@ public class MessageEmailServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
+	@Test
+	public void testMostrarMensajesFolder() {
+		super.authenticate("customer1");
+		Collection<MessageEmail> result = new ArrayList<>();
+		result = this.messageService.findMessagesByFolderId(73);
+		Assert.isTrue(!result.isEmpty());
+
+		super.authenticate(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testMostrarMensajesFolderNegative() {
+		super.authenticate("customer3");
+		Collection<MessageEmail> result = new ArrayList<>();
+		result = this.messageService.findMessagesByFolderId(73);
+		Assert.isTrue(!result.isEmpty());
+
+		super.authenticate(null);
+	}
+
 }
