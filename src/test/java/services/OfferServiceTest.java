@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,9 +27,6 @@ public class OfferServiceTest extends AbstractTest {
 
 	@Autowired
 	private OfferService	offerService;
-
-	@Autowired
-	private CustomerService	customerService;
 
 
 	// ESQUEMA PROPORCIONADO POR LOS PROFESORES
@@ -68,9 +66,9 @@ public class OfferServiceTest extends AbstractTest {
 			}, {
 				"customer2", 59, "Soy el mas mejor", null
 			}, {
-				"customer2", 0, "Soy el mas mejor", IllegalArgumentException.class
+				"customer2", 59, "", ConstraintViolationException.class
 			}, {
-				"null", 58, null, IllegalArgumentException.class
+				"customer1", 58, null, ConstraintViolationException.class
 			}, {
 				"customer1", 61, "pepote", IllegalArgumentException.class
 			}
@@ -104,6 +102,7 @@ public class OfferServiceTest extends AbstractTest {
 			final Offer offer = this.offerService.findOne(idOffer);
 			offer.setTitle(text);
 			this.offerService.save(offer);
+			this.offerService.findAll();
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
