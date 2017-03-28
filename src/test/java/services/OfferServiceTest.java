@@ -35,7 +35,7 @@ public class OfferServiceTest extends AbstractTest {
 	//Con este esquema vamos a comprobar la funcion de delete de la entidad offer
 
 	@Test
-	public void driver() {
+	public void driverDeleteOffer() {
 		final Object testingData[][] = {
 			{
 				"customer1", 56, null
@@ -53,10 +53,33 @@ public class OfferServiceTest extends AbstractTest {
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.template((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.deleteOfferTemplate((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
 
-	protected void template(final String username, final int idOffer, final Class<?> expected) {
+	//Con este esquema vamos a comprobar la funcion de editar de la entidad offer
+
+	@Test
+	public void driverEditOffer() {
+		final Object testingData[][] = {
+			{
+				"customer1", 56, "Holis", null
+			}, {
+				"customer1", 57, "Holis", null
+			}, {
+				"customer2", 59, "Soy el mas mejor", null
+			}, {
+				"customer2", 0, "Soy el mas mejor", IllegalArgumentException.class
+			}, {
+				"null", 58, null, IllegalArgumentException.class
+			}, {
+				"customer1", 61, "pepote", IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.editOfferTemplate((String) testingData[i][0], (int) testingData[i][1], (String) testingData[i][2], (Class<?>) testingData[i][3]);
+	}
+	protected void deleteOfferTemplate(final String username, final int idOffer, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -64,6 +87,23 @@ public class OfferServiceTest extends AbstractTest {
 			this.authenticate(username);
 			final Offer offer = this.offerService.findOne(idOffer);
 			this.offerService.delete(offer);
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
+	protected void editOfferTemplate(final String username, final int idOffer, final String text, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+			final Offer offer = this.offerService.findOne(idOffer);
+			offer.setTitle(text);
+			this.offerService.save(offer);
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
