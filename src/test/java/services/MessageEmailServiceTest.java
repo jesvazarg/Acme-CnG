@@ -229,4 +229,22 @@ public class MessageEmailServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
+	@Test
+	public void testValidacionUrlAttachments() {
+		final Collection<String> result = new ArrayList<String>();
+		result.add("http://www.google.es");
+		result.add("https://www.google.es");
+		result.add("https://www.google.es/image/1985341");
+		Assert.isTrue(this.messageService.validatorURL(result));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testValidacionUrlAttachmentsNegative() {
+		final Collection<String> result = new ArrayList<String>();
+		result.add("http://www.google.es");
+		result.add("https://www.google.es");
+		result.add("Esto no es una url");
+		Assert.isTrue(this.messageService.validatorURL(result));
+	}
+
 }
